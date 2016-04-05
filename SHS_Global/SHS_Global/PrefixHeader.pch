@@ -1,0 +1,122 @@
+//
+//  PrefixHeader.pch
+//  SHS_Contact_iOS
+//
+//  Created by 李晓航 on 16/2/18.
+//  Copyright © 2016年 SHS. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+//国际化String
+#define GlobalString(title) NSLocalizedStringFromTable(title, @"Global", nil)
+
+#ifdef DEBUG
+#define debugLog(...) NSLog(__VA_ARGS__)
+//NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
+#define debugMethod() NSLog(@"[method] = >%s", __func__)
+#else
+#define debugLog(...)
+#define debugMethod()
+#endif
+
+#if TARGET_IPHONE_SIMULATOR
+#define PATH_OF_DOCUMENT    @"/Users/lixiaohang/Desktop"
+#elif TARGET_OS_IPHONE
+#define PATH_OF_DOCUMENT    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+#endif
+
+//ip5
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
+//nav高度
+#define kNavBarAndStatusHeight 64
+#define kCenterOriginX(i) (([DeviceManager getDeviceWidth]-i)/2.0)
+
+//tab高度
+#define kTabBarHeight       49
+//一页请求多少
+#define U_PAGE_SIZE         10
+
+//共用字符串
+//网络异常
+#define StringCommonNetException @"网络异常"
+//确定
+#define StringCommonConfirm GlobalString(@"确定")
+//完成
+#define StringCommonFinish GlobalString(@"Common_Finish")
+//取消
+#define StringCommonCancel GlobalString(@"Common_Cancel")
+//修改
+#define StringCommonModify GlobalString(@"Common_Modify")
+//编辑
+#define StringCommonEdit GlobalString(@"Common_Edit")
+//保存
+#define StringCommonSave GlobalString(@"Common_Save")
+//提示
+#define StringCommonPrompt GlobalString(@"Common_Prompt")
+
+//提交
+#define StringCommonSubmit GlobalString(@"Common_Submit")
+//数据获取中...
+#define StringCommonDownloadData GlobalString(@"Common_DownloadData")
+//数据上传中...
+#define StringCommonUploadData GlobalString(@"Common_UploadData")
+//上传失败
+#define StringCommonUploadDataFail GlobalString(@"Common_UploadDataFail")
+//数据获取失败
+#define StringCommonDownloadDataFail GlobalString(@"Common_DownloadDataFail")
+
+#import "Interface.h"
+#import "DeviceManager.h"
+#import "ToolsManager.h"
+#import "DatabaseService.h"
+#import "HttpService.h"
+#import "Colors.h"
+#import "JLXCFont.h"
+#import "UIColor+Hexadecimal.h"
+#import "UIViewController+HUD.h"
+#import "NSString+Expand.h"
+#import "UserService.h"
+#import "LocationService.h"
+
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+
+//控件基类
+#import "CustomButton.h"
+#import "CustomLabel.h"
+#import "CustomImageView.h"
+#import "CustomTextField.h"
+#import "UIView+LayoutMethods.h"
+#import "PlaceHolderTextView.h"
+
+#define FileNameKey @"name"
+#define FileDataKey @"data"
+//notifyKey
+//进入登录页面
+#define NOTIFY_ENTER_LOGIN @"enterLogin"
+//进入主页面
+#define NOTIFY_ENTER_MAIN @"enterMain"
+
+//友盟AppKey
+#define UMENG_AppKey @"565ee3d9e0f55af385003f1d"
+//极光推送
+#define JPush_AppKey @"a3387af8e9748171ad82d8e7"
+
+//IM 推送 id前缀
+#define SHS @"shs"
+
+//环信密码
+#define IM_PWD @"123456"
+
+#endif /* PrefixHeader_pch */

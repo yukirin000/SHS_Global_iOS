@@ -1,0 +1,41 @@
+/*
+  Global.strings
+  SHS_Global
+
+  Created by 李晓航 on 16/3/31.
+  Copyright © 2016年 SHS. All rights reserved.
+*/
+
+"Common_NetException"     = "网络异常";
+"Common_Confirm"          = "确定";
+"Common_Cancel"           = "取消";
+"Common_Modify"           = "修改";
+"Common_Edit"             = "编辑";
+"Common_Save"             = "保存";
+"Common_Submit"           = "提交";
+"Common_Finish"           = "完成";
+"Common_Prompt"           = "提示";
+"Common_Copy"             = "复制";
+"Common_Delete"           = "删除";
+"Common_DownloadData"     = "加载中...";
+"Common_UploadData"       = "数据上传中...";
+"Common_UploadDataFail"   = "保存失败";
+"Common_DownloadDataFail" = "数据获取失败";
+"Common_Camera"           = "相机";
+"Common_Gallery"          = "相册";
+//Refresh
+"Common_Refresh_Late"     = "上次刷新时间:";
+"Common_Refresh_Release"  = "下拉刷新";
+"Common_Refresh_Pull"     = "松手刷新";
+"Common_Refresh_Loading"  = "加载中...";
+"Common_Refresh_Last"     = "已经到最后了";
+//date
+"Common_Date_Yestoday"    = "昨天";
+"Common_Date_Monday"      = "星期一";
+"Common_Date_Tuesday"     = "星期二";
+"Common_Date_Wednesday"   = "星期三";
+"Common_Date_Thursday"    = "星期四";
+"Common_Date_Friday"      = "星期五";
+"Common_Date_Saturday"    = "星期六";
+"Common_Date_Sunday"      = "星期日";
+
