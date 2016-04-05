@@ -57,7 +57,7 @@
     CustomLabel * usernamePrompt = [[CustomLabel alloc] initWithFontSize:15];
     usernamePrompt.frame         = CGRectMake(15, 72, 200, 15);
     usernamePrompt.textColor     = [UIColor colorWithHexString:ColorBlack];
-    usernamePrompt.text          = @"请输入手机号";
+    usernamePrompt.text          = GlobalString(@"Login_PleaseEnterMobile");
     [self.view addSubview:usernamePrompt];
     
     //placeHolder处理
@@ -82,13 +82,13 @@
     self.loginBtn.fontSize                    = FontLoginButton;
     [self.loginBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
     [self.loginBtn setBackgroundColor:[UIColor colorWithHexString:ColorLoginBtnGary]];
-    [self.loginBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    [self.loginBtn setTitle:GlobalString(@"Common_Next") forState:UIControlStateNormal];
     
     //用户协议
     self.protocolBtn.frame                    = CGRectMake(kCenterOriginX(280), self.view.bottom-50, 280, 40);
     self.protocolBtn.fontSize                 = 13;
     self.protocolBtn.titleLabel.textColor     = [UIColor whiteColor];
-    NSMutableAttributedString * protocolStr   = [[NSMutableAttributedString alloc] initWithString:@"用户协议"];
+    NSMutableAttributedString * protocolStr   = [[NSMutableAttributedString alloc] initWithString:GlobalString(@"Login_Protocol")];
     [self.protocolBtn setAttributedTitle:protocolStr forState:UIControlStateNormal];
 }
 
@@ -103,7 +103,7 @@
 //    return;
     
     if (self.loginTextField.text.length < 1) {
-        [self showHint:@"用户名不能为空"];
+        [self showHint:GlobalString(@"Login_UsernameNotNull")];
         return;
     }
     

@@ -17,12 +17,14 @@
 "Common_Prompt"           = "提示";
 "Common_Copy"             = "复制";
 "Common_Delete"           = "删除";
+"Common_Next"             = "下一步";
 "Common_DownloadData"     = "加载中...";
 "Common_UploadData"       = "数据上传中...";
 "Common_UploadDataFail"   = "保存失败";
 "Common_DownloadDataFail" = "数据获取失败";
 "Common_Camera"           = "相机";
 "Common_Gallery"          = "相册";
+
 //Refresh
 "Common_Refresh_Late"     = "上次刷新时间:";
 "Common_Refresh_Release"  = "下拉刷新";
@@ -38,4 +40,35 @@
 "Common_Date_Friday"      = "星期五";
 "Common_Date_Saturday"    = "星期六";
 "Common_Date_Sunday"      = "星期日";
+
+"Login_PleaseEnterMobile" = "请输入手机号";
+"Login_Protocol"          = "用户协议";
+"Login_UsernameNotNull"   = "用户名不能为空";
+
+"SecondLogin_PleaseEnterPwd"     = "请输入密码";
+"SecondLogin_Login"              = "登录";
+"SecondLogin_ForgetPwd"          = "忘记密码？";
+"SecondLogin_PwdAtLeastSix"      = "密码不能小于六位";
+"SecondLogin_UsernameOrPwdError" = "用户名或密码错误";
+
+"RegisterHasSend"           = "验证码已经发送至：%@手机上";
+"RegisterPleaseEnterVerify" = "请输入验证码";
+"RegisterRegisterSuccess"   = "注册成功";
+"RegisterVerifyError"       = "验证码错误";
+"RegisterUpdateSuccess"     = "修改成功";
+"RegisterVerifySendSuccess" = "验证码很快就到了";
+"RegisterVerifySendFail"    = "验证码获取失败";
+"RegisterResend"            = "重发";
+"RegisterResending"         = "重新发送中...";
+
+
+
+
+
+
+
+
+
+
+
 

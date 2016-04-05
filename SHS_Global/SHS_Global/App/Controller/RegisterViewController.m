@@ -64,13 +64,13 @@
 {
     
     //验证码
-    self.verifyTextField = [[CustomTextField alloc] init];
+    self.verifyTextField   = [[CustomTextField alloc] init];
     //重新验证
-    self.reverifyBtn     = [[CustomButton alloc] init];
+    self.reverifyBtn       = [[CustomButton alloc] init];
     //注册
-    self.registerBtn     = [[CustomButton alloc] init];
+    self.registerBtn       = [[CustomButton alloc] init];
     //密码
-    self.passwordTextField    = [[CustomTextField alloc] init];
+    self.passwordTextField = [[CustomTextField alloc] init];
     [self.view addSubview:self.registerBtn];
 
     
@@ -96,13 +96,13 @@
     CustomLabel * textLabel                    = [[CustomLabel alloc] initWithFontSize:14];
     textLabel.textColor                        = [UIColor colorWithHexString:ColorBlack];
     textLabel.frame                            = CGRectMake(kCenterOriginX((self.viewWidth-30)), 79, self.viewWidth-30, 15);
-    textLabel.text                             = [NSString stringWithFormat:@"验证码已经发送至：%@手机上" , self.phoneNumber];
+    textLabel.text                             = [NSString stringWithFormat:GlobalString(@"RegisterHasSend") , self.phoneNumber];
     [self.view addSubview:textLabel];
     
     //placeHolder处理 验证textView
     UIFont * placeHolderFont                   = [UIFont systemFontOfSize:FontLoginTextField];
     UIColor * placeHolderWhite                 = [UIColor colorWithHexString:ColorSecondLoginPlaceHolder];
-    NSAttributedString * placeHolderString1    = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
+    NSAttributedString * placeHolderString1    = [[NSAttributedString alloc] initWithString:GlobalString(@"RegisterPleaseEnterVerify") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
     //loginTextFiled样式处理
     self.verifyTextField.frame                 = CGRectMake(25, 13, self.viewWidth-110, 35);
     self.verifyTextField.delegate              = self;
@@ -126,7 +126,7 @@
     [whiteBackView addSubview:bottomLine];
     
     //placeHolder处理
-    NSAttributedString * placeHolderString       = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
+    NSAttributedString * placeHolderString       = [[NSAttributedString alloc] initWithString:GlobalString(@"SecondLogin_PleaseEnterPwd") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
     //loginTextFiled样式处理
     self.passwordTextField.frame                 = CGRectMake(25, 73, 280, 35);
     self.passwordTextField.delegate              = self;
@@ -144,7 +144,7 @@
     self.registerBtn.fontSize                    = FontLoginButton;
     [self.registerBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
     [self.registerBtn setBackgroundColor:[UIColor colorWithHexString:ColorLoginBtnGary]];
-    [self.registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    [self.registerBtn setTitle:GlobalString(@"Common_Next") forState:UIControlStateNormal];
     
     
 }
@@ -165,7 +165,7 @@
 {
     
     if (self.passwordTextField.text.length < 6) {
-        [self showHint:@"密码不能少于6位"];
+        [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
         return;
     }
     
@@ -182,12 +182,12 @@
             [[UserService sharedService] saveAndUpdate];
             //隐藏
             [self hideHud];
-            [self showSuccess:@"注册成功"];
+            [self showSuccess:GlobalString(@"RegisterRegisterSuccess")];
             //找回密码成功进入主页
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
             
         }else{
-            [self showFail:@"验证码错误"];
+            [self showFail:GlobalString(@"RegisterVerifyError")];
         }
   
     } andFail:^(NSError *error) {
@@ -199,7 +199,7 @@
 {
     
     if (self.passwordTextField.text.length < 6) {
-        [self showHint:@"密码不能少于6位"];
+        [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
         return;
     }
     
@@ -216,7 +216,7 @@
 
             //隐藏
             [self hideHud];
-            [self showSuccess:@"修改成功"];
+            [self showSuccess:GlobalString(@"RegisterUpdateSuccess")];
             //找回密码成功进入主页
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
             
@@ -254,25 +254,25 @@
     debugLog(@"%@", url);
     NSDictionary * dic = @{@"phone_num":self.phoneNumber};
     [HttpService postWithUrlString:url params:dic andCompletion:^(id responseData) {
-        
+
         if ([responseData[HttpStatus] integerValue] == 1) {
             [self hideHud];
-            [self showSuccess:@"验证码很快就到了"];
+            [self showSuccess:GlobalString(@"RegisterVerifySendSuccess")];
         }else{
             [self hideHud];
-            [self showHint:@"验证码获取失败"];
+            [self showHint:GlobalString(@"RegisterVerifySendFail")];
             [self.timer invalidate];
             //点击重发
-            [self.reverifyBtn setTitle:@"重发" forState:UIControlStateNormal];
+            [self.reverifyBtn setTitle:GlobalString(@"RegisterResend") forState:UIControlStateNormal];
             self.reverifyBtn.enabled = YES;
         }
         
     } andFail:^(NSError *error) {
         [self hideHud];
-        [self showHint:@"验证码获取失败"];
+        [self showHint:GlobalString(@"RegisterVerifySendFail")];
         [self.timer invalidate];
         //点击重发
-        [self.reverifyBtn setTitle:@"重发" forState:UIControlStateNormal];
+        [self.reverifyBtn setTitle:GlobalString(@"RegisterResend") forState:UIControlStateNormal];
         self.reverifyBtn.enabled = YES;
     }];
 }
@@ -284,7 +284,7 @@
     
     if (self.timerNum == 0) {
         [self.timer invalidate];
-        [self.reverifyBtn setTitle:[NSString stringWithFormat:@"重发"] forState:UIControlStateNormal];
+        [self.reverifyBtn setTitle:[NSString stringWithFormat:GlobalString(@"RegisterResend")] forState:UIControlStateNormal];
         self.reverifyBtn.enabled = YES;
         return;
     }
@@ -293,7 +293,8 @@
 
 - (void)resend:(id)sender
 {
-    [self showHudInView:self.view hint:@"重新发送中..."];
+    [self showHudInView:self.view hint:GlobalString(@"RegisterResending")];
+
     //获取验证码
     [self getVerify];
     self.timerNum = 60;

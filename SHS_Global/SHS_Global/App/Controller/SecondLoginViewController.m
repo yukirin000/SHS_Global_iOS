@@ -67,7 +67,7 @@
     //placeHolder处理
     UIFont * placeHolderFont                  = [UIFont systemFontOfSize:FontLoginTextField];
     UIColor * placeHolderWhite                = [UIColor colorWithHexString:ColorSecondLoginPlaceHolder];
-    NSAttributedString * placeHolderString    = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
+    NSAttributedString * placeHolderString    = [[NSAttributedString alloc] initWithString:GlobalString(@"请输入密码") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
     //loginTextFiled样式处理
     self.passwordTextField.frame                 = CGRectMake(kCenterOriginX((self.viewWidth-50)), 85, self.viewWidth-50, 35);
     self.passwordTextField.delegate              = self;
@@ -85,14 +85,15 @@
     self.loginBtn.fontSize                    = FontLoginButton;
     [self.loginBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
     [self.loginBtn setBackgroundColor:[UIColor colorWithHexString:ColorLoginBtnGary]];
-    [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [self.loginBtn setTitle:GlobalString(@"SecondLogin_Login") forState:UIControlStateNormal];
     
     //找回密码
     self.findPwdBtn.frame                        = CGRectMake(self.viewWidth-100, self.loginBtn.bottom+15, 85, 13);
     self.findPwdBtn.fontSize                     = 13;
     self.findPwdBtn.contentHorizontalAlignment   = UIControlContentHorizontalAlignmentRight;
     [self.findPwdBtn setTitleColor:[UIColor colorWithHexString:ColorBlack] forState:UIControlStateNormal];
-    [self.findPwdBtn setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    [self.findPwdBtn setTitle:GlobalString(@"SecondLogin_ForgetPwd") forState:UIControlStateNormal];
+
 }
 
 #pragma mark- override
@@ -105,7 +106,7 @@
 - (void)loginClick:(id)sender {
     
     if (self.passwordTextField.text.length < 6) {
-        [self showHint:@"密码不能小于六位"];
+        [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
         return;
     }
     NSDictionary * dic = @{@"username":self.username,
@@ -123,7 +124,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
             
         }else{
-            [self showFail:@"用户名或密码错误"];
+            [self showFail:GlobalString(@"SecondLogin_UsernameOrPwdError")];
         }
     } andFail:^(NSError *error) {
         [self showFail:StringCommonNetException];
