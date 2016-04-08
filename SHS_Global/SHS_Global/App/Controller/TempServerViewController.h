@@ -8,6 +8,6 @@
 
 #import "NavBaseViewController.h"
 
-@interface TempServerViewController : NavBaseViewController<UITableViewDataSource, UITableViewDelegate>
+@interface TempServerViewController : NavBaseViewController
 
 @end

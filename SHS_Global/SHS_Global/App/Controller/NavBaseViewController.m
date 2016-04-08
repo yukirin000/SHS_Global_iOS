@@ -63,11 +63,11 @@
 {
     __weak typeof(self) sself = self;
     //返回按钮
-    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"left_arrow"] forState:UIControlStateNormal];
+    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"back_btn"] forState:UIControlStateNormal];
     [self.navBar.leftBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 10, 0, 0)];
     [self.navBar.leftBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 10, 0, 0)];
     self.navBar.leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.navBar setLeftBtnWithFrame:CGRectMake(5, 20, 100, 30) andContent:self.returnTitle andBlock:^{
+    [self.navBar setLeftBtnWithFrame:CGRectMake(5, 21, 100, 30) andContent:self.returnTitle andBlock:^{
         [sself.navigationController popViewControllerAnimated:YES];
     }];
     
@@ -94,6 +94,12 @@
         backView.frame = CGRectZero;
     }
     
+}
+
+#pragma mark- override method
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
 }
 
 #pragma mark- private method

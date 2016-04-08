@@ -46,8 +46,8 @@
     [self.contentView addSubview:self.addressLabel];
     [self.contentView addSubview:self.distanceLabel];
     
-    UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 119, [DeviceManager getDeviceWidth], 1)];
-    lineView.backgroundColor = [UIColor grayColor];
+    UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(15, 109, [DeviceManager getDeviceWidth]-15, 1)];
+    lineView.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
     [self.contentView addSubview:lineView];
     
     [self configUI];
@@ -55,20 +55,27 @@
 
 - (void)configUI
 {
-    self.coverImageView.frame               = CGRectMake(5, 5, 100, 100);
+    self.coverImageView.frame               = CGRectMake(15, 15, 100, 80);
     self.coverImageView.contentMode         = UIViewContentModeScaleAspectFill;
-    self.coverImageView.backgroundColor     = [UIColor grayColor];
+    self.coverImageView.layer.cornerRadius  = 1;
     self.coverImageView.layer.masksToBounds = YES;
 
-    self.nameLabel.frame                = CGRectMake(self.coverImageView.right+5, self.coverImageView.y+5, [DeviceManager getDeviceWidth]-self.coverImageView.right-10, 30);
-    self.nameLabel.numberOfLines        = 2;
+    self.nameLabel.frame                = CGRectMake(self.coverImageView.right+10, self.coverImageView.y+18, [DeviceManager getDeviceWidth]-self.coverImageView.right-20, 15);
+    self.nameLabel.font                 = [UIFont systemFontOfSize:FontListName];
+    self.nameLabel.numberOfLines        = 1;
 
-    self.addressLabel.frame             = CGRectMake(self.coverImageView.right+5, self.nameLabel.bottom+5, [DeviceManager getDeviceWidth]-self.coverImageView.right-10, 30);
-    self.addressLabel.font              = [UIFont systemFontOfSize:12];
-    self.addressLabel.textColor         = [UIColor lightGrayColor];
-    self.addressLabel.numberOfLines     = 2;
+    CustomImageView * addressImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"address"]];
+    addressImageView.frame             = CGRectMake(self.coverImageView.right+10, self.nameLabel.bottom+15, 12, 14);
+    [self.contentView addSubview:addressImageView];
+    
+    self.addressLabel.frame             = CGRectMake(addressImageView.right+5, addressImageView.y, [DeviceManager getDeviceWidth]-addressImageView.right-95, 12);
+    self.addressLabel.lineBreakMode     = NSLineBreakByTruncatingTail;
+    self.addressLabel.font              = [UIFont systemFontOfSize:FontListContent];
+    self.addressLabel.textColor         = [UIColor colorWithHexString:ColorContent];
 
-    self.distanceLabel.frame            = CGRectMake(self.coverImageView.right+5, self.addressLabel.bottom+5, 200, 20);
+    self.distanceLabel.frame            = CGRectMake([DeviceManager getDeviceWidth]-70, self.addressLabel.y, 55, 12);
+    self.distanceLabel.font             = [UIFont systemFontOfSize:FontListContent];
+    self.distanceLabel.textColor        = [UIColor colorWithHexString:ColorContent];
     
 }
 

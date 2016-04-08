@@ -49,32 +49,32 @@
 
 //共用字符串
 //网络异常
-#define StringCommonNetException @"网络异常"
+#define StringCommonNetException GlobalString(@"CommonNetException")
 //确定
-#define StringCommonConfirm GlobalString(@"确定")
+#define StringCommonConfirm GlobalString(@"CommonConfirm")
 //完成
-#define StringCommonFinish GlobalString(@"Common_Finish")
+#define StringCommonFinish GlobalString(@"CommonFinish")
 //取消
-#define StringCommonCancel GlobalString(@"Common_Cancel")
+#define StringCommonCancel GlobalString(@"CommonCancel")
 //修改
-#define StringCommonModify GlobalString(@"Common_Modify")
+#define StringCommonModify GlobalString(@"CommonModify")
 //编辑
-#define StringCommonEdit GlobalString(@"Common_Edit")
+#define StringCommonEdit GlobalString(@"CommonEdit")
 //保存
-#define StringCommonSave GlobalString(@"Common_Save")
+#define StringCommonSave GlobalString(@"CommonSave")
 //提示
-#define StringCommonPrompt GlobalString(@"Common_Prompt")
+#define StringCommonPrompt GlobalString(@"CommonPrompt")
 
 //提交
-#define StringCommonSubmit GlobalString(@"Common_Submit")
+#define StringCommonSubmit GlobalString(@"CommonSubmit")
 //数据获取中...
-#define StringCommonDownloadData GlobalString(@"Common_DownloadData")
+#define StringCommonDownloadData GlobalString(@"CommonDownloadData")
 //数据上传中...
-#define StringCommonUploadData GlobalString(@"Common_UploadData")
+#define StringCommonUploadData GlobalString(@"CommonUploadData")
 //上传失败
-#define StringCommonUploadDataFail GlobalString(@"Common_UploadDataFail")
+#define StringCommonUploadDataFail GlobalString(@"CommonUploadDataFail")
 //数据获取失败
-#define StringCommonDownloadDataFail GlobalString(@"Common_DownloadDataFail")
+#define StringCommonDownloadDataFail GlobalString(@"CommonDownloadDataFail")
 
 #import "Interface.h"
 #import "DeviceManager.h"

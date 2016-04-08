@@ -15,8 +15,9 @@
     self = [super initWithFrame:frame style:style];
     if (self) {
         
-        self.bottomLoading = @"加载中...";
-        self.notLoading    = @"已经到最后了";
+        self.bottomLoading = GlobalString(@"RefreshLoading");
+        self.notLoading    = GlobalString(@"RefreshLast");
+        
         [self createHeaderView];
         [self createFootView];
         [self performSelector:@selector(refreshFinishedLoadData) withObject:nil afterDelay:0.0f];
@@ -32,7 +33,7 @@
     _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:
                           CGRectMake(0.0f, 0.0f - 100,
                                      self.frame.size.width, 100)];
-    _refreshHeaderView.backgroundColor = [UIColor lightGrayColor];
+    _refreshHeaderView.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
     _refreshHeaderView.delegate = self;
     
     [self addSubview:_refreshHeaderView];

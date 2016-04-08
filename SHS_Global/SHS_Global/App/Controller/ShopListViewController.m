@@ -34,14 +34,14 @@
 #pragma mark- layout
 - (void)configUI
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self setNavBarTitle:GlobalString(@"ShopListTitle")];
 }
 
 #pragma mark- UITableViewDataSource & UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 110;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

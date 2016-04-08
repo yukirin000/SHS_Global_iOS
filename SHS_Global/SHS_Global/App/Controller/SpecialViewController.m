@@ -14,7 +14,8 @@
 
 @property (nonatomic, strong) UITableView * tableView;
 
-@property (nonatomic, strong) NSArray     * dataSource;
+@property (nonatomic, strong) NSArray     * titleSource;
+@property (nonatomic, strong) NSArray     * imageSource;
 
 @end
 
@@ -47,8 +48,8 @@
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
     self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.separatorStyle               = UITableViewCellSeparatorStyleNone;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"commonCell"];
     [self.view addSubview:self.tableView];
 }
 
@@ -62,19 +63,36 @@
 #pragma mark- UITableDelegate & UITableDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
-    cell.textLabel.text    = self.dataSource[indexPath.row];
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"commonCell%ld", indexPath.row]];
+    if (!cell) {
+        cell                 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"commonCell%ld", indexPath.row]];
+        UIView * line        = [[UIView alloc] initWithFrame:CGRectMake(15, 64, self.viewWidth-15, 1)];
+        line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
+        [cell.contentView addSubview:line];
+        if (indexPath.row == 0) {
+            CustomLabel * promptLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(130, 0, 160, 65)];
+            promptLabel.font          = [UIFont systemFontOfSize:12];
+            promptLabel.textColor     = [UIColor colorWithHexString:@"949494"];
+            promptLabel.text          = @"（特权仅限于产品内部）";
+            [cell.contentView addSubview:promptLabel];
+        }
+        
+        cell.textLabel.text    = GlobalString(self.titleSource[indexPath.row]);
+        cell.textLabel.font    = [UIFont systemFontOfSize:15];
+        cell.imageView.image   = [UIImage imageNamed:self.imageSource[indexPath.row]];
+    }
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45;
+    return 65;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,7 +110,9 @@
 
 #pragma mark- private method
 - (void)initData{
-    self.dataSource = @[@"豪车精洗",@"豪车美容",@"在线问诊",@"保险咨询",@"道路救援",@"车辆维修"];
+    
+    self.titleSource = @[@"SpecialWash",@"SpecialConsult",@"SpecialRepair"];
+    self.imageSource = @[@"wash",@"consult",@"repair"];
 }
 
 

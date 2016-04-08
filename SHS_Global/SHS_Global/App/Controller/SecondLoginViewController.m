@@ -61,38 +61,43 @@
 
 - (void)configUI
 {
+    [self setNavBarTitle:GlobalString(@"SecondLoginLogin")];
     
-    self.view.backgroundColor   = [UIColor colorWithHexString:ColorSecondLoginBackground];
-    
-    //placeHolder处理
-    UIFont * placeHolderFont                  = [UIFont systemFontOfSize:FontLoginTextField];
-    UIColor * placeHolderWhite                = [UIColor colorWithHexString:ColorSecondLoginPlaceHolder];
-    NSAttributedString * placeHolderString    = [[NSAttributedString alloc] initWithString:GlobalString(@"请输入密码") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
     //loginTextFiled样式处理
-    self.passwordTextField.frame                 = CGRectMake(kCenterOriginX((self.viewWidth-50)), 85, self.viewWidth-50, 35);
-    self.passwordTextField.delegate              = self;
-    self.passwordTextField.secureTextEntry       = YES;
-    self.passwordTextField.clearButtonMode       = UITextFieldViewModeWhileEditing;
-    self.passwordTextField.attributedPlaceholder = placeHolderString;
-    self.passwordTextField.font                  = placeHolderFont;
-    self.passwordTextField.textColor             = [UIColor colorWithHexString:ColorBlack];
-    self.passwordTextField.tintColor             = [UIColor colorWithHexString:ColorBlack];
-    self.passwordTextField.backgroundColor       = [UIColor colorWithHexString:ColorWhite];
-    
-    //btn样式处理
-    self.loginBtn.frame                       = CGRectMake(kCenterOriginX((self.viewWidth-30)), 192, (self.viewWidth-30), 45);
-    self.loginBtn.layer.cornerRadius          = 5;
-    self.loginBtn.fontSize                    = FontLoginButton;
-    [self.loginBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
-    [self.loginBtn setBackgroundColor:[UIColor colorWithHexString:ColorLoginBtnGary]];
-    [self.loginBtn setTitle:GlobalString(@"SecondLogin_Login") forState:UIControlStateNormal];
+    self.passwordTextField.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), kNavBarAndStatusHeight+50, self.viewWidth-30, 45);
+    self.passwordTextField.placeholder         = GlobalString(@"SecondLoginPleaseEnterPwd");
+    self.passwordTextField.layer.cornerRadius  = 3;
+    self.passwordTextField.leftView            = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.passwordTextField.leftViewMode        = UITextFieldViewModeAlways;
+    self.passwordTextField.secureTextEntry     = YES;
+    self.passwordTextField.layer.borderWidth   = 1;
+    self.passwordTextField.layer.masksToBounds = YES;
+    self.passwordTextField.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
+    self.passwordTextField.delegate            = self;
+    self.passwordTextField.font                = [UIFont systemFontOfSize:FontLoginTextField];
+    self.passwordTextField.clearButtonMode     = UITextFieldViewModeWhileEditing;
+    self.passwordTextField.textColor           = [UIColor colorWithHexString:ColorBlack];
+    self.passwordTextField.tintColor           = [UIColor colorWithHexString:ColorBlack];
+    self.passwordTextField.keyboardType        = UIKeyboardTypeNumberPad;
+    self.passwordTextField.backgroundColor     = [UIColor whiteColor];
     
     //找回密码
-    self.findPwdBtn.frame                        = CGRectMake(self.viewWidth-100, self.loginBtn.bottom+15, 85, 13);
+    self.findPwdBtn.frame                        = CGRectMake(self.viewWidth-100, self.passwordTextField.bottom+10, 75, 13);
     self.findPwdBtn.fontSize                     = 13;
     self.findPwdBtn.contentHorizontalAlignment   = UIControlContentHorizontalAlignmentRight;
     [self.findPwdBtn setTitleColor:[UIColor colorWithHexString:ColorBlack] forState:UIControlStateNormal];
-    [self.findPwdBtn setTitle:GlobalString(@"SecondLogin_ForgetPwd") forState:UIControlStateNormal];
+    [self.findPwdBtn setTitle:GlobalString(@"SecondLoginForgetPwd") forState:UIControlStateNormal];
+    
+    //btn样式处理
+    self.loginBtn.frame                       = CGRectMake(kCenterOriginX((self.viewWidth-30)), self.passwordTextField.bottom+50, (self.viewWidth-30), 45);
+    self.loginBtn.layer.cornerRadius          = 5;
+    self.loginBtn.layer.borderWidth           = 1;
+    self.loginBtn.layer.masksToBounds         = YES;
+    self.loginBtn.layer.borderColor           = [UIColor colorWithHexString:ColorTextBorder].CGColor;
+    self.loginBtn.fontSize                    = FontLoginButton;
+    [self.loginBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
+    [self.loginBtn setTitleColor:[UIColor colorWithHexString:ColorLoginBtnGray] forState:UIControlStateHighlighted];
+    [self.loginBtn setTitle:GlobalString(@"SecondLoginLogin") forState:UIControlStateNormal];
 
 }
 
@@ -106,7 +111,7 @@
 - (void)loginClick:(id)sender {
     
     if (self.passwordTextField.text.length < 6) {
-        [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
+        [self showHint:GlobalString(@"SecondLoginPwdAtLeastSix")];
         return;
     }
     NSDictionary * dic = @{@"username":self.username,
@@ -124,7 +129,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
             
         }else{
-            [self showFail:GlobalString(@"SecondLogin_UsernameOrPwdError")];
+            [self showFail:GlobalString(@"SecondLoginUsernameOrPwdError")];
         }
     } andFail:^(NSError *error) {
         [self showFail:StringCommonNetException];

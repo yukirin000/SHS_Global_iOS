@@ -25,15 +25,14 @@
     if (self) {
         //顶部背景栏
         self.frame                    = CGRectMake(0, 0, [DeviceManager getDeviceWidth], kNavBarAndStatusHeight);
-        self.backgroundColor          = [UIColor darkGrayColor];
+        self.backgroundColor          = [UIColor colorWithHexString:ColorBlack];
         self.titleLabel               = [[CustomLabel alloc] initWithFontSize:17];
-        self.titleLabel.frame         = CGRectMake(kCenterOriginX(200), 20, 200, 44);
+        self.titleLabel.frame         = CGRectMake(kCenterOriginX(200), 19, 200, 44);
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.textColor     = [UIColor colorWithHexString:ColorBlack];
+        self.titleLabel.textColor     = [UIColor colorWithHexString:ColorWhite];
         [self.titleLabel setFontBold];
         
         self.leftBtn = [[CustomButton alloc] initWithFontSize:16];
-        [self.leftBtn setTitleColor:[UIColor colorWithHexString:ColorBlack] forState:UIControlStateNormal];
         [self.leftBtn addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         self.rightBtn = [[CustomButton alloc] initWithFontSize:16];
@@ -102,9 +101,10 @@
 /*! 设置右上角图片*/
 - (void)setRightImage:(UIImage *)image
 {
-//    UIImageView * imageView = [[UIImageView alloc] initWithImage:image];
-//    imageView.frame = CGRectMake(35, 20, 20, 20);
-//    [self.rightBtn addSubview:imageView];
+    self.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(0, 0, 0, 10);
+    self.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [self.rightBtn setImage:image forState:UIControlStateNormal];
 }
 
 /*! 设置左上角图片*/

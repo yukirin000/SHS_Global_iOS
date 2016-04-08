@@ -204,7 +204,7 @@
     
     NSInteger oldDay = [self getYearOrMonthOrDay:compareDate isDay:YES isMonth:NO isYear:NO];
     NSInteger nowDay = [self getYearOrMonthOrDay:[NSDate date] isDay:YES isMonth:NO isYear:NO];
-    
+
     NSString *result;
     if (nowYear-oldYear == 0) {
         NSInteger dayTag = nowDay - oldDay;
@@ -213,7 +213,7 @@
             result = [dateFormatter stringFromDate:compareDate];
         }else if (dayTag == 1) {
             [dateFormatter setDateFormat: @"HH:mm"];
-            result = [NSString stringWithFormat:@"%@ %@", @"昨天", [dateFormatter stringFromDate:compareDate]];
+            result = [NSString stringWithFormat:@"%@ %@", GlobalString(@"DateYestoday"), [dateFormatter stringFromDate:compareDate]];
         }else if (dayTag<7 && dayTag>1) {
             [dateFormatter setDateFormat: @"HH:mm"];
             result = [NSString stringWithFormat:@"%@ %@", [self GetWeekDay:compareDate], [dateFormatter stringFromDate:compareDate]];
@@ -262,24 +262,24 @@
 }
 
 + (NSString*)getweek:(NSInteger)week
-{
+{    
     
     NSString *weekStr = nil;
     if(week == 1)
     {
-        weekStr = @"星期日";
+        weekStr = GlobalString(@"DateSunday");
     }else if(week == 2){
-        weekStr = @"星期一";
+        weekStr = GlobalString(@"DateMonday");
     }else if(week==3){
-        weekStr = @"星期二";
+        weekStr = GlobalString(@"DateTuesday");
     }else if(week==4){
-        weekStr = @"星期三";
+        weekStr = GlobalString(@"DateWednesday");
     }else if(week==5){
-        weekStr = @"星期四";
+        weekStr = GlobalString(@"DateThursday");
     }else if(week==6){
-        weekStr = @"星期五";
+        weekStr = GlobalString(@"DateFriday");
     }else if(week==7){
-        weekStr = @"星期六";
+        weekStr = GlobalString(@"DateSaturday");
     }
     return weekStr;
 }

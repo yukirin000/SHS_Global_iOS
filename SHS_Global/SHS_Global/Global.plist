@@ -4,43 +4,43 @@
 <array>
 	<dict>
 		<key>title</key>
-		<string>特权</string>
+		<string>TabSpecial</string>
 		<key>controller</key>
 		<string>SpecialViewController</string>
 		<key>selectedPic</key>
-		<string></string>
+		<string>home_selected</string>
 		<key>normalPic</key>
-		<string></string>
+		<string>home_normal</string>
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>记录</string>
+		<string>TabRecord</string>
 		<key>controller</key>
 		<string>RecordViewController</string>
 		<key>selectedPic</key>
-		<string></string>
+		<string>record_selected</string>
 		<key>normalPic</key>
-		<string></string>
+		<string>record_normal</string>
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>会员</string>
+		<string>TabUser</string>
 		<key>controller</key>
 		<string>UserViewController</string>
 		<key>selectedPic</key>
-		<string></string>
+		<string>user_selected</string>
 		<key>normalPic</key>
-		<string></string>
+		<string>user_normal</string>
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>管家</string>
+		<string>TabButler</string>
 		<key>controller</key>
 		<string>ButlerViewController</string>
 		<key>selectedPic</key>
-		<string></string>
+		<string>butler_selected</string>
 		<key>normalPic</key>
-		<string></string>
+		<string>butler_normal</string>
 	</dict>
 </array>
 </plist>

@@ -10,8 +10,6 @@
 
 @interface TempServerViewController ()
 
-@property (nonatomic, strong) UITableView * tableView;
-
 @property (nonatomic, strong) NSArray     * dataSource;
 
 @end
@@ -23,7 +21,7 @@
     [super viewDidLoad];
     
     [self initData];
-    [self initWidget];
+    [self configUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,56 +33,54 @@
 
 - (void)initWidget{
     
-    CustomButton * bottomBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.viewHeight-40, self.viewWidth, 40)];
-    bottomBtn.backgroundColor = [UIColor blackColor];
-    [bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [bottomBtn setTitle:@"一键呼叫管家" forState:UIControlStateNormal];
-    [bottomBtn addTarget:self action:@selector(bottomPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:bottomBtn];
-    
-    [self initTable];
+
     
 }
 
-- (void)initTable{
-    
-    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-40) style:UITableViewStylePlain];
-    self.tableView.delegate                     = self;
-    self.tableView.dataSource                   = self;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"commonCell"];
-    [self.view addSubview:self.tableView];
-}
 
 - (void)configUI{
     
+    for (int i=0; i<self.dataSource.count; i++) {
+        [self generateCommonListWithTop:kNavBarAndStatusHeight+20+i*25 andContent:self.dataSource[i]];
+    }
+    
+    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(220), kNavBarAndStatusHeight+260, 220, 45)];
+    bottomBtn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
+    bottomBtn.layer.cornerRadius  = 22.5;
+    bottomBtn.layer.masksToBounds = YES;
+    bottomBtn.layer.borderWidth   = 1;
+    bottomBtn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
+    bottomBtn.titleEdgeInsets     = UIEdgeInsetsMake(0, 20, 0, 0);
+    bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
+    [bottomBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
+    [bottomBtn setTitle:GlobalString(@"GlobalCallBulter") forState:UIControlStateNormal];
+    [bottomBtn setImage:[UIImage imageNamed:@"telephone"] forState:UIControlStateNormal];
+    [bottomBtn addTarget:self action:@selector(bottomPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:bottomBtn];
 }
 
 #pragma mark- method response
 
-#pragma mark- UITableDelegate & UITableDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 6;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"commonCell"];
-    cell.selectionStyle    = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text    = [NSString stringWithFormat:@"%ld、%@", indexPath.row+1, self.dataSource[indexPath.row]];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 45;
-}
 
 #pragma mark- private method
 - (void)initData{
     self.dataSource = @[@"精洗车辆",@"内饰清洁",@"漆面抛光、打蜡",@"漆面镀膜、镀晶",@"汽车隔热膜",@"改色贴膜",@"汽车表面透明膜"];
+}
+
+- (CGFloat)generateCommonListWithTop:(CGFloat)top andContent:(NSString *)content
+{
+    CustomImageView * descImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"list"]];
+    descImageView.frame             = CGRectMake(15, top, 8, 8);
+    [self.view addSubview:descImageView];
+    
+    CustomLabel * descLabel1 = [[CustomLabel alloc] initWithFrame:CGRectMake(descImageView.right+10, descImageView.y-3, self.viewWidth-48, 0)];
+    descLabel1.numberOfLines = 0;
+    descLabel1.font          = [UIFont systemFontOfSize:14];
+    descLabel1.text          = content;
+    [self.view addSubview:descLabel1];
+    [descLabel1 sizeToFit];
+    
+    return descLabel1.bottom;
 }
 
 #pragma mark- method resopnse

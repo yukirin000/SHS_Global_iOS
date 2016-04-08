@@ -73,6 +73,9 @@
     self.passwordTextField = [[CustomTextField alloc] init];
     [self.view addSubview:self.registerBtn];
 
+    [self.view addSubview:self.passwordTextField];
+    [self.view addSubview:self.verifyTextField];
+    [self.view addSubview:self.reverifyBtn];
     
     [self.reverifyBtn addTarget:self action:@selector(resend:) forControlEvents:UIControlEventTouchUpInside];
     [self.registerBtn addTarget:self action:@selector(verifyPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -81,71 +84,66 @@
 
 - (void)configUI
 {
-    self.view.backgroundColor     = [UIColor colorWithHexString:ColorSecondLoginBackground];
-    
-    //顶部白色背景
-    UIView * whiteBackView        = [[UIView alloc] initWithFrame:CGRectMake(0, 119, self.viewWidth, 120)];
-    whiteBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
-    [self.view addSubview:whiteBackView];
-    
-    [whiteBackView addSubview:self.passwordTextField];
-    [whiteBackView addSubview:self.verifyTextField];
-    [whiteBackView addSubview:self.reverifyBtn];
+    [self setNavBarTitle:GlobalString(@"RegisterTitle")];
     
     //标题
     CustomLabel * textLabel                    = [[CustomLabel alloc] initWithFontSize:14];
     textLabel.textColor                        = [UIColor colorWithHexString:ColorBlack];
-    textLabel.frame                            = CGRectMake(kCenterOriginX((self.viewWidth-30)), 79, self.viewWidth-30, 15);
+    textLabel.frame                            = CGRectMake(kCenterOriginX((self.viewWidth-30)), kNavBarAndStatusHeight+25, self.viewWidth-30, 14);
     textLabel.text                             = [NSString stringWithFormat:GlobalString(@"RegisterHasSend") , self.phoneNumber];
     [self.view addSubview:textLabel];
     
-    //placeHolder处理 验证textView
-    UIFont * placeHolderFont                   = [UIFont systemFontOfSize:FontLoginTextField];
-    UIColor * placeHolderWhite                 = [UIColor colorWithHexString:ColorSecondLoginPlaceHolder];
-    NSAttributedString * placeHolderString1    = [[NSAttributedString alloc] initWithString:GlobalString(@"RegisterPleaseEnterVerify") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
-    //loginTextFiled样式处理
-    self.verifyTextField.frame                 = CGRectMake(25, 13, self.viewWidth-110, 35);
-    self.verifyTextField.delegate              = self;
-    self.verifyTextField.attributedPlaceholder = placeHolderString1;
-    self.verifyTextField.font                  = placeHolderFont;
-    self.verifyTextField.clearButtonMode       = UITextFieldViewModeWhileEditing;
-    self.verifyTextField.textColor             = [UIColor colorWithHexString:ColorBlack];
-    self.verifyTextField.tintColor             = [UIColor colorWithHexString:ColorBlack];
-    self.verifyTextField.keyboardType          = UIKeyboardTypeNumberPad;
-    self.verifyTextField.backgroundColor       = [UIColor colorWithHexString:ColorWhite];
+    //验证textView
+    self.verifyTextField.frame               = CGRectMake(15, textLabel.bottom+15, self.viewWidth-143, 45);
+    self.verifyTextField.delegate            = self;
+    self.verifyTextField.placeholder         = GlobalString(@"RegisterPleaseEnterVerify");
+    self.verifyTextField.font                = [UIFont systemFontOfSize:FontLoginTextField];
+    self.verifyTextField.clearButtonMode     = UITextFieldViewModeWhileEditing;
+    self.verifyTextField.keyboardType        = UIKeyboardTypeNumberPad;
+    self.verifyTextField.layer.cornerRadius  = 3;
+    self.verifyTextField.leftView            = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.verifyTextField.leftViewMode        = UITextFieldViewModeAlways;
+    self.verifyTextField.layer.borderWidth   = 1;
+    self.verifyTextField.layer.masksToBounds = YES;
+    self.verifyTextField.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
     
     //重发按钮
-    self.reverifyBtn.frame                     = CGRectMake(self.verifyTextField.right+5, self.verifyTextField.y, 65, self.verifyTextField.height);
-    self.reverifyBtn.titleLabel.font           = [UIFont systemFontOfSize:13];
-    [self.reverifyBtn setTitleColor:[UIColor colorWithHexString:ColorBlack] forState:UIControlStateNormal];
+    self.reverifyBtn.frame                     = CGRectMake(self.verifyTextField.right+10, self.verifyTextField.y, 103, self.verifyTextField.height);
+    self.reverifyBtn.backgroundColor           = [UIColor colorWithHexString:ColorVerifyBack];
+    self.reverifyBtn.titleLabel.font           = [UIFont systemFontOfSize:FontLoginTextField];
+    self.reverifyBtn.layer.cornerRadius        = 3;
     self.reverifyBtn.enabled                   = NO;
+    [self.reverifyBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
     [self.reverifyBtn setTitle:@"60s" forState:UIControlStateNormal];
     
-    UIView * bottomLine = [[UIView alloc] initWithFrame:CGRectMake(kCenterOriginX((self.viewWidth-30)), 59, self.viewWidth-30, 1)];
-    bottomLine.backgroundColor = [UIColor colorWithHexString:ColorLoginLineGary];
-    [whiteBackView addSubview:bottomLine];
-    
-    //placeHolder处理
-    NSAttributedString * placeHolderString       = [[NSAttributedString alloc] initWithString:GlobalString(@"SecondLogin_PleaseEnterPwd") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
     //loginTextFiled样式处理
-    self.passwordTextField.frame                 = CGRectMake(25, 73, 280, 35);
-    self.passwordTextField.delegate              = self;
-    self.passwordTextField.secureTextEntry       = YES;
-    self.passwordTextField.clearButtonMode       = UITextFieldViewModeWhileEditing;
-    self.passwordTextField.attributedPlaceholder = placeHolderString;
-    self.passwordTextField.font                  = placeHolderFont;
-    self.passwordTextField.textColor             = [UIColor colorWithHexString:ColorBlack];
-    self.passwordTextField.tintColor             = [UIColor colorWithHexString:ColorBlack];
-    self.passwordTextField.backgroundColor       = [UIColor whiteColor];
+    self.passwordTextField.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), self.reverifyBtn.bottom+20, self.viewWidth-30, 45);
+    self.passwordTextField.placeholder         = GlobalString(@"SecondLogin_PleaseEnterPwd");
+    self.passwordTextField.layer.cornerRadius  = 3;
+    self.passwordTextField.secureTextEntry     = YES;    
+    self.passwordTextField.leftView            = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.passwordTextField.leftViewMode        = UITextFieldViewModeAlways;
+    self.passwordTextField.layer.borderWidth   = 1;
+    self.passwordTextField.layer.masksToBounds = YES;
+    self.passwordTextField.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
+    self.passwordTextField.delegate            = self;
+    self.passwordTextField.font                = [UIFont systemFontOfSize:FontLoginTextField];
+    self.passwordTextField.clearButtonMode     = UITextFieldViewModeWhileEditing;
+    self.passwordTextField.textColor           = [UIColor colorWithHexString:ColorBlack];
+    self.passwordTextField.tintColor           = [UIColor colorWithHexString:ColorBlack];
+    self.passwordTextField.keyboardType        = UIKeyboardTypeNumberPad;
+    self.passwordTextField.backgroundColor     = [UIColor whiteColor];
     
     //btn样式处理
-    self.registerBtn.frame                       = CGRectMake(kCenterOriginX((self.viewWidth-30)), whiteBackView.bottom+60, (self.viewWidth-30), 45);
+    self.registerBtn.frame                       = CGRectMake(kCenterOriginX((self.viewWidth-30)), self.passwordTextField.bottom+30, (self.viewWidth-30), 45);
     self.registerBtn.layer.cornerRadius          = 5;
+    self.registerBtn.layer.borderWidth           = 1;
+    self.registerBtn.layer.masksToBounds         = YES;
+    self.registerBtn.layer.borderColor           = [UIColor colorWithHexString:ColorTextBorder].CGColor;
     self.registerBtn.fontSize                    = FontLoginButton;
-    [self.registerBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
-    [self.registerBtn setBackgroundColor:[UIColor colorWithHexString:ColorLoginBtnGary]];
+    [self.registerBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
+    [self.registerBtn setTitleColor:[UIColor colorWithHexString:ColorLoginBtnGray] forState:UIControlStateHighlighted];
     [self.registerBtn setTitle:GlobalString(@"Common_Next") forState:UIControlStateNormal];
-    
     
 }
 
@@ -163,6 +161,10 @@
 
 - (void)registerLogin:(id)sender
 {
+    if (self.verifyTextField.text.length < 1) {
+        [self showHint:GlobalString(@"RegisterVerifyNotNull")];
+        return;
+    }
     
     if (self.passwordTextField.text.length < 6) {
         [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
@@ -197,6 +199,11 @@
 
 - (void)findPwdLogin:(id)sender
 {
+    
+    if (self.verifyTextField.text.length < 1) {
+        [self showHint:GlobalString(@"RegisterVerifyNotNull")];
+        return;
+    }
     
     if (self.passwordTextField.text.length < 6) {
         [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];

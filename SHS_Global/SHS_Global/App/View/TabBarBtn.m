@@ -26,9 +26,9 @@
         [self addSubview:_badgeImage];
         _badgeImage.hidden = YES;
         
-        self.titeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(frame), CGRectGetHeight(frame)-30)];
-        self.titeLabel.font = [UIFont systemFontOfSize:12];
-        self.titeLabel.textColor = [UIColor colorWithHexString:ColorWhite];
+        self.titeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 32, CGRectGetWidth(frame), 11)];
+        self.titeLabel.font = [UIFont systemFontOfSize:11];
+        self.titeLabel.textColor = [UIColor colorWithHexString:ColorTabNormal];
         self.titeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.titeLabel];
     }
@@ -40,9 +40,9 @@
     [super setSelected:selected];
     
     if (selected) {
-        self.titeLabel.textColor = [UIColor colorWithHexString:ColorWhite];
+        self.titeLabel.textColor = [UIColor colorWithHexString:ColorTabSelected];
     }else{
-        self.titeLabel.textColor = [UIColor colorWithHexString:ColorWhite];
+        self.titeLabel.textColor = [UIColor colorWithHexString:ColorTabNormal];
     }
 
 }

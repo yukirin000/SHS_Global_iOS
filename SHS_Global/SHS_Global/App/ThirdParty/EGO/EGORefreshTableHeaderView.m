@@ -89,7 +89,7 @@
 }
 
 - (id)initWithFrame:(CGRect)frame  {
-  return [self initWithFrame:frame arrowImageName:@"blueArrow.png" textColor:[UIColor colorWithHexString:ColorBlack]];
+  return [self initWithFrame:frame arrowImageName:@"grayArrow.png" textColor:[UIColor colorWithHexString:ColorPullToRefresh]];
 }
 
 #pragma mark -
@@ -106,8 +106,7 @@
 //		[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 //		[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm"];
-		_lastUpdatedLabel.text = [NSString stringWithFormat:@"上次刷新时间: %@", [dateFormatter stringFromDate:date]];
-        
+		_lastUpdatedLabel.text = [NSString stringWithFormat:@"%@ %@", GlobalString(@"RefreshLate"), [dateFormatter stringFromDate:date]];
 		[[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		
@@ -123,8 +122,8 @@
 	
 	switch (aState) {
 		case EGOOPullRefreshPulling:
-			_statusLabel.text = @"松手刷新";;
-//            NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+			_statusLabel.text = GlobalString(@"RefreshPull");
+
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
@@ -139,7 +138,7 @@
 				[CATransaction commit];
 			}
 
-			_statusLabel.text = @"再下拉一点";
+			_statusLabel.text = GlobalString(@"RefreshRelease");
             //NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
 			[_activityView stopAnimating];
 			[CATransaction begin];
@@ -152,7 +151,7 @@
 			break;
 		case EGOOPullRefreshLoading:
 			
-            _statusLabel.text = @"载入中..";
+            _statusLabel.text = GlobalString(@"RefreshLoading");
             //NSLocalizedString(@"Loading...", @"Loading Status");
 			[_activityView startAnimating];
 			[CATransaction begin];

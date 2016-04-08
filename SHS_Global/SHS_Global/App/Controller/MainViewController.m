@@ -42,22 +42,23 @@ typedef NS_ENUM(NSInteger, Tab){
     CGFloat space;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.delegate = self;
+    
     _backView                        = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], kTabBarHeight)];
     //    _backView.image                  = [UIImage imageNamed:@"tabbar"];
-    _backView.backgroundColor        = [UIColor colorWithHexString:ColorLoginBtnGary];
+    _backView.backgroundColor        = [UIColor colorWithHexString:ColorTab];
     _backView.userInteractionEnabled = YES;
     [self.tabBar addSubview:_backView];
+    UIView * topLineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
+    topLineView.backgroundColor = [UIColor colorWithHexString:@"AAAAAA"];
+    [_backView addSubview:topLineView];
     
     [self createVC];
     
     [self registerNotification];
-    
-    //初始化 推送服务类
-//    [[PushService sharedInstance] pushReconnect];
     
     [self badgeNotify:nil];
     //激活定位
@@ -155,7 +156,8 @@ typedef NS_ENUM(NSInteger, Tab){
         Class class = NSClassFromString([dic objectForKey:@"controller"]);
         NavBaseViewController * bVC = [[[class class] alloc] init];
         bVC.hideLeftBtn          = YES;
-        NSString * title         = [dic objectForKey:@"title"];
+        NSString * title         = GlobalString([dic objectForKey:@"title"]);
+        [bVC setNavBarTitle:title];
         [_titleArr addObject:title];
         [_vcArr addObject:bVC];
         [_normaleArr addObject:dic[@"normalPic"]];
@@ -171,7 +173,7 @@ typedef NS_ENUM(NSInteger, Tab){
         [_btnArr addObject:item];
         [item setImage:[UIImage imageNamed:_normaleArr[i]] forState:UIControlStateNormal];
         [item setImage:[UIImage imageNamed:_selectedArr[i]] forState:UIControlStateSelected];
-        [item setImageEdgeInsets:UIEdgeInsetsMake(5, 0, 16, 0)];
+        [item setImageEdgeInsets:UIEdgeInsetsMake(8, 0, 23, 0)];
         if (i == 0) {
             item.selected        = YES;
         }
@@ -194,9 +196,6 @@ typedef NS_ENUM(NSInteger, Tab){
         }
     }
     NSInteger index      = [tabBarController.viewControllers indexOfObject:viewController];
-    //    if (index == 0) {
-    //        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_TAB_PRESS object:nil];
-    //    }
     TabBarBtn * btn      = _btnArr[index];
     btn.selected         = YES;
     

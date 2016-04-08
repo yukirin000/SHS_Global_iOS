@@ -27,17 +27,17 @@
 - (void)initBaseVC
 {
     
-    self.view.backgroundColor = [UIColor colorWithHexString:ColorMainBackground];
+    self.view.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     self.viewWidth            = [DeviceManager getDeviceWidth];
     self.viewHeight           = [DeviceManager getDeviceHeight];
 
 }
 
 #pragma mark- override method
-//- (UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//}
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
+}
 
 #pragma mark- private method
 

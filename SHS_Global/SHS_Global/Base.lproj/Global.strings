@@ -1,58 +1,69 @@
 /*
   Global.strings
-  SHS_Global
+  SHSGlobal
 
   Created by 李晓航 on 16/3/31.
   Copyright © 2016年 SHS. All rights reserved.
 */
 
-"Common_NetException"     = "网络异常";
-"Common_Confirm"          = "确定";
-"Common_Cancel"           = "取消";
-"Common_Modify"           = "修改";
-"Common_Edit"             = "编辑";
-"Common_Save"             = "保存";
-"Common_Submit"           = "提交";
-"Common_Finish"           = "完成";
-"Common_Prompt"           = "提示";
-"Common_Copy"             = "复制";
-"Common_Delete"           = "删除";
-"Common_Next"             = "下一步";
-"Common_DownloadData"     = "加载中...";
-"Common_UploadData"       = "数据上传中...";
-"Common_UploadDataFail"   = "保存失败";
-"Common_DownloadDataFail" = "数据获取失败";
-"Common_Camera"           = "相机";
-"Common_Gallery"          = "相册";
+"CommonNetException"     = "网络异常";
+"CommonConfirm"          = "确定";
+"CommonCancel"           = "取消";
+"CommonModify"           = "修改";
+"CommonEdit"             = "编辑";
+"CommonSave"             = "保存";
+"CommonSubmit"           = "提交";
+"CommonFinish"           = "完成";
+"CommonPrompt"           = "提示";
+"CommonCopy"             = "复制";
+"CommonDelete"           = "删除";
+"CommonNext"             = "下一步";
+"CommonDownloadData"     = "加载中...";
+"CommonUploadData"       = "数据上传中...";
+"CommonUploadDataFail"   = "上传失败";
+"CommonDownloadDataFail" = "获取失败";
+"CommonCamera"           = "相机";
+"CommonGallery"          = "相册";
 
-//Refresh
-"Common_Refresh_Late"     = "上次刷新时间:";
-"Common_Refresh_Release"  = "下拉刷新";
-"Common_Refresh_Pull"     = "松手刷新";
-"Common_Refresh_Loading"  = "加载中...";
-"Common_Refresh_Last"     = "已经到最后了";
+"GlobalCallBulter"       = "呼叫管家";
+
+//tab
+"TabSpecial" = "特权";
+"TabRecord"  = "记录";
+"TabUser"    = "会员";
+"TabButler"  = "管家";
+
 //date
-"Common_Date_Yestoday"    = "昨天";
-"Common_Date_Monday"      = "星期一";
-"Common_Date_Tuesday"     = "星期二";
-"Common_Date_Wednesday"   = "星期三";
-"Common_Date_Thursday"    = "星期四";
-"Common_Date_Friday"      = "星期五";
-"Common_Date_Saturday"    = "星期六";
-"Common_Date_Sunday"      = "星期日";
+"DateYestoday"    = "昨天";
+"DateMonday"      = "星期一";
+"DateTuesday"     = "星期二";
+"DateWednesday"   = "星期三";
+"DateThursday"    = "星期四";
+"DateFriday"      = "星期五";
+"DateSaturday"    = "星期六";
+"DateSunday"      = "星期日";
+//Refresh
+"RefreshLoading" = "加载中...";
+"RefreshLate"     = "上次刷新时间:";
+"RefreshRelease"  = "下拉刷新";
+"RefreshPull"     = "松手刷新";
+"RefreshLast"     = "已经到最后了";
 
-"Login_PleaseEnterMobile" = "请输入手机号";
-"Login_Protocol"          = "用户协议";
-"Login_UsernameNotNull"   = "用户名不能为空";
+//Login
+"LoginPleaseEnterMobile" = "请输入手机号";
+"LoginProtocol"          = "用户协议";
+"LoginUsernameNotNull"   = "用户名不能为空";
 
-"SecondLogin_PleaseEnterPwd"     = "请输入密码";
-"SecondLogin_Login"              = "登录";
-"SecondLogin_ForgetPwd"          = "忘记密码？";
-"SecondLogin_PwdAtLeastSix"      = "密码不能小于六位";
-"SecondLogin_UsernameOrPwdError" = "用户名或密码错误";
+"SecondLoginPleaseEnterPwd"     = "请输入密码";
+"SecondLoginLogin"              = "登录";
+"SecondLoginForgetPwd"          = "忘记密码?";
+"SecondLoginPwdAtLeastSix"      = "密码不能小于六位";
+"SecondLoginUsernameOrPwdError" = "用户名或密码错误";
 
+"RegisterTitle"             = "验证手机号";
 "RegisterHasSend"           = "验证码已经发送至：%@手机上";
 "RegisterPleaseEnterVerify" = "请输入验证码";
+"RegisterVerifyNotNull"     = "验证码不能为空";
 "RegisterRegisterSuccess"   = "注册成功";
 "RegisterVerifyError"       = "验证码错误";
 "RegisterUpdateSuccess"     = "修改成功";
@@ -61,6 +72,16 @@
 "RegisterResend"            = "重发";
 "RegisterResending"         = "重新发送中...";
 
+"SpecialWash"    = "豪车美容";
+"SpecialConsult" = "保险咨询";
+"SpecialRepair"  = "保养维修";
+
+"ShopListTitle"  = "车店";
+
+"ShopTitle"   = "店内";
+"ShopAddress" = "地址";
+"ShopPhone"   = "电话";
+"ShopServer"  = "服务项目";
 
 
 

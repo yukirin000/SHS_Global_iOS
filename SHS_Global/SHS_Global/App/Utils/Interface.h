@@ -11,9 +11,9 @@
 
 //192.168.1.108 120.25.213.171 114.215.95.23 127.0.0.1 www.pinweihuanqiu.com
 //root
-#define kRootAddr @"http://192.168.0.104/BusinessServer/"
+#define kRootAddr @"http://114.215.95.23/BusinessServer/"
 //home
-#define kHomeAddr @"http://192.168.0.104/BusinessServer/index.php/Home/MobileApi"
+#define kHomeAddr @"http://114.215.95.23/BusinessServer/index.php/Home/MobileApi"
 
 #define kUserProtocolPath @"http://www.pinweihuanqiu.com/license.html"
 
