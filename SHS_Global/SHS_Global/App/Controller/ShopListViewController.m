@@ -97,34 +97,6 @@
         self.isReloading = NO;
         [self.refreshTableView refreshFinish];
     }];
-
-    
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        
-//        //下拉刷新清空数组
-//        if (self.currentPage == 1) {
-//            [self.dataSource removeAllObjects];
-//        }
-//        for (int i=0; i<6; i++) {
-//            
-//            ShopModel * shop = [[ShopModel alloc] init];
-//            shop.shop_name   = [NSString stringWithFormat:@"%d", i];
-//            shop.address     = @"哈哈哈哈哈啊";
-//            [self.dataSource addObject:shop];
-//        }
-//        
-//        if (self.currentPage == 3) {
-//            self.isLastPage = YES;
-//        }
-//        [self reloadTable];
-//    });
-    
-    
-    
-//    加载失败调用
-//    self.isReloading = NO;
-//    [self.refreshTableView refreshFinish];
     
 }
 

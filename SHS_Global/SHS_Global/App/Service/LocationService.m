@@ -91,15 +91,16 @@ static LocationService *_shareInstance=nil;
 - (NSString *)getDistanceWith:(CGPoint)end
 {
     if ([self existLocation:_start]) {
-        return nil;
+        return [NSString stringWithFormat:@"%@km", [self calculateDistanceFrom:_start to:end]];
     }
     
-    return [self calculateDistanceFrom:_start to:end];
+    return @"";
+
 }
 
 - (BOOL)existLocation:(CGPoint)point
 {
-    if (_start.x == 0 && _start.y == 0) {
+    if (point.x == 0 && point.y == 0) {
         return NO;
     }
     return YES;

@@ -86,7 +86,8 @@
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:model.shop_image_thumb]];
     //地理位置存在
     if ([[LocationService sharedInstance] existLocation:CGPointMake(model.longitude.floatValue, model.latitude.floatValue)]) {
-        self.distanceLabel.text = [NSString stringWithFormat:@"%@km", [[LocationService sharedInstance] getDistanceWith:CGPointMake(model.longitude.floatValue, model.latitude.floatValue)]];
+        
+        self.distanceLabel.text = [[LocationService sharedInstance] getDistanceWith:CGPointMake(model.longitude.floatValue, model.latitude.floatValue)];
     }
 
 }

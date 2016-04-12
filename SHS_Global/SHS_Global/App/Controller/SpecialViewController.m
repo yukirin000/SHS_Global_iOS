@@ -74,13 +74,6 @@
         UIView * line        = [[UIView alloc] initWithFrame:CGRectMake(15, 64, self.viewWidth-15, 1)];
         line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
         [cell.contentView addSubview:line];
-        if (indexPath.row == 0) {
-            CustomLabel * promptLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(130, 0, 160, 65)];
-            promptLabel.font          = [UIFont systemFontOfSize:12];
-            promptLabel.textColor     = [UIColor colorWithHexString:@"949494"];
-            promptLabel.text          = @"（特权仅限于产品内部）";
-            [cell.contentView addSubview:promptLabel];
-        }
         
         cell.textLabel.text    = GlobalString(self.titleSource[indexPath.row]);
         cell.textLabel.font    = [UIFont systemFontOfSize:15];

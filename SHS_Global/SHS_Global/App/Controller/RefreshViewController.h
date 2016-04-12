@@ -14,16 +14,16 @@
 @property (nonatomic, strong) RefreshTableView * refreshTableView;
 
 /*! 正在刷新*/
-@property (nonatomic, assign) BOOL isReloading;
+@property (nonatomic, assign) BOOL             isReloading;
 
 /*! 数据源数组*/
-@property (nonatomic, strong) NSMutableArray * dataSource;
+@property (nonatomic, strong) NSMutableArray   * dataSource;
 
 /*! 当前页码*/
-@property (nonatomic, assign) int currentPage;
+@property (nonatomic, assign) int              currentPage;
 
 /*! 是否是最后一页*/
-@property (nonatomic, assign) BOOL isLastPage;
+@property (nonatomic, assign) BOOL             isLastPage;
 
 /*! 重写该方法重置table*/
 - (void)createRefreshView;

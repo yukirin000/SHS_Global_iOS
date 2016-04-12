@@ -77,7 +77,7 @@
     
     //地理位置存在
     if ([[LocationService sharedInstance] existLocation:CGPointMake(self.shopModel.longitude.floatValue, self.shopModel.latitude.floatValue)]) {
-        self.distanceLabel.text = [NSString stringWithFormat:@"%@km", [[LocationService sharedInstance] getDistanceWith:CGPointMake(self.shopModel.longitude.floatValue, self.shopModel.latitude.floatValue)]];
+        self.distanceLabel.text = [[LocationService sharedInstance] getDistanceWith:CGPointMake(self.shopModel.longitude.floatValue, self.shopModel.latitude.floatValue)];
     }
     
     //背景滚动视图

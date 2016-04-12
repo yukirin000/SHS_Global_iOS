@@ -11,9 +11,11 @@
 
 @interface UserViewController ()
 
-@property (nonatomic, strong) CustomImageView  * backImageView;
+@property (nonatomic, strong) CustomImageView * backImageView;
 
-@property (nonatomic, strong) CustomButton * myCarBtn;
+@property (nonatomic, strong) CustomButton    * myCarBtn;
+
+@property (nonatomic, strong) UIScrollView    * backScrollView;
 
 @end
 
@@ -34,11 +36,14 @@
 #pragma mark- layout
 - (void)initWidget
 {
-    self.backImageView = [[CustomImageView alloc] init];
-    self.myCarBtn      = [[CustomButton alloc] init];
     
-    [self.view addSubview:self.backImageView];
-    [self.view addSubview:self.myCarBtn];
+    self.backScrollView = [[UIScrollView alloc] init];
+    self.backImageView  = [[CustomImageView alloc] init];
+    self.myCarBtn       = [[CustomButton alloc] init];
+    
+    [self.view addSubview:self.backScrollView];
+    [self.backScrollView addSubview:self.backImageView];
+    [self.backScrollView addSubview:self.myCarBtn];
     
     [self.myCarBtn addTarget:self action:@selector(myCarPress:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -49,8 +54,12 @@
 
 - (void)configUI
 {
+    
+    self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight);
+    self.backScrollView.showsVerticalScrollIndicator = NO;
+    
     [self.backImageView setImage:[UIImage imageNamed:@"global_back"]];
-    self.backImageView.frame       = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, 170);
+    self.backImageView.frame       = CGRectMake(0, 0, self.viewWidth, 170);
     self.backImageView.contentMode = UIViewContentModeScaleAspectFill;
 
     self.myCarBtn.backgroundColor            = [UIColor whiteColor];
@@ -70,7 +79,9 @@
     CGFloat bottom1 = [self generateCommonListWithTop:self.myCarBtn.bottom+25 andContent:@"注册成为“品味•环球”尊贵的会员，您将享有平台内所有联盟商家提供的会员VIP礼遇，无需另外办理门店会员卡。"];
     CGFloat bottom2 = [self generateCommonListWithTop:bottom1+20 andContent:@"豪车管家24小时电话问诊及资讯，专业的豪车管家将为您提供一切关于您爱车的最佳解决方案。"];
     CGFloat bottom3 = [self generateCommonListWithTop:bottom2+20 andContent:@"会员卡价格享受爱车精洗项目，无需再办理门店会员卡。此礼遇适用于全平台联盟商家。"];
-    [self generateCommonListWithTop:bottom3+20 andContent:@"豪车维修与保养将由专业的豪车管家为您一站式打理，轻松，高效的完成每一个环节。"];
+    CGFloat bottom4 = [self generateCommonListWithTop:bottom3+20 andContent:@"豪车维修与保养将由专业的豪车管家为您一站式打理，轻松，高效的完成每一个环节。"];
+    
+    self.backScrollView.contentSize = CGSizeMake(0, bottom4);
 }
 
 #pragma mark- method response
@@ -86,13 +97,13 @@
 {
     CustomImageView * descImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"list"]];
     descImageView.frame             = CGRectMake(15, top, 8, 8);
-    [self.view addSubview:descImageView];
+    [self.backScrollView addSubview:descImageView];
     
     CustomLabel * descLabel1 = [[CustomLabel alloc] initWithFrame:CGRectMake(descImageView.right+10, descImageView.y-3, self.viewWidth-48, 0)];
     descLabel1.numberOfLines = 0;
     descLabel1.font          = [UIFont systemFontOfSize:14];
     descLabel1.text          = content;
-    [self.view addSubview:descLabel1];
+    [self.backScrollView addSubview:descLabel1];
     [descLabel1 sizeToFit];
     
     return descLabel1.bottom;
