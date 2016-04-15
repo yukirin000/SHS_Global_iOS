@@ -1,24 +1,23 @@
 //
-//  MyCarsViewController.m
+//  ChoiceCarsViewController.m
 //  SHS_Global
 //
-//  Created by 李晓航 on 16/4/1.
+//  Created by 李晓航 on 16/4/15.
 //  Copyright © 2016年 SHS. All rights reserved.
 //
 
-#import "MyCarsViewController.h"
+#import "ChoiceCarsViewController.h"
 #import "ApplyCarViewController.h"
-#import "CarDetailViewController.h"
 #import "MyCarsCell.h"
 
-@interface MyCarsViewController ()
+@interface ChoiceCarsViewController ()
 
 //“暂无爱车” Label
 @property (nonatomic, strong) CustomLabel * emptyLabel;
 
 @end
 
-@implementation MyCarsViewController
+@implementation ChoiceCarsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,14 +50,6 @@
 
 - (void)configUI {
     
-    __weak typeof(self) sself = self;
-    [self.navBar setRightBtnWithContent:nil andBlock:^{
-        ApplyCarViewController * acvc = [[ApplyCarViewController alloc] init];
-        [sself pushVC:acvc];
-    }];
-    [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
-    [self.navBar setNavTitle:@"我的爱车"];
-    
     self.refreshTableView.notLoading    = @"";
     self.refreshTableView.bottomLoading = @"";
     
@@ -70,7 +61,6 @@
 }
 
 #pragma mark- method response
-
 
 #pragma mark- Delegate & Datasource
 #pragma mark- UITableViewDataSource & UITableViewDelegate
@@ -94,10 +84,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CarDetailViewController * cdvc = [[CarDetailViewController alloc] init];
-    CarModel * car                 = self.dataSource[indexPath.row];
-    cdvc.carID                     = car.cid;
-    [self pushVC:cdvc];
+
 }
 
 #pragma override
@@ -127,6 +114,14 @@
                 self.emptyLabel.hidden = YES;
             }else{
                 self.emptyLabel.hidden = NO;
+                //右上角添加爱车
+                __weak typeof(self) sself = self;
+                [self.navBar setRightBtnWithContent:nil andBlock:^{
+                    ApplyCarViewController * acvc = [[ApplyCarViewController alloc] init];
+                    [sself pushVC:acvc];
+                }];
+                [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
+                [self.navBar setNavTitle:@"我的爱车"];
             }
             
             [self reloadTable];
@@ -148,15 +143,5 @@
     
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

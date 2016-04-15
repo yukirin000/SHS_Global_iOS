@@ -185,9 +185,9 @@
             //隐藏
             [self hideHud];
             [self showSuccess:GlobalString(@"RegisterRegisterSuccess")];
-            //找回密码成功进入主页
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
-            
+//            //找回密码成功进入主页
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];            
         }else{
             [self showFail:GlobalString(@"RegisterVerifyError")];
         }
@@ -224,9 +224,9 @@
             //隐藏
             [self hideHud];
             [self showSuccess:GlobalString(@"RegisterUpdateSuccess")];
-            //找回密码成功进入主页
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
-            
+//            //找回密码成功进入主页
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }else{
             [self showFail:StringCommonNetException];
         }

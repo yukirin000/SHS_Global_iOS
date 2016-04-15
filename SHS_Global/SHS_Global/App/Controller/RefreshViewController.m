@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource     = [[NSMutableArray alloc] init];
+    self.dataSource  = [[NSMutableArray alloc] init];
     self.currentPage = 1;
     [self createRefreshView];
 }

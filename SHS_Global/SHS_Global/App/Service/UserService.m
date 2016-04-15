@@ -37,6 +37,11 @@
     return instance;
 }
 
++ (NSInteger)getUserID
+{
+    return [UserService sharedService].user.user_id;
+}
+
 //保存数据
 - (void)saveAndUpdate
 {

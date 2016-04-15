@@ -47,7 +47,7 @@
                           channel:@"test" apsForProduction:NO];
     
     //初始化控制器
-    [self autoLogin];
+    [self enterMainController];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //Status不隐藏
@@ -55,22 +55,18 @@
     
     //友盟
     [self umengTrack];
-    //初始化数据库
-    [DatabaseService sharedInstance];
-    //这里初始化很多东西
-    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中 这倒霉的设计神烦 就不能写一个工具类 非要用Catagory
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterLoginController) name:NOTIFY_ENTER_LOGIN object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterMainController) name:NOTIFY_ENTER_MAIN object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterLoginController) name:NOTIFY_ENTER_LOGIN object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterMainController) name:NOTIFY_ENTER_MAIN object:nil];
     
     return YES;
 }
 
-//自动登录
+//自动登录 取消直接进入主页
 -(void)autoLogin
 {
     //如果用户登录过 自动登录
-    if ([UserService sharedService].user.user_id > 0 && [UserService sharedService].user.login_token.length > 5) {
+    if ([UserService sharedService].user.user_id > 0) {
         [self enterMainController];
     }else{
         [self enterLoginController];

@@ -86,7 +86,7 @@
 #pragma mark- method resopnse
 - (void)bottomPress:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://4008693911"]];
+
 }
 
 /*

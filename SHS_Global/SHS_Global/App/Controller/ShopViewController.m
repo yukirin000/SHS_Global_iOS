@@ -8,11 +8,16 @@
 
 #import "ShopViewController.h"
 #import "ShopModel.h"
+#import "GoodsModel.h"
+#import "LoginViewController.h"
+#import "ChoiceCarsViewController.h"
 
 @interface ShopViewController ()
 
 //商店模型
 @property (nonatomic, strong) ShopModel       * shopModel;
+//商品模型
+@property (nonatomic, strong) GoodsModel      * goodsModel;
 //背景滚动视图
 @property (nonatomic, strong) UIScrollView    * backScrollView;
 //背景图
@@ -25,6 +30,10 @@
 @property (nonatomic, strong) CustomLabel     * addressLabel;
 //公司电话
 @property (nonatomic, strong) CustomLabel     * shopPhoneLabel;
+//原价
+@property (nonatomic, strong) CustomLabel     * originPriceLabel;
+//会员价
+@property (nonatomic, strong) CustomLabel     * vipPriceLabel;
 
 @end
 
@@ -51,18 +60,21 @@
     self.backScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.backScrollView];
     
-    self.backImageView  = [[CustomImageView alloc] init];
-    self.shopNameLabel  = [[CustomLabel alloc] init];
-    self.distanceLabel  = [[CustomLabel alloc] init];
-    self.addressLabel   = [[CustomLabel alloc] init];
-    self.shopPhoneLabel = [[CustomLabel alloc] init];
+    self.backImageView    = [[CustomImageView alloc] init];
+    self.shopNameLabel    = [[CustomLabel alloc] init];
+    self.distanceLabel    = [[CustomLabel alloc] init];
+    self.addressLabel     = [[CustomLabel alloc] init];
+    self.shopPhoneLabel   = [[CustomLabel alloc] init];
+    self.originPriceLabel = [[CustomLabel alloc] init];
+    self.vipPriceLabel    = [[CustomLabel alloc] init];
     
     [self.backScrollView addSubview:self.backImageView];
     [self.backImageView addSubview:self.shopNameLabel];
     [self.backImageView addSubview:self.distanceLabel];
     [self.backScrollView addSubview:self.addressLabel];
     [self.backScrollView addSubview:self.shopPhoneLabel];
-    
+    [self.backScrollView addSubview:self.originPriceLabel];
+    [self.backScrollView addSubview:self.vipPriceLabel];
 }
 
 - (void)configUI {
@@ -70,10 +82,14 @@
     [self setNavBarTitle:GlobalString(@"ShopTitle")];
     
     //设置内容
-    self.shopNameLabel.text  = self.shopModel.shop_name;
-    self.addressLabel.text   = self.shopModel.address;
-    self.shopPhoneLabel.text = self.shopModel.shop_phone;
+    self.shopNameLabel.text    = self.shopModel.shop_name;
+    self.addressLabel.text     = self.shopModel.address;
+    self.shopPhoneLabel.text   = self.shopModel.shop_phone;
+    self.originPriceLabel.text = self.goodsModel.original_price;
+    self.vipPriceLabel.text    = self.goodsModel.discount_price;
+    
     [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.shopModel.shop_image]];
+    
     
     //地理位置存在
     if ([[LocationService sharedInstance] existLocation:CGPointMake(self.shopModel.longitude.floatValue, self.shopModel.latitude.floatValue)]) {
@@ -157,41 +173,40 @@
     [self.backScrollView addSubview:washLine];
     
     //呼叫管家
-    CustomLabel * originTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(serverTitleLabel.x, washLine.bottom, 80, 50)];
+    CustomLabel * originTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(serverTitleLabel.x, washLine.bottom, 50, 50)];
     originTitle.font          = [UIFont systemFontOfSize:FontListName];
     originTitle.textColor     = [UIColor colorWithHexString:ColorShopBlack];
-    originTitle.text          = @"原价：***";
+    originTitle.text          = @"原价：";
     [self.backScrollView addSubview:originTitle];
     
-    CustomLabel * userTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(originTitle.right+30, washLine.bottom, 120, 50)];
+    CustomLabel * userTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-120, washLine.bottom, 60, 50)];
     userTitle.font          = [UIFont systemFontOfSize:FontListName];
     userTitle.textColor     = [UIColor colorWithHexString:ColorShopBlack];
-    userTitle.text          = @"会员价：***";
+    userTitle.text          = @"会员价：";
     [self.backScrollView addSubview:userTitle];
     
-    CustomLabel * waitTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-90, washLine.bottom, 75, 50)];
-    waitTitle.textAlignment = NSTextAlignmentRight;
-    waitTitle.font          = [UIFont systemFontOfSize:FontListName];
-    waitTitle.textColor     = [UIColor colorWithHexString:ColorTextBorder];
-    waitTitle.text          = @"即将开放";
-    [self.backScrollView addSubview:waitTitle];
+    //价格位置
+    self.originPriceLabel.frame     = CGRectMake(originTitle.right, originTitle.y, 65, 50);
+    self.originPriceLabel.textColor = originTitle.textColor;
+    self.originPriceLabel.font      = originTitle.font;
+    self.vipPriceLabel.frame        = CGRectMake(userTitle.right, userTitle.y, 65, 50);
+    self.vipPriceLabel.textColor    = [UIColor redColor];
+    self.vipPriceLabel.font         = originTitle.font;
     
-    UIView * backGrayView        = [[UIView alloc] initWithFrame:CGRectMake(0, self.backImageView.bottom, self.viewWidth, waitTitle.bottom-self.backImageView.bottom)];
+    UIView * backGrayView        = [[UIView alloc] initWithFrame:CGRectMake(0, self.backImageView.bottom, self.viewWidth, userTitle.bottom-self.backImageView.bottom)];
     backGrayView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     [self.backScrollView addSubview:backGrayView];
     [self.backScrollView sendSubviewToBack:backGrayView];
     
-    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(220), waitTitle.bottom+50, 220, 45)];
+    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(220), userTitle.bottom+50, 220, 45)];
     bottomBtn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
     bottomBtn.layer.cornerRadius  = 22.5;
     bottomBtn.layer.masksToBounds = YES;
     bottomBtn.layer.borderWidth   = 1;
     bottomBtn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
-    bottomBtn.titleEdgeInsets     = UIEdgeInsetsMake(0, 20, 0, 0);
     bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
     [bottomBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
-    [bottomBtn setTitle:GlobalString(@"GlobalCallBulter") forState:UIControlStateNormal];
-    [bottomBtn setImage:[UIImage imageNamed:@"telephone"] forState:UIControlStateNormal];
+    [bottomBtn setTitle:@"购买" forState:UIControlStateNormal];
     [bottomBtn addTarget:self action:@selector(bottomPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.backScrollView addSubview:bottomBtn];
     
@@ -206,7 +221,25 @@
 #pragma mark- method resopnse
 - (void)bottomPress:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://4008693911"]];
+    //新用户提示注册
+    if ([UserService sharedService].user.user_id < 1) {
+        
+        [YSAlertView showAlertWithTitle:StringCommonPrompt message:@"您还不是用户，请先成为用户" completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
+            if (buttonIndex == 1) {
+                LoginViewController * lvc    = [[LoginViewController alloc] init];
+                lvc.hideNavbar               = YES;
+                UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:lvc];
+                [self presentViewController:nav animated:YES completion:^{
+                }];
+            }
+        } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];
+        return;
+    }else{
+        ChoiceCarsViewController * ccvc = [[ChoiceCarsViewController alloc] init];
+        ccvc.shop_id                    = self.shopId;
+        ccvc.goods_id                   = self.goodsModel.gid;
+        [self pushVC:ccvc];
+    }
 }
 
 
@@ -214,7 +247,6 @@
 
 #pragma mark- private method
 - (void)initData {
-    
     
     NSString * url = [NSString stringWithFormat:@"%@?shop_id=%ld", API_GetShopDetail, self.shopId];
     debugLog(@"%@", url);
@@ -225,6 +257,13 @@
             NSDictionary * shopDic = responseData[HttpResult][@"shop"];
             self.shopModel = [[ShopModel alloc] init];
             [self.shopModel setModelWithDic:shopDic];
+            
+            NSDictionary * goodsDic = responseData[HttpResult][@"good"];
+            if (goodsDic) {
+                self.goodsModel = [[GoodsModel alloc] init];
+                [self.goodsModel setModelWithDic:goodsDic];
+            }
+            
             [self configUI];
         }else{
             [self showFail:StringCommonDownloadDataFail];

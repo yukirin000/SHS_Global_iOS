@@ -24,6 +24,8 @@
 + (BOOL) validateMobile:(NSString *)mobile;
 //用户名
 + (BOOL) validateUserName:(NSString *)name;
+//车牌号
++ (BOOL) validatePlateNumber:(NSString *)number;
 //字母或者数字
 + (BOOL) validateAlpha:(NSString *)name;
 //身份证号

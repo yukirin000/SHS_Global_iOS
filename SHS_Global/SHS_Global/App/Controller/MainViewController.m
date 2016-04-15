@@ -7,16 +7,29 @@
 //
 
 #import "MainViewController.h"
+#import "LoginViewController.h"
 #import "TabBarBtn.h"
 
+/**
+ *  TabEnum
+ */
 typedef NS_ENUM(NSInteger, Tab){
-    TabPage1 = 0,
-
-    TabPage2 = 1,
-
-    TabPage3 = 2,
-
-    TabPage4 = 3
+    /**
+     *  特权
+     */
+    TabSpecial = 0,
+    /**
+     *  记录
+     */
+    TabRecord  = 1,
+    /**
+     *  会员
+     */
+    TabUser    = 2,
+    /**
+     *  管家
+     */
+    TabBulter  = 3
 };
 
 @interface MainViewController ()
@@ -25,7 +38,6 @@ typedef NS_ENUM(NSInteger, Tab){
 
 @implementation MainViewController
 {
-    
     //背景View
     UIImageView * _backView;
     //控制器数组
@@ -45,15 +57,14 @@ typedef NS_ENUM(NSInteger, Tab){
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.delegate = self;
-    
+    self.delegate                    = self;
     _backView                        = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], kTabBarHeight)];
     //    _backView.image                  = [UIImage imageNamed:@"tabbar"];
     _backView.backgroundColor        = [UIColor colorWithHexString:ColorTab];
     _backView.userInteractionEnabled = YES;
     [self.tabBar addSubview:_backView];
-    UIView * topLineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
-    topLineView.backgroundColor = [UIColor colorWithHexString:@"AAAAAA"];
+    UIView * topLineView             = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
+    topLineView.backgroundColor      = [UIColor colorWithHexString:@"AAAAAA"];
     [_backView addSubview:topLineView];
     
     [self createVC];
@@ -67,9 +78,7 @@ typedef NS_ENUM(NSInteger, Tab){
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -130,6 +139,29 @@ typedef NS_ENUM(NSInteger, Tab){
  */
 - (void)customSelectedIndex:(NSInteger)index
 {
+    if (index == TabUser) {
+        //新用户提示注册
+        if ([UserService sharedService].user.user_id < 1) {
+            
+            [YSAlertView showAlertWithTitle:StringCommonPrompt message:@"您还不是用户，请先成为用户" completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
+                if (buttonIndex == 1) {
+                    LoginViewController * lvc    = [[LoginViewController alloc] init];
+                    lvc.hideNavbar               = YES;
+                    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:lvc];
+                    [self presentViewController:nav animated:YES completion:^{
+                        [self selectTab:index];
+                    }];
+                }
+            } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];
+            return;
+        }
+    }
+    
+    [self selectTab:index];
+}
+
+- (void)selectTab:(NSInteger)index
+{
     self.selectedIndex = index;
     for (UIButton * item in _backView.subviews) {
         if ([item isKindOfClass:[UIButton class]]) {
@@ -140,7 +172,6 @@ typedef NS_ENUM(NSInteger, Tab){
     TabBarBtn * tbb      = _btnArr[index];
     tbb.selected         = YES;
 }
-
 
 - (void)createVC
 {
@@ -177,7 +208,6 @@ typedef NS_ENUM(NSInteger, Tab){
         if (i == 0) {
             item.selected        = YES;
         }
-        
         [_backView addSubview:item];
     }
     
@@ -187,24 +217,28 @@ typedef NS_ENUM(NSInteger, Tab){
 
 
 #pragma mark- tabBar点击代理
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-    
-    for (UIButton * item in _backView.subviews) {
-        if ([item isKindOfClass:[UIButton class]]) {
-            item.selected = NO;
-        }
-    }
-    NSInteger index      = [tabBarController.viewControllers indexOfObject:viewController];
-    TabBarBtn * btn      = _btnArr[index];
-    btn.selected         = YES;
-    
-}
+//- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+//{
+//    NSInteger index      = [tabBarController.viewControllers indexOfObject:viewController];
+//    
+//    for (UIButton * item in _backView.subviews) {
+//        if ([item isKindOfClass:[UIButton class]]) {
+//            item.selected = NO;
+//        }
+//    }
+//
+//    TabBarBtn * btn      = _btnArr[index];
+//    btn.selected         = YES;
+//    
+//}
 
 #pragma mark- tabBar点击代理
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-    return YES;
+    NSInteger index = [tabBarController.viewControllers indexOfObject:viewController];
+    [self customSelectedIndex:index];
+    
+    return NO;
 }
 
 #pragma mark - 注册通知

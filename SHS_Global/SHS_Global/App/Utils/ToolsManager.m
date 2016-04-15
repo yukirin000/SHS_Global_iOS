@@ -64,6 +64,14 @@
     return B;
 }
 
++ (BOOL) validatePlateNumber:(NSString *)number
+{
+    NSString *userNameRegex = @"^[_a-zA-Z0-9]{5}+$";
+    NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",userNameRegex];
+    BOOL B = [userNamePredicate evaluateWithObject:number];
+    return B;
+}
+
 + (BOOL) validateAlpha:(NSString *)name
 {
     NSString *userNameRegex = @"^[_a-zA-Z]{1}+$";
@@ -117,7 +125,7 @@
 //姓名
 + (BOOL) validateName:(NSString *)name
 {
-    NSString *nicknameRegex = @"([\u4e00-\u9fa5]{2,20})(&middot;[\u4e00-\u9fa5]{2,20})*";
+    NSString *nicknameRegex = @"([\u4e00-\u9fa5]{2,4})(&middot;[\u4e00-\u9fa5]{2,4})*";
     NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",nicknameRegex];
     return [passWordPredicate evaluateWithObject:name];
 }

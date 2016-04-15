@@ -125,9 +125,9 @@
             [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
             //数据本地缓存
             [[UserService sharedService] saveAndUpdate];
-            //进入主页
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
-            
+//            //进入主页
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];            
         }else{
             [self showFail:GlobalString(@"SecondLoginUsernameOrPwdError")];
         }

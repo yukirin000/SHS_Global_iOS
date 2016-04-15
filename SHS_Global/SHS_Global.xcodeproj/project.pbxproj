@@ -119,6 +119,15 @@
 		42D877621CB7A90F000D0383 /* telephone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D877591CB7A90F000D0383 /* telephone@2x.png */; };
 		42D877631CB7A90F000D0383 /* ToastFinish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D8775A1CB7A90F000D0383 /* ToastFinish@2x.png */; };
 		42D877641CB7A90F000D0383 /* ToastWarn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D8775B1CB7A90F000D0383 /* ToastWarn@2x.png */; };
+		42DF45471CBF440900537B01 /* YSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DF45461CBF440900537B01 /* YSAlertView.m */; };
+		42DF454A1CBF744100537B01 /* ChoiceCarTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DF45491CBF744100537B01 /* ChoiceCarTypeViewController.m */; };
+		42DF45661CBFAB7400537B01 /* MyCarsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DF45651CBFAB7400537B01 /* MyCarsCell.m */; };
+		42DF45691CBFAB9A00537B01 /* CarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DF45681CBFAB9A00537B01 /* CarModel.m */; };
+		42E0BA711CBE584B002C7E6C /* ApplyCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E0BA701CBE584B002C7E6C /* ApplyCarViewController.m */; };
+		42F1EA3F1CC09D2200241663 /* CarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F1EA3E1CC09D2200241663 /* CarDetailViewController.m */; };
+		42F1EA421CC0F46D00241663 /* GoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F1EA411CC0F46D00241663 /* GoodsModel.m */; };
+		42F1EA451CC0F9A600241663 /* ChoiceCarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F1EA441CC0F9A600241663 /* ChoiceCarsViewController.m */; };
+		42F1EA481CC0FDF000241663 /* CreateOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F1EA471CC0FDF000241663 /* CreateOrderViewController.m */; };
 		46A2B0AD17C406E6909567C9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1895D25B0B198692723D9B0D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -288,6 +297,24 @@
 		42D877591CB7A90F000D0383 /* telephone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "telephone@2x.png"; sourceTree = "<group>"; };
 		42D8775A1CB7A90F000D0383 /* ToastFinish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToastFinish@2x.png"; sourceTree = "<group>"; };
 		42D8775B1CB7A90F000D0383 /* ToastWarn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToastWarn@2x.png"; sourceTree = "<group>"; };
+		42DF45451CBF440900537B01 /* YSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSAlertView.h; sourceTree = "<group>"; };
+		42DF45461CBF440900537B01 /* YSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSAlertView.m; sourceTree = "<group>"; };
+		42DF45481CBF744100537B01 /* ChoiceCarTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoiceCarTypeViewController.h; sourceTree = "<group>"; };
+		42DF45491CBF744100537B01 /* ChoiceCarTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoiceCarTypeViewController.m; sourceTree = "<group>"; };
+		42DF45641CBFAB7400537B01 /* MyCarsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCarsCell.h; sourceTree = "<group>"; };
+		42DF45651CBFAB7400537B01 /* MyCarsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCarsCell.m; sourceTree = "<group>"; };
+		42DF45671CBFAB9A00537B01 /* CarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarModel.h; sourceTree = "<group>"; };
+		42DF45681CBFAB9A00537B01 /* CarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarModel.m; sourceTree = "<group>"; };
+		42E0BA6F1CBE584B002C7E6C /* ApplyCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyCarViewController.h; sourceTree = "<group>"; };
+		42E0BA701CBE584B002C7E6C /* ApplyCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyCarViewController.m; sourceTree = "<group>"; };
+		42F1EA3D1CC09D2200241663 /* CarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarDetailViewController.h; sourceTree = "<group>"; };
+		42F1EA3E1CC09D2200241663 /* CarDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarDetailViewController.m; sourceTree = "<group>"; };
+		42F1EA401CC0F46D00241663 /* GoodsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsModel.h; sourceTree = "<group>"; };
+		42F1EA411CC0F46D00241663 /* GoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsModel.m; sourceTree = "<group>"; };
+		42F1EA431CC0F9A600241663 /* ChoiceCarsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoiceCarsViewController.h; sourceTree = "<group>"; };
+		42F1EA441CC0F9A600241663 /* ChoiceCarsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoiceCarsViewController.m; sourceTree = "<group>"; };
+		42F1EA461CC0FDF000241663 /* CreateOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateOrderViewController.h; sourceTree = "<group>"; };
+		42F1EA471CC0FDF000241663 /* CreateOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateOrderViewController.m; sourceTree = "<group>"; };
 		969EC8756D8BF4722DF17B5D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -386,6 +413,8 @@
 		423CDBF11CA3C9CD005C6EE4 /* BaseWidget */ = {
 			isa = PBXGroup;
 			children = (
+				42DF45451CBF440900537B01 /* YSAlertView.h */,
+				42DF45461CBF440900537B01 /* YSAlertView.m */,
 				423CDBF21CA3C9CD005C6EE4 /* CustomButton.h */,
 				423CDBF31CA3C9CD005C6EE4 /* CustomButton.m */,
 				423CDBF41CA3C9CD005C6EE4 /* CustomImageView.h */,
@@ -452,6 +481,16 @@
 				423CDCC91CA3D863005C6EE4 /* ButlerViewController.m */,
 				4276444F1CAE227C00F7C5BD /* MyCarsViewController.h */,
 				427644501CAE227C00F7C5BD /* MyCarsViewController.m */,
+				42F1EA431CC0F9A600241663 /* ChoiceCarsViewController.h */,
+				42F1EA441CC0F9A600241663 /* ChoiceCarsViewController.m */,
+				42F1EA461CC0FDF000241663 /* CreateOrderViewController.h */,
+				42F1EA471CC0FDF000241663 /* CreateOrderViewController.m */,
+				42E0BA6F1CBE584B002C7E6C /* ApplyCarViewController.h */,
+				42E0BA701CBE584B002C7E6C /* ApplyCarViewController.m */,
+				42F1EA3D1CC09D2200241663 /* CarDetailViewController.h */,
+				42F1EA3E1CC09D2200241663 /* CarDetailViewController.m */,
+				42DF45481CBF744100537B01 /* ChoiceCarTypeViewController.h */,
+				42DF45491CBF744100537B01 /* ChoiceCarTypeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -463,6 +502,10 @@
 				423CDC161CA3C9CD005C6EE4 /* UserModel.m */,
 				427644551CAE4ED600F7C5BD /* ShopModel.h */,
 				427644561CAE4ED600F7C5BD /* ShopModel.m */,
+				42DF45671CBFAB9A00537B01 /* CarModel.h */,
+				42DF45681CBFAB9A00537B01 /* CarModel.m */,
+				42F1EA401CC0F46D00241663 /* GoodsModel.h */,
+				42F1EA411CC0F46D00241663 /* GoodsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -518,6 +561,8 @@
 				423CDC381CA3C9CD005C6EE4 /* NavBar.m */,
 				427644581CAE5A1B00F7C5BD /* ShopCell.h */,
 				427644591CAE5A1B00F7C5BD /* ShopCell.m */,
+				42DF45641CBFAB7400537B01 /* MyCarsCell.h */,
+				42DF45651CBFAB7400537B01 /* MyCarsCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -907,9 +952,12 @@
 				423CDC3A1CA3C9CD005C6EE4 /* CustomImageView.m in Sources */,
 				423CDCE31CA403B6005C6EE4 /* PushService.m in Sources */,
 				423CDC4A1CA3C9CD005C6EE4 /* DatabaseService.m in Sources */,
+				42DF454A1CBF744100537B01 /* ChoiceCarTypeViewController.m in Sources */,
 				423CDC551CA3C9CD005C6EE4 /* NavBar.m in Sources */,
 				423CDC391CA3C9CD005C6EE4 /* CustomButton.m in Sources */,
+				42F1EA421CC0F46D00241663 /* GoodsModel.m in Sources */,
 				423CDC491CA3C9CD005C6EE4 /* UserModel.m in Sources */,
+				42F1EA481CC0FDF000241663 /* CreateOrderViewController.m in Sources */,
 				423CDC411CA3C9CD005C6EE4 /* UIView+LayoutMethods.m in Sources */,
 				423CDC601CA3CE1E005C6EE4 /* RefreshTableView.m in Sources */,
 				423CDC781CA3CF79005C6EE4 /* EGORefreshTableHeaderView.m in Sources */,
@@ -926,20 +974,26 @@
 				423CDC591CA3CB64005C6EE4 /* MainViewController.m in Sources */,
 				427644511CAE227C00F7C5BD /* MyCarsViewController.m in Sources */,
 				427644571CAE4ED600F7C5BD /* ShopModel.m in Sources */,
+				42DF45471CBF440900537B01 /* YSAlertView.m in Sources */,
 				4276445A1CAE5A1B00F7C5BD /* ShopCell.m in Sources */,
+				42E0BA711CBE584B002C7E6C /* ApplyCarViewController.m in Sources */,
 				423CDBDB1CA3C2DF005C6EE4 /* main.m in Sources */,
 				423CDC4B1CA3C9CD005C6EE4 /* HttpService.m in Sources */,
 				423CDC3B1CA3C9CD005C6EE4 /* CustomLabel.m in Sources */,
 				423CDC771CA3CF79005C6EE4 /* EGORefreshTableFooterView.m in Sources */,
 				423CDC541CA3C9CD005C6EE4 /* ToolsManager.m in Sources */,
+				42F1EA3F1CC09D2200241663 /* CarDetailViewController.m in Sources */,
 				427644631CAE6E5700F7C5BD /* TempServerViewController.m in Sources */,
 				423CDC611CA3CE1E005C6EE4 /* TabBarBtn.m in Sources */,
+				42DF45661CBFAB7400537B01 /* MyCarsCell.m in Sources */,
 				423CDC531CA3C9CD005C6EE4 /* DeviceManager.m in Sources */,
+				42DF45691CBFAB9A00537B01 /* CarModel.m in Sources */,
 				4276445D1CAE606000F7C5BD /* ShopViewController.m in Sources */,
 				423CDC641CA3CF4B005C6EE4 /* RefreshViewController.m in Sources */,
 				423CDCC11CA3D836005C6EE4 /* SpecialViewController.m in Sources */,
 				423CDC401CA3C9CD005C6EE4 /* UIColor+Hexadecimal.m in Sources */,
 				423CDC471CA3C9CD005C6EE4 /* SecondLoginViewController.m in Sources */,
+				42F1EA451CC0F9A600241663 /* ChoiceCarsViewController.m in Sources */,
 				423CDC441CA3C9CD005C6EE4 /* LoginViewController.m in Sources */,
 				423CDCC71CA3D85C005C6EE4 /* UserViewController.m in Sources */,
 				423CDCCA1CA3D863005C6EE4 /* ButlerViewController.m in Sources */,

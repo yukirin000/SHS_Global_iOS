@@ -1,18 +1,19 @@
 //
-//  ViewController.m
+//  CreateOrderViewController.m
 //  SHS_Global
 //
-//  Created by 李晓航 on 16/3/24.
+//  Created by 李晓航 on 16/4/15.
 //  Copyright © 2016年 SHS. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "CreateOrderViewController.h"
 
-@interface ViewController ()
+@interface CreateOrderViewController ()
 
 @end
 
-@implementation ViewController
+@implementation CreateOrderViewController
+
 
 #pragma mark- life cycle
 - (void)viewDidLoad {
@@ -24,7 +25,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark- layout

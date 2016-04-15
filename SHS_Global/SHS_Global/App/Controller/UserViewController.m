@@ -49,7 +49,6 @@
     
     [self configUI];
     
-    
 }
 
 - (void)configUI

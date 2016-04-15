@@ -11,7 +11,6 @@
 
 @interface ShopCell : UITableViewCell
 
-
 - (void)setWithModel:(ShopModel *)model;
 
 @end

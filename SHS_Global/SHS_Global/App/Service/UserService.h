@@ -24,4 +24,7 @@
 //保存数据
 - (void)saveAndUpdate;
 
+//获取用户ID
++ (NSInteger)getUserID;
+
 @end

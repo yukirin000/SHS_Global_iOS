@@ -29,11 +29,15 @@
     [self initNavBase];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
 - (void)initNavBase
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setNeedsStatusBarAppearanceUpdate];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     //创建导航栏
     [self createNavBar];

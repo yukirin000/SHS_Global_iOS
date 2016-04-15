@@ -99,14 +99,15 @@
 #import "CustomTextField.h"
 #import "UIView+LayoutMethods.h"
 #import "PlaceHolderTextView.h"
+#import "YSAlertView.h"
 
 #define FileNameKey @"name"
 #define FileDataKey @"data"
 //notifyKey
 //进入登录页面
-#define NOTIFY_ENTER_LOGIN @"enterLogin"
-//进入主页面
-#define NOTIFY_ENTER_MAIN @"enterMain"
+//#define NOTIFY_ENTER_LOGIN @"enterLogin"
+////进入主页面
+//#define NOTIFY_ENTER_MAIN @"enterMain"
 
 //友盟AppKey
 #define UMENG_AppKey @"565ee3d9e0f55af385003f1d"
