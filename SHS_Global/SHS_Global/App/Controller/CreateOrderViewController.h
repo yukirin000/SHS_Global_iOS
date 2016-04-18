@@ -9,10 +9,12 @@
 #import "NavBaseViewController.h"
 
 //创建订单页面
-@interface CreateOrderViewController : NavBaseViewController
+@interface CreateOrderViewController : NavBaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) NSInteger shop_id;
 
 @property (nonatomic, assign) NSInteger goods_id;
+
+@property (nonatomic, assign) NSInteger carID;
 
 @end

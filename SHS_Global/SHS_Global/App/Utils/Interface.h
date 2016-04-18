@@ -43,6 +43,10 @@
 #define API_CarCategory [kHomeAddr stringByAppendingString:@"/carCategory"]
 //具体型号
 #define API_CarClassify [kHomeAddr stringByAppendingString:@"/carClassify"]
+//选择我的爱车
+#define API_ChoiceMyCar [kHomeAddr stringByAppendingString:@"/choiceMyCar"]
+//重新提交爱车信息
+#define API_UpdateCar [kHomeAddr stringByAppendingString:@"/updateCar"]
 
 
 #endif /* Interface_h */

@@ -39,7 +39,30 @@
     return UIStatusBarStyleDefault;
 }
 
+#pragma mark- public method
+/*!出栈*/
+- (void)popToTabBarViewController
+{
+    [self popToTabBarViewControllerWithAnimate:YES];
+}
+
+/*!无动画出栈*/
+- (void)popToTabBarViewControllerNoAnimation
+{
+    [self popToTabBarViewControllerWithAnimate:NO];
+}
+
 #pragma mark- private method
+- (void)popToTabBarViewControllerWithAnimate:(BOOL)yesOrNo
+{
+    for (int i=0; i<[self.navigationController viewControllers].count; i++) {
+        UIViewController *viewController = [[self.navigationController viewControllers] objectAtIndex:i];
+        if ([NSStringFromClass([viewController class]) isEqual:@"MainViewController"]) {
+            UIViewController *main = [self.navigationController.viewControllers objectAtIndex:i];
+            [self.navigationController popToViewController:main animated:yesOrNo];
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {

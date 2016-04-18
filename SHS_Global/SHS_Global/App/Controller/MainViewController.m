@@ -245,11 +245,19 @@ typedef NS_ENUM(NSInteger, Tab){
 //注册通知
 - (void)registerNotification
 {
+    //支付成功
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess:) name:NotifyPaySuccess object:nil];
     //通知增加一个徽标
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(badgeNotify:) name:NOTIFY_TAB_BADGE object:nil];
 }
 
 
+
+#pragma mark- method response
+- (void)paySuccess:(id)sender
+{
+    [self selectTab:TabRecord];
+}
 
 /*
 #pragma mark - Navigation

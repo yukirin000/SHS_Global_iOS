@@ -9,6 +9,7 @@
 #import "ChoiceCarsViewController.h"
 #import "ApplyCarViewController.h"
 #import "MyCarsCell.h"
+#import "CreateOrderViewController.h"
 
 @interface ChoiceCarsViewController ()
 
@@ -83,8 +84,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    CarModel * car = self.dataSource[indexPath.row];
+    
+    CreateOrderViewController * covc = [[CreateOrderViewController alloc] init];
+    covc.carID                       = car.cid;
+    covc.shop_id                     = self.shop_id;
+    covc.goods_id                    = self.goods_id;    
+    [self pushVC:covc];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
 }
 
 #pragma override
@@ -93,7 +102,7 @@
     //不能加载更多
     self.isLastPage = YES;
     
-    NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", API_MyCars, [UserService sharedService].user.user_id];
+    NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", API_ChoiceMyCar, [UserService sharedService].user.user_id];
     [HttpService getWithUrlString:url andCompletion:^(id responseData) {
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
@@ -112,6 +121,7 @@
             
             if (list.count > 0) {
                 self.emptyLabel.hidden = YES;
+                [self setNavBarTitle:@"选择爱车"];
             }else{
                 self.emptyLabel.hidden = NO;
                 //右上角添加爱车
@@ -121,7 +131,7 @@
                     [sself pushVC:acvc];
                 }];
                 [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
-                [self.navBar setNavTitle:@"我的爱车"];
+                [self setNavBarTitle:@"我的爱车"];
             }
             
             [self reloadTable];

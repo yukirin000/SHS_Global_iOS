@@ -7,40 +7,119 @@
 //
 
 #import "RecordViewController.h"
+#import "RecordServerViewController.h"
 
 @interface RecordViewController ()
+
+@property (nonatomic, strong) UIScrollView * scrollView;
+//服务中按钮
+@property (nonatomic, strong) CustomButton * servingBtn;
+//已经服务按钮
+@property (nonatomic, strong) CustomButton * servedBtn;
+//服务完
+@property (nonatomic, strong) RecordServerViewController * servedVC;
+//服务中
+@property (nonatomic, strong) RecordServerViewController * servingVC;
 
 @end
 
 @implementation RecordViewController
 
+#pragma mark- life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
-
-    CustomLabel * titleLabel  = [[CustomLabel alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight+50, self.viewWidth, 30)];
-    titleLabel.font           = [UIFont systemFontOfSize:16];
-    titleLabel.textAlignment  = NSTextAlignmentCenter;
-    titleLabel.textColor      = [UIColor colorWithHexString:@"646464"];
-    titleLabel.text           = @"app正在开发";
-    [self.view addSubview:titleLabel];
-
-    CustomLabel * descLabel             = [[CustomLabel alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight+100, self.viewWidth, 30)];
-    descLabel.font                      = [UIFont systemFontOfSize:13];
-    descLabel.textAlignment             = NSTextAlignmentCenter;
-    NSMutableAttributedString * content = [[NSMutableAttributedString alloc] initWithString:@"关注“品位环球”公众号更多高端服务敬请享受"];
-    [content addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3, 4)];
-    descLabel.attributedText            = content;
-    descLabel.textColor                 = [UIColor colorWithHexString:@"646464"];
-    [self.view addSubview:descLabel];
     
+    [self initWidget];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+#pragma mark- layout
+
+- (void)initWidget {
+
+    //已服务
+    self.servedVC            = [[RecordServerViewController alloc] init];
+    self.servedVC.hideNavbar = YES;
+    self.servedVC.isServing  = NO;
+    //服务中
+    self.servingVC            = [[RecordServerViewController alloc] init];
+    self.servingVC.hideNavbar = YES;
+    self.servingVC.isServing  = YES;
+
+    self.scrollView          = [[UIScrollView alloc] init];
+    self.scrollView.delegate = self;
+    
+    [self addChildViewController:self.servingVC];
+    [self addChildViewController:self.servedVC];
+    
+    [self.scrollView addSubview:self.servingVC.view];
+    [self.scrollView addSubview:self.servedVC.view];
+    [self.view addSubview:self.scrollView];
+    
+    [self configUI];
+}
+
+- (void)configUI {
+    
+    self.scrollView.frame                          = CGRectMake(0, kNavBarAndStatusHeight+30, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-30);
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.contentSize                    = CGSizeMake(self.viewWidth*2, self.scrollView.height);
+    self.scrollView.pagingEnabled                  = YES;
+
+    self.servingVC.view.frame = CGRectMake(0, 0, self.viewWidth, self.scrollView.height);
+    self.servedVC.view.frame  = CGRectMake(self.viewWidth, 0, self.viewWidth, self.scrollView.height);
+    
+    self.servingBtn           = [self tabBtnWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth/2, 30) andTitle:@"服务中" andTag:1];
+    self.servedBtn            = [self tabBtnWithFrame:CGRectMake(self.viewWidth/2, kNavBarAndStatusHeight, self.viewWidth/2, 30) andTitle:@"已服务" andTag:2];
+    
+    self.servingBtn.selected  = YES;
+}
+
+#pragma mark- method response
+- (void)changeTab:(CustomButton *)sender {
+    
+    if (sender.tag == 1) {
+        self.servingBtn.selected = YES;
+        self.servedBtn.selected  = NO;
+        [self.scrollView scrollRectToVisible:CGRectMake(0, 0, self.viewWidth, 1) animated:YES];
+    }else{
+        self.servingBtn.selected = NO;
+        self.servedBtn.selected  = YES;
+        [self.scrollView scrollRectToVisible:CGRectMake(self.viewWidth, 0, self.viewWidth, 1) animated:YES];
+    }
+}
+
+#pragma mark- Delegate & Datasource
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.x >= self.viewWidth) {
+        self.servingBtn.selected = NO;
+        self.servedBtn.selected  = YES;
+    }else if(scrollView.contentOffset.x <= 0){
+        self.servingBtn.selected = YES;
+        self.servedBtn.selected  = NO;
+    }
+}
+
+#pragma mark- private method
+- (CustomButton *)tabBtnWithFrame:(CGRect)frame andTitle:(NSString *)title andTag:(NSInteger)tag {
+    
+    CustomButton * btn = [[CustomButton alloc] initWithFrame:frame];
+    [btn setTag:tag];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [btn setBackgroundColor:[UIColor grayColor]];
+    [btn addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+    
+    return btn;
+}
+
 
 /*
 #pragma mark - Navigation

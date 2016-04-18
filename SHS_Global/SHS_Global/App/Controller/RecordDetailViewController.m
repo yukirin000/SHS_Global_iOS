@@ -1,35 +1,39 @@
 //
-//  CreateOrderViewController.m
+//  RecordDetailViewController.m
 //  SHS_Global
 //
-//  Created by 李晓航 on 16/4/15.
+//  Created by 李晓航 on 16/4/18.
 //  Copyright © 2016年 SHS. All rights reserved.
 //
 
-#import "CreateOrderViewController.h"
+#import "RecordDetailViewController.h"
+#import "QRCodeGenerator.h"
 #import "OrderModel.h"
 
 NS_ENUM(NSInteger){
     TableOrder  = 0,
-    TableShop   = 1,
-    TablePhone  = 2,
-    TableGoods  = 3,
-    TableAmount = 4,
-    TableCar    = 5
+    TableQrcode = 1,
+    TableShop   = 2,
+    TablePhone  = 3,
+    TableGoods  = 4,
+    TableAmount = 5,
+    TableCar    = 6,
+    TableState  = 7
 };
 
-@interface CreateOrderViewController ()
+@interface RecordDetailViewController ()
 
 @property (nonatomic, strong) OrderModel  * orderModel;
 
 @property (nonatomic, strong) UITableView * tableView;
 
 @property (nonatomic, strong) NSArray     * titleArr;
+//订单状态 “服务中”或者“已完成”
+@property (nonatomic, assign) NSInteger   state;
 
 @end
 
-@implementation CreateOrderViewController
-
+@implementation RecordDetailViewController
 
 #pragma mark- life cycle
 - (void)viewDidLoad {
@@ -67,53 +71,66 @@ NS_ENUM(NSInteger){
 }
 
 #pragma mark- method response
-- (void)pay
+- (void)qrcodeClick:(CustomButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotifyPaySuccess object:nil];
-    
-    [self popToTabBarViewController];
+    [sender removeFromSuperview];
 }
 
 #pragma mark- Delegate & Datasource
 #pragma mark- UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
     if (!cell) {
+
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
         
-        cell.textLabel.text      = self.titleArr[indexPath.row];
-
-        CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-150, 0, 140, 60)];
-        titleLabel.textAlignment = NSTextAlignmentRight;
-        [cell.contentView addSubview:titleLabel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.text = self.titleArr[indexPath.row];
         
-        switch (indexPath.row) {
-            case TableOrder:
-                titleLabel.text = self.orderModel.out_trade_no;
-                break;
-            case TableShop:
-                titleLabel.text = self.orderModel.shop_name;
-                break;
-            case TablePhone:
-                titleLabel.text = self.orderModel.shop_phone;
-                break;
-            case TableGoods:
-                titleLabel.text = self.orderModel.goods_name;
-                break;
-            case TableAmount:
-                titleLabel.text = self.orderModel.total_fee;
-                break;
-            case TableCar:
-                titleLabel.text = self.orderModel.car_type;
-                break;
-            default:
-                break;
+        if (indexPath.row == TableQrcode) {
+            CustomImageView * qrcodeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-60, 5, 50, 50)];
+            qrcodeImageView.backgroundColor   = [UIColor redColor];
+            [cell.contentView addSubview:qrcodeImageView];
+        }else{
+            CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-150, 0, 140, 60)];
+            titleLabel.textAlignment = NSTextAlignmentRight;
+            [cell.contentView addSubview:titleLabel];
+            
+            switch (indexPath.row) {
+                case TableOrder:
+                    titleLabel.text = self.orderModel.out_trade_no;
+                    break;
+                case TableShop:
+                    titleLabel.text = self.orderModel.shop_name;
+                    break;
+                case TablePhone:
+                    titleLabel.text = self.orderModel.shop_phone;
+                    break;
+                case TableGoods:
+                    titleLabel.text = self.orderModel.goods_name;
+                    break;
+                case TableAmount:
+                    titleLabel.text = self.orderModel.total_fee;
+                    break;
+                case TableCar:
+                    titleLabel.text = self.orderModel.car_type;
+                    break;
+                case TableState:
+                    if (self.state == 1) {
+                        titleLabel.text = @"服务中";
+                    }else{
+                        titleLabel.text = @"已完成";
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
         
         UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 59, self.viewWidth, 1)];
@@ -126,6 +143,21 @@ NS_ENUM(NSInteger){
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60.0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == TableQrcode) {
+        
+        CustomButton * qrBtn   = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, self.viewHeight)];
+        qrBtn.backgroundColor  = [UIColor colorWithWhite:0.5 alpha:0.5];
+        CustomImageView * qriv = [[CustomImageView alloc] initWithFrame:CGRectMake(kCenterOriginX(150), (self.viewHeight-150)/2, 150, 150)];
+        qriv.image             = [QRCodeGenerator qrImageForString:@"test" imageSize:150];
+        qriv.backgroundColor   = [UIColor whiteColor];
+        [qrBtn addSubview:qriv];
+        [qrBtn addTarget:self action:@selector(qrcodeClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:qrBtn];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -144,20 +176,6 @@ NS_ENUM(NSInteger){
     label.numberOfLines = 0;
     [view addSubview:label];
     
-    //btn样式处理
-    CustomButton * btn      = [[CustomButton alloc] init];
-    btn.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), 80, (self.viewWidth-30), 45);
-    btn.layer.cornerRadius  = 5;
-    btn.layer.borderWidth   = 1;
-    btn.layer.masksToBounds = YES;
-    btn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
-    btn.fontSize            = FontLoginButton;
-    [btn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor colorWithHexString:ColorLoginBtnGray] forState:UIControlStateHighlighted];
-    [btn setTitle:StringCommonSubmit forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(pay) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:btn];
-    
     return view;
 }
 
@@ -165,7 +183,7 @@ NS_ENUM(NSInteger){
 #pragma mark- private method
 - (void)initData {
     
-    self.titleArr = @[@"订单号",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆"];
+    self.titleArr                = @[@"订单号",@"订单二维码",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆",@"服务状态"];
     
     self.orderModel              = [[OrderModel alloc] init];
     self.orderModel.out_trade_no = @"123456";
@@ -174,9 +192,8 @@ NS_ENUM(NSInteger){
     self.orderModel.goods_name   = @"商品";
     self.orderModel.total_fee    = @"金额";
     self.orderModel.car_type     = @"车辆";
-
-    [self initTable];
     
+    [self initTable];
 }
 
 @end

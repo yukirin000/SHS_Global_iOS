@@ -16,4 +16,10 @@
 //界面高
 @property int viewHeight;
 
+/*!出栈*/
+- (void)popToTabBarViewController;
+
+/*!无动画出栈*/
+- (void)popToTabBarViewControllerNoAnimation;
+
 @end

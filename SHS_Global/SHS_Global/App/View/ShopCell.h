@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ShopModel.h"
-
+/**
+ *  商店cell
+ */
 @interface ShopCell : UITableViewCell
 
 - (void)setWithModel:(ShopModel *)model;

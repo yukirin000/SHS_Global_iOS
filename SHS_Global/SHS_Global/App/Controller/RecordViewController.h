@@ -11,6 +11,6 @@
 /**
  *  记录部分
  */
-@interface RecordViewController : NavBaseViewController
+@interface RecordViewController : NavBaseViewController<UIScrollViewDelegate>
 
 @end

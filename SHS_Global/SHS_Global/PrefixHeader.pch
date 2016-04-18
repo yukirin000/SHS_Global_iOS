@@ -47,6 +47,10 @@
 //一页请求多少
 #define U_PAGE_SIZE         10
 
+//通知
+//支付成功
+#define NotifyPaySuccess @"paySuccess"
+
 //共用字符串
 //网络异常
 #define StringCommonNetException GlobalString(@"CommonNetException")

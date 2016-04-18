@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		420004B61CB365BF00E944B9 /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 420004B51CB365BF00E944B9 /* LocationService.m */; };
+		420425B41CC47C0100A0D727 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425B31CC47C0100A0D727 /* OrderModel.m */; };
+		420425BA1CC4C2DD00A0D727 /* RecordServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425B91CC4C2DD00A0D727 /* RecordServerViewController.m */; };
+		420425BD1CC4D31300A0D727 /* RecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425BC1CC4D31300A0D727 /* RecordCell.m */; };
+		420425C01CC4DDE100A0D727 /* RecordDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425BF1CC4DDE100A0D727 /* RecordDetailViewController.m */; };
+		420425C31CC4E87D00A0D727 /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425C21CC4E87D00A0D727 /* QRCodeGenerator.m */; };
+		420425C61CC4FDA100A0D727 /* NotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425C51CC4FDA100A0D727 /* NotifyViewController.m */; };
+		420425C91CC5027000A0D727 /* NotifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425C81CC5027000A0D727 /* NotifyCell.m */; };
+		420425CC1CC5050900A0D727 /* NotifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 420425CB1CC5050900A0D727 /* NotifyModel.m */; };
 		4236435C1CAD229700546C5D /* Global.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4236435E1CAD229700546C5D /* Global.strings */; };
 		423CDBDB1CA3C2DF005C6EE4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 423CDBDA1CA3C2DF005C6EE4 /* main.m */; };
 		423CDBDE1CA3C2DF005C6EE4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 423CDBDD1CA3C2DF005C6EE4 /* AppDelegate.m */; };
@@ -136,6 +144,22 @@
 		3188EAA0D91DFE09B254D945 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		420004B41CB365BF00E944B9 /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
 		420004B51CB365BF00E944B9 /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
+		420425B21CC47C0100A0D727 /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
+		420425B31CC47C0100A0D727 /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
+		420425B81CC4C2DD00A0D727 /* RecordServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordServerViewController.h; sourceTree = "<group>"; };
+		420425B91CC4C2DD00A0D727 /* RecordServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordServerViewController.m; sourceTree = "<group>"; };
+		420425BB1CC4D31300A0D727 /* RecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordCell.h; sourceTree = "<group>"; };
+		420425BC1CC4D31300A0D727 /* RecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCell.m; sourceTree = "<group>"; };
+		420425BE1CC4DDE100A0D727 /* RecordDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordDetailViewController.h; sourceTree = "<group>"; };
+		420425BF1CC4DDE100A0D727 /* RecordDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordDetailViewController.m; sourceTree = "<group>"; };
+		420425C11CC4E87D00A0D727 /* QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeGenerator.h; sourceTree = "<group>"; };
+		420425C21CC4E87D00A0D727 /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
+		420425C41CC4FDA000A0D727 /* NotifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyViewController.h; sourceTree = "<group>"; };
+		420425C51CC4FDA100A0D727 /* NotifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyViewController.m; sourceTree = "<group>"; };
+		420425C71CC5027000A0D727 /* NotifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyCell.h; sourceTree = "<group>"; };
+		420425C81CC5027000A0D727 /* NotifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyCell.m; sourceTree = "<group>"; };
+		420425CA1CC5050900A0D727 /* NotifyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyModel.h; sourceTree = "<group>"; };
+		420425CB1CC5050900A0D727 /* NotifyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyModel.m; sourceTree = "<group>"; };
 		4236435D1CAD229700546C5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Global.strings; sourceTree = "<group>"; };
 		423CDBD61CA3C2DF005C6EE4 /* SHS_Global.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHS_Global.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		423CDBDA1CA3C2DF005C6EE4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -475,10 +499,16 @@
 				4276445C1CAE606000F7C5BD /* ShopViewController.m */,
 				423CDCC21CA3D840005C6EE4 /* RecordViewController.h */,
 				423CDCC31CA3D840005C6EE4 /* RecordViewController.m */,
+				420425B81CC4C2DD00A0D727 /* RecordServerViewController.h */,
+				420425B91CC4C2DD00A0D727 /* RecordServerViewController.m */,
+				420425BE1CC4DDE100A0D727 /* RecordDetailViewController.h */,
+				420425BF1CC4DDE100A0D727 /* RecordDetailViewController.m */,
 				423CDCC51CA3D85C005C6EE4 /* UserViewController.h */,
 				423CDCC61CA3D85C005C6EE4 /* UserViewController.m */,
 				423CDCC81CA3D863005C6EE4 /* ButlerViewController.h */,
 				423CDCC91CA3D863005C6EE4 /* ButlerViewController.m */,
+				420425C41CC4FDA000A0D727 /* NotifyViewController.h */,
+				420425C51CC4FDA100A0D727 /* NotifyViewController.m */,
 				4276444F1CAE227C00F7C5BD /* MyCarsViewController.h */,
 				427644501CAE227C00F7C5BD /* MyCarsViewController.m */,
 				42F1EA431CC0F9A600241663 /* ChoiceCarsViewController.h */,
@@ -506,6 +536,10 @@
 				42DF45681CBFAB9A00537B01 /* CarModel.m */,
 				42F1EA401CC0F46D00241663 /* GoodsModel.h */,
 				42F1EA411CC0F46D00241663 /* GoodsModel.m */,
+				420425B21CC47C0100A0D727 /* OrderModel.h */,
+				420425B31CC47C0100A0D727 /* OrderModel.m */,
+				420425CA1CC5050900A0D727 /* NotifyModel.h */,
+				420425CB1CC5050900A0D727 /* NotifyModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -539,6 +573,8 @@
 		423CDC2E1CA3C9CD005C6EE4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				420425C11CC4E87D00A0D727 /* QRCodeGenerator.h */,
+				420425C21CC4E87D00A0D727 /* QRCodeGenerator.m */,
 				423CDC2F1CA3C9CD005C6EE4 /* Colors.h */,
 				423CDC301CA3C9CD005C6EE4 /* DeviceManager.h */,
 				423CDC311CA3C9CD005C6EE4 /* DeviceManager.m */,
@@ -563,6 +599,10 @@
 				427644591CAE5A1B00F7C5BD /* ShopCell.m */,
 				42DF45641CBFAB7400537B01 /* MyCarsCell.h */,
 				42DF45651CBFAB7400537B01 /* MyCarsCell.m */,
+				420425BB1CC4D31300A0D727 /* RecordCell.h */,
+				420425BC1CC4D31300A0D727 /* RecordCell.m */,
+				420425C71CC5027000A0D727 /* NotifyCell.h */,
+				420425C81CC5027000A0D727 /* NotifyCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -944,6 +984,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				420425C61CC4FDA100A0D727 /* NotifyViewController.m in Sources */,
 				423CDC3E1CA3C9CD005C6EE4 /* NSString+Encrypt.m in Sources */,
 				423CDC461CA3C9CD005C6EE4 /* RegisterViewController.m in Sources */,
 				423CDC4C1CA3C9CD005C6EE4 /* UserService.m in Sources */,
@@ -966,6 +1007,7 @@
 				427644541CAE267600F7C5BD /* ShopListViewController.m in Sources */,
 				423CDCC41CA3D840005C6EE4 /* RecordViewController.m in Sources */,
 				423CDC3D1CA3C9CD005C6EE4 /* PlaceHolderTextView.m in Sources */,
+				420425BD1CC4D31300A0D727 /* RecordCell.m in Sources */,
 				423CDBDE1CA3C2DF005C6EE4 /* AppDelegate.m in Sources */,
 				423CDC3C1CA3C9CD005C6EE4 /* CustomTextField.m in Sources */,
 				423CDC3F1CA3C9CD005C6EE4 /* NSString+Expand.m in Sources */,
@@ -976,7 +1018,9 @@
 				427644571CAE4ED600F7C5BD /* ShopModel.m in Sources */,
 				42DF45471CBF440900537B01 /* YSAlertView.m in Sources */,
 				4276445A1CAE5A1B00F7C5BD /* ShopCell.m in Sources */,
+				420425B41CC47C0100A0D727 /* OrderModel.m in Sources */,
 				42E0BA711CBE584B002C7E6C /* ApplyCarViewController.m in Sources */,
+				420425C01CC4DDE100A0D727 /* RecordDetailViewController.m in Sources */,
 				423CDBDB1CA3C2DF005C6EE4 /* main.m in Sources */,
 				423CDC4B1CA3C9CD005C6EE4 /* HttpService.m in Sources */,
 				423CDC3B1CA3C9CD005C6EE4 /* CustomLabel.m in Sources */,
@@ -984,11 +1028,14 @@
 				423CDC541CA3C9CD005C6EE4 /* ToolsManager.m in Sources */,
 				42F1EA3F1CC09D2200241663 /* CarDetailViewController.m in Sources */,
 				427644631CAE6E5700F7C5BD /* TempServerViewController.m in Sources */,
+				420425C91CC5027000A0D727 /* NotifyCell.m in Sources */,
 				423CDC611CA3CE1E005C6EE4 /* TabBarBtn.m in Sources */,
 				42DF45661CBFAB7400537B01 /* MyCarsCell.m in Sources */,
 				423CDC531CA3C9CD005C6EE4 /* DeviceManager.m in Sources */,
 				42DF45691CBFAB9A00537B01 /* CarModel.m in Sources */,
+				420425C31CC4E87D00A0D727 /* QRCodeGenerator.m in Sources */,
 				4276445D1CAE606000F7C5BD /* ShopViewController.m in Sources */,
+				420425CC1CC5050900A0D727 /* NotifyModel.m in Sources */,
 				423CDC641CA3CF4B005C6EE4 /* RefreshViewController.m in Sources */,
 				423CDCC11CA3D836005C6EE4 /* SpecialViewController.m in Sources */,
 				423CDC401CA3C9CD005C6EE4 /* UIColor+Hexadecimal.m in Sources */,
@@ -996,6 +1043,7 @@
 				42F1EA451CC0F9A600241663 /* ChoiceCarsViewController.m in Sources */,
 				423CDC441CA3C9CD005C6EE4 /* LoginViewController.m in Sources */,
 				423CDCC71CA3D85C005C6EE4 /* UserViewController.m in Sources */,
+				420425BA1CC4C2DD00A0D727 /* RecordServerViewController.m in Sources */,
 				423CDCCA1CA3D863005C6EE4 /* ButlerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
