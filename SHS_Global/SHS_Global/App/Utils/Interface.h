@@ -37,6 +37,8 @@
 #define API_MyCars [kHomeAddr stringByAppendingString:@"/myCars"]
 //申请爱车
 #define API_AddCar [kHomeAddr stringByAppendingString:@"/addCar"]
+//更新爱车
+#define API_UpdateCar [kHomeAddr stringByAppendingString:@"/updateCar"]
 //爱车详情
 #define API_CarInfo [kHomeAddr stringByAppendingString:@"/carInfo"]
 //汽车品牌
@@ -47,6 +49,12 @@
 #define API_ChoiceMyCar [kHomeAddr stringByAppendingString:@"/choiceMyCar"]
 //重新提交爱车信息
 #define API_UpdateCar [kHomeAddr stringByAppendingString:@"/updateCar"]
+//服务中订单列表
+#define API_ServiceList [kHomeAddr stringByAppendingString:@"/serviceList"]
+//已服务订单列表
+#define API_AlreadyServiceList [kHomeAddr stringByAppendingString:@"/alreadyServiceList"]
+//订单服务详情
+#define API_ServiceDetails [kHomeAddr stringByAppendingString:@"/serviceDetails"]
 
 
 #endif /* Interface_h */

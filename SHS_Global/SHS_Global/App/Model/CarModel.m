@@ -19,6 +19,7 @@
     self.mobile              = dic[@"mobile"];
     self.plate_number        = dic[@"plate_number"];
     self.car_type            = dic[@"car_type"];
+    self.car_type_code       = dic[@"car_type_code"];
     self.driving_license_url = dic[@"driving_license_url"];
 }
 

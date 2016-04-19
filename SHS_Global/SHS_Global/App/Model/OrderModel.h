@@ -34,5 +34,6 @@
 //使用时间
 @property (nonatomic, copy  ) NSString  * use_date;
 
+- (void)setModelWithDic:(NSDictionary *)orderDic;
 
 @end

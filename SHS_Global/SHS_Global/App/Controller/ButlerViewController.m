@@ -9,6 +9,7 @@
 #import "ButlerViewController.h"
 #import "LoginViewController.h"
 #import "NotifyViewController.h"
+#import "WebViewController.h"
 
 @interface ButlerViewController ()
 
@@ -38,6 +39,8 @@
 
 - (void)configUI {
     
+    self.view.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
+    
     CustomButton * topBtn     = [[CustomButton alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, 45)];
     topBtn.backgroundColor    = [UIColor whiteColor];
     [topBtn addTarget:self action:@selector(call:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,6 +61,19 @@
     UIView * line        = [[UIView alloc] initWithFrame:CGRectMake(0, topBtn.bottom-1, self.viewWidth, 1)];
     line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
     [self.view addSubview:line];
+    
+    CustomButton * about             = [[CustomButton alloc] initWithFrame:CGRectMake(0, topBtn.bottom, self.viewWidth, 45)];
+    about.backgroundColor            = [UIColor whiteColor];
+    about.titleEdgeInsets            = UIEdgeInsetsMake(0, -5, 0, 0);
+    about.imageEdgeInsets            = UIEdgeInsetsMake(0, self.viewWidth-30, 0, 0);
+    about.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    about.titleLabel.font            = [UIFont systemFontOfSize:15];
+    [about setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [about setTitle:@"会员礼遇" forState:UIControlStateNormal];
+    [about setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
+    [about addTarget:self action:@selector(aboutPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:about];
+    
     
     __weak typeof(self) sself = self;
     [self.navBar setRightBtnWithContent:nil andBlock:^{
@@ -82,6 +98,13 @@
 }
 
 #pragma mark- method response
+- (void)aboutPress:(id)sender
+{
+    WebViewController * wvc = [[WebViewController alloc] init];
+    wvc.topTitle            = @"品位环球";
+    wvc.webURL              = @"http://c.eqxiu.com/s/27ULUB5f";
+    [self pushVC:wvc];
+}
 
 #pragma mark- Delegate & Datasource
 

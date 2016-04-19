@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-NS_ENUM(NSInteger, NotifyType) {
+typedef NS_ENUM(NSInteger, NotifyType) {
     //审核成功
     NotifyCheckCarSuccess = 1,
     //审核失败
@@ -20,12 +20,14 @@ NS_ENUM(NSInteger, NotifyType) {
 
 //id
 @property (nonatomic, assign) NSInteger nid;
+//targetID
+@property (nonatomic, assign) NSInteger targetID;
 //表情
 @property (nonatomic, copy  ) NSString  * title;
 //信息
 @property (nonatomic, copy  ) NSString  * message;
 //类型
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NotifyType type;
 //是否已读
 @property (nonatomic, assign) BOOL      isUnread;
 

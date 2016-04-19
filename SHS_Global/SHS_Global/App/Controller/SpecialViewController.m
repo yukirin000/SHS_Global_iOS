@@ -63,7 +63,7 @@
 #pragma mark- UITableDelegate & UITableDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.titleSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,8 +93,13 @@
     if (indexPath.row == 0) {
         ShopListViewController * svc = [[ShopListViewController alloc] init];
         [self pushVC:svc];
-    }else{
+    }else if (indexPath.row == 1) {
         TempServerViewController * tsvc = [[TempServerViewController alloc] init];
+        tsvc.type                       = 2;
+        [self pushVC:tsvc];
+    } else{
+        TempServerViewController * tsvc = [[TempServerViewController alloc] init];
+        tsvc.type                       = 1;
         [self pushVC:tsvc];
     }
 
@@ -104,8 +109,8 @@
 #pragma mark- private method
 - (void)initData{
     
-    self.titleSource = @[@"SpecialWash",@"SpecialConsult",@"SpecialRepair"];
-    self.imageSource = @[@"wash",@"consult",@"repair"];
+    self.titleSource = @[@"SpecialWash", @"SpecialOnline", @"SpecialConsult",@"SpecialRepair"];
+    self.imageSource = @[@"wash", @"wash", @"consult", @"repair"];
 }
 
 

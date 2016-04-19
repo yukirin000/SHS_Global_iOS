@@ -33,7 +33,7 @@ NS_ENUM(NSInteger){
 
 @property (nonatomic, strong) CustomImageView * drivingLicenseImageView;
 
-@property (nonatomic, strong) NSString * carTypeCode;
+@property (nonatomic, strong) NSString        * carTypeCode;
 
 @end
 
@@ -44,6 +44,10 @@ NS_ENUM(NSInteger){
     [super viewDidLoad];
     
     [self initWidget];
+    
+    if (self.carModel.cid > 0) {
+        [self initData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -317,20 +321,42 @@ NS_ENUM(NSInteger){
         return;
     }
     
-    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService getUserID]],
-                              @"name":[self.nameLabel.text trim],
-                              @"mobile":[self.mobileLabel.text trim],
-                              @"plate_number":[self.plateLabel.text trim],
-                              @"car_type":self.carTypeLabel.text,
-                              @"car_type_code":self.carTypeCode};
+    NSArray * files = @[@{FileDataKey:UIImageJPEGRepresentation(self.drivingLicenseImageView.image,0.5),FileNameKey:[NSString stringWithFormat:@"%ld%d.jpg", [UserService sharedService].user.user_id, (int)[NSDate date].timeIntervalSince1970]}];
     
-    NSArray * files = @[@{FileDataKey:UIImageJPEGRepresentation(self.drivingLicenseImageView.image,0.8),FileNameKey:[NSString stringWithFormat:@"%ld%d.jpg", [UserService sharedService].user.user_id, (int)[NSDate date].timeIntervalSince1970]}];
+    NSDictionary * params;
+    NSString * url;
     
-    [HttpService postFileWithUrlString:API_AddCar params:params files:files andCompletion:^(id responseData) {
+    //更新车辆
+    if (self.carModel.cid > 0) {
+        url = API_UpdateCar;
+        params = @{@"car_id":[NSString stringWithFormat:@"%ld", self.carModel.cid],
+                   @"user_id":[NSString stringWithFormat:@"%ld", [UserService getUserID]],
+                   @"name":[self.nameLabel.text trim],
+                   @"mobile":[self.mobileLabel.text trim],
+                   @"plate_number":[self.plateLabel.text trim],
+                   @"car_type":self.carTypeLabel.text,
+                   @"car_type_code":self.carTypeCode};
+    }else{
+        url = API_AddCar;
+        params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService getUserID]],
+                   @"name":[self.nameLabel.text trim],
+                   @"mobile":[self.mobileLabel.text trim],
+                   @"plate_number":[self.plateLabel.text trim],
+                   @"car_type":self.carTypeLabel.text,
+                   @"car_type_code":self.carTypeCode};
+    }
+    
+    [self showHudInView:self.view hint:StringCommonUploadData];
+    [HttpService postFileWithUrlString:url params:params files:files andCompletion:^(id responseData) {
         
         NSInteger status = [responseData[HttpStatus] integerValue];
         if (status == HttpStatusCodeSuccess) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [self showSuccess:nil];
+            if (self.carModel.cid > 0) {
+                [self popToTabBarViewController];
+            }else{
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }else{
             [self showFail:responseData[HttpMessage]];
         }
@@ -343,6 +369,16 @@ NS_ENUM(NSInteger){
 
 - (void)initData
 {
+    
+    self.nameLabel.text    = self.carModel.name;
+    self.mobileLabel.text  = self.carModel.mobile;
+    self.carTypeLabel.text = self.carModel.car_type;
+    self.carTypeCode       = self.carModel.car_type_code;
+    self.plateLabel.text   = [self.carModel.plate_number stringByReplacingOccurrencesOfString:@"粤B" withString:@""];
+    
+    self.drivingLicenseLabel.hidden     = YES;
+    self.drivingLicenseImageView.hidden = NO;
+    [self.drivingLicenseImageView sd_setImageWithURL:[NSURL URLWithString:self.carModel.driving_license_url]];
     
 }
 

@@ -16,7 +16,7 @@
     UIWebView *_zWebView; 
 }
 
-@property NSURL *webURL;
+@property (nonatomic, copy) NSString * webURL;
 
 @property (nonatomic, copy) NSString * topTitle;
 

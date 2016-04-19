@@ -185,6 +185,24 @@ NS_ENUM(NSInteger){
     
     self.titleArr                = @[@"订单号",@"订单二维码",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆",@"服务状态"];
     
+//    NSString * url = [API_ServiceDetails stringByAppendingFormat:@"?order_id=%ld", self.rid];
+//    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
+//        
+//        NSInteger status = [responseData[HttpStatus] integerValue];
+//        if (status == HttpStatusCodeSuccess) {
+//            
+//            self.orderModel = [[OrderModel alloc] init];
+//            [self.orderModel setModelWithDic:responseData[HttpResult]];
+//            [self initTable];
+//            
+//        }else{
+//            [self showHint:responseData[HttpMessage]];
+//        }
+//        
+//    } andFail:^(NSError *error) {
+//        [self showFail:StringCommonNetException];
+//    }];
+    
     self.orderModel              = [[OrderModel alloc] init];
     self.orderModel.out_trade_no = @"123456";
     self.orderModel.shop_name    = @"商家";

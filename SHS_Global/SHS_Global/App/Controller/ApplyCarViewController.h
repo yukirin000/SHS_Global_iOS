@@ -7,8 +7,12 @@
 //
 
 #import "NavBaseViewController.h"
+#import "CarModel.h"
 
 //申请爱车
 @interface ApplyCarViewController : NavBaseViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+//重新提交
+@property (nonatomic, strong) CarModel * carModel;
 
 @end

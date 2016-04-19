@@ -10,4 +10,6 @@
 
 @interface TempServerViewController : NavBaseViewController
 
+@property (nonatomic, assign) NSInteger type;
+
 @end

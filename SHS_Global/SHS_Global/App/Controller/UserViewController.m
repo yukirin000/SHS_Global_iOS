@@ -8,6 +8,7 @@
 
 #import "UserViewController.h"
 #import "MyCarsViewController.h"
+#import "TempServerViewController.h"
 
 @interface UserViewController ()
 
@@ -56,6 +57,7 @@
     
     self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight);
     self.backScrollView.showsVerticalScrollIndicator = NO;
+    self.backScrollView.backgroundColor              = [UIColor colorWithHexString:ColorBackGray];
     
     [self.backImageView setImage:[UIImage imageNamed:@"global_back"]];
     self.backImageView.frame       = CGRectMake(0, 0, self.viewWidth, 170);
@@ -75,12 +77,21 @@
     line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
     [self.myCarBtn addSubview:line];
     
-    CGFloat bottom1 = [self generateCommonListWithTop:self.myCarBtn.bottom+25 andContent:@"注册成为“品味•环球”尊贵的会员，您将享有平台内所有联盟商家提供的会员VIP礼遇，无需另外办理门店会员卡。"];
-    CGFloat bottom2 = [self generateCommonListWithTop:bottom1+20 andContent:@"豪车管家24小时电话问诊及资讯，专业的豪车管家将为您提供一切关于您爱车的最佳解决方案。"];
-    CGFloat bottom3 = [self generateCommonListWithTop:bottom2+20 andContent:@"会员卡价格享受爱车精洗项目，无需再办理门店会员卡。此礼遇适用于全平台联盟商家。"];
-    CGFloat bottom4 = [self generateCommonListWithTop:bottom3+20 andContent:@"豪车维修与保养将由专业的豪车管家为您一站式打理，轻松，高效的完成每一个环节。"];
+    CustomButton * membership             = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.myCarBtn.bottom, self.viewWidth, 50)];
+    membership.backgroundColor            = [UIColor whiteColor];
+    membership.titleEdgeInsets            = UIEdgeInsetsMake(0, 10, 0, 0);
+    membership.imageEdgeInsets            = UIEdgeInsetsMake(0, self.viewWidth-25, 0, 0);
+    membership.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    membership.titleLabel.font            = [UIFont systemFontOfSize:15];
+    [membership setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [membership setTitle:@"会员礼遇" forState:UIControlStateNormal];
+    [membership setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
+    [membership addTarget:self action:@selector(membershipPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backScrollView addSubview:membership];
     
-    self.backScrollView.contentSize = CGSizeMake(0, bottom4);
+    UIView * line2        = [[UIView alloc] initWithFrame:CGRectMake(0, membership.height-1, self.viewWidth, 1)];
+    line2.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
+    [membership addSubview:line2];
 }
 
 #pragma mark- method response
@@ -89,6 +100,13 @@
 {
     MyCarsViewController * mcvc = [[MyCarsViewController alloc] init];
     [self pushVC:mcvc];
+}
+
+- (void)membershipPress:(id)sender
+{
+    TempServerViewController * tsvc = [[TempServerViewController alloc] init];
+    tsvc.type                       = 3;
+    [self pushVC:tsvc];
 }
 
 #pragma mark- private method

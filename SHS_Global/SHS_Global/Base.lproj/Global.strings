@@ -73,6 +73,7 @@
 "RegisterResending"         = "重新发送中...";
 
 "SpecialWash"    = "豪车美容";
+"SpecialOnline"  = "在线问诊";
 "SpecialConsult" = "保险咨询";
 "SpecialRepair"  = "保养维修";
 

@@ -48,17 +48,20 @@
 - (void)configUI
 {
     
-    self.titleLabel.frame   = CGRectMake(10, 0, 150, 60);
-    self.messageLabel.frame = CGRectMake([DeviceManager getDeviceWidth]-150, 0, 120, 60);
-    self.unreadView.frame   = CGRectMake([DeviceManager getDeviceWidth]-30, 23, 4, 4);
-    
+    self.titleLabel.frame           = CGRectMake(10, 0, 150, 60);
+    self.messageLabel.frame         = CGRectMake([DeviceManager getDeviceWidth]-150, 0, 120, 60);
+    self.unreadView.frame           = CGRectMake([DeviceManager getDeviceWidth]-30, 28, 4, 4);
+
     self.messageLabel.textAlignment = NSTextAlignmentRight;
     self.messageLabel.font          = [UIFont systemFontOfSize:14];
     self.messageLabel.textColor     = [UIColor colorWithHexString:ColorContent];
     self.unreadView.backgroundColor = [UIColor redColor];
-    
-    
-    self.accessoryType = UITableViewCellAccessoryCheckmark;
+
+    self.accessoryType              = UITableViewCellAccessoryDisclosureIndicator;
+
+    UIView * line                   = [[UIView alloc] initWithFrame:CGRectMake(0, 59, [DeviceManager getDeviceWidth], 1)];
+    line.backgroundColor            = [UIColor colorWithHexString:ColorLineGray];
+    [self.contentView addSubview:line];
 }
 
 - (void)setWithModel:(NotifyModel *)model
@@ -69,6 +72,17 @@
         self.unreadView.hidden = NO;
     }else{
         self.unreadView.hidden = YES;
+    }
+    
+    switch (model.type) {
+        case NotifyCheckCarSuccess:
+            self.messageLabel.textColor = [UIColor colorWithHexString:ColorContent];
+            break;
+        case NotifyCheckCarFail:
+            self.messageLabel.textColor = [UIColor redColor];
+            break;
+        default:
+            break;
     }
 }
 

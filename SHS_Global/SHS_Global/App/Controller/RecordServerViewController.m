@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initData];
     [self initWidget];
+    [self initData];    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,10 +80,6 @@
 - (void)loadAndhandleData
 {
     
-    if (self.isServing) {
-        
-    }
-    
     self.isLastPage = YES;
     [self.dataSource removeAllObjects];
     for (int i=0; i<10; i++) {
@@ -96,9 +92,13 @@
         [self reloadTable];
     }
     
-//    NSString * url = [NSString stringWithFormat:@"%@?page=%d", API_GetShopList, self.currentPage];
+//    NSString * url = API_AlreadyServiceList;
+//    if (self.isServing) {
+//        url = API_ServiceList;
+//    }
+//    url = [NSString stringWithFormat:@"%@?user_id=%ld&page=%d", url, [UserService getUserID],self.currentPage];
 //    debugLog(@"%@", url);
-//    
+//
 //    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
 //        int status = [responseData[HttpStatus] intValue];
 //        if (status == HttpStatusCodeSuccess) {
@@ -109,6 +109,12 @@
 //            self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
 //            
 //            NSArray * list  = responseData[HttpResult][HttpList];
+//            //数据处理
+//            for (NSDictionary * orderDic in list) {
+//                OrderModel * model      = [[OrderModel alloc] init];
+//                [model setModelWithDic:orderDic];
+//                [self.dataSource addObject:model];
+//            }
 //            
 //            [self reloadTable];
 //            

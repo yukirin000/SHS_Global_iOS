@@ -7,6 +7,7 @@
 //
 
 #import "CarDetailViewController.h"
+#import "ApplyCarViewController.h"
 #import "CarModel.h"
 
 @interface CarDetailViewController ()
@@ -58,6 +59,13 @@
 
 #pragma mark- method response
 
+- (void)resubmit {
+    
+    ApplyCarViewController * acvc = [[ApplyCarViewController alloc] init];
+    acvc.carModel                 = self.carModel;
+    [self pushVC:acvc];
+}
+
 #pragma mark- Delegate & Datasource
 #pragma mark- UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -100,7 +108,6 @@
             imageView.contentMode         = UIViewContentModeScaleAspectFill;
             imageView.layer.masksToBounds = YES;
             [cell.contentView addSubview:imageView];
-            
             [imageView sd_setImageWithURL:[NSURL URLWithString:self.carModel.driving_license_url]];
         }
         UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 59, self.viewWidth, 1)];
@@ -118,8 +125,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (self.carModel.state == CarStateChecking) {
-        return 50;
+    if (self.carModel.state != CarStateSuccess) {
+        return 150;
     }
     return 0.01;
 }
@@ -130,12 +137,31 @@
         return nil;
     }
     
-    UIView * view       = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 50)];
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 50)];
     CustomLabel * label = [[CustomLabel alloc] initWithFrame:CGRectMake(0, 20, self.viewWidth, 30)];
-    label.text          = @"正在审核";
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor     = [UIColor redColor];
     [view addSubview:label];
+    
+    if (self.carModel.state == CarStateFail) {
+        //btn样式处理
+        CustomButton * btn      = [[CustomButton alloc] init];
+        btn.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), 80, (self.viewWidth-30), 45);
+        btn.layer.cornerRadius  = 5;
+        btn.layer.borderWidth   = 1;
+        btn.layer.masksToBounds = YES;
+        btn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
+        btn.fontSize            = FontLoginButton;
+        [btn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:ColorLoginBtnGray] forState:UIControlStateHighlighted];
+        [btn setTitle:@"重新提交" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(resubmit) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:btn];
+        
+        label.text = @"审核失败";
+    }else {
+        label.text = @"正在审核";
+    }
     
     return view;
 }

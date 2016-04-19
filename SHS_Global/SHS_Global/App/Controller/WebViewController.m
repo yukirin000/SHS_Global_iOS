@@ -22,7 +22,7 @@
     [_zWebView scalesPageToFit];
     [self.view addSubview:_zWebView];
 
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:_webURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.webURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
     [_zWebView loadRequest:urlRequest];
 
     [self.navBar setNavTitle:self.topTitle];
