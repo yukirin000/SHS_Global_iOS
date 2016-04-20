@@ -11,12 +11,12 @@
 
 @implementation PushService
 
-static PushService *_shareInstance=nil;
+static PushService * _shareInstance = nil;
 
 +(PushService *) sharedInstance
 {
     if(!_shareInstance) {
-        _shareInstance=[[PushService alloc] init];
+        _shareInstance = [[PushService alloc] init];
     }
     
     return _shareInstance;
@@ -109,10 +109,25 @@ static PushService *_shareInstance=nil;
 - (void)networkDidLogin:(NSNotification *)notification {
 
     NSLog(@"已登录");
-    
     if ([JPUSHService registrationID]) {
         debugLog(@"get RegistrationID %@", [JPUSHService registrationID]);
+        
+        if ([UserService getUserID] > 0){
+            [JPUSHService setTags:nil
+                            alias:[ToolsManager getCommonTargetId]
+                 callbackSelector:@selector(tagsAliasCallback:tags:alias:)
+                           target:self];
+        }
     }
+}
+
+- (void)tagsAliasCallback:(int)iResCode
+                     tags:(NSSet *)tags
+                    alias:(NSString *)alias {
+    NSString *callbackString =
+    [NSString stringWithFormat:@"%d, \n %@ \nalias: %@\n", iResCode, tags, alias];
+
+    NSLog(@"TagsAlias回调:%@", callbackString);
 }
 
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
@@ -132,10 +147,15 @@ static PushService *_shareInstance=nil;
                                                                timeStyle:NSDateFormatterMediumStyle],
                                 title, content, [self logDic:extra]];
     debugLog(@"%@", currentContent);
+    
+    NSMutableArray * arr        = [NSMutableArray arrayWithArray:[PushService getNotifyList]];
+    NSDictionary * dic          = [NSJSONSerialization JSONObjectWithData:[content dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    NSMutableDictionary * muDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+    [muDic[@"content"] setObject:@"0" forKey:@"isRead"];
+    [arr addObject:muDic];
+    [PushService saveNotifyList:arr];
 }
 
-// log NSSet with UTF8
-// if not ,log will be \Uxxx
 - (NSString *)logDic:(NSDictionary *)dic {
     if (![dic count]) {
         return nil;
@@ -162,6 +182,20 @@ static PushService *_shareInstance=nil;
     debugLog(@"%@", error);
 }
 
++ (NSArray *)getNotifyList
+{
+    NSString * loc = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"notify.plist"];
+    NSArray * arr  = [NSArray arrayWithContentsOfFile:loc];
+    if (arr == nil) {
+        arr = @[];
+    }
+    return arr;
+}
 
++ (BOOL)saveNotifyList:(NSArray *)list
+{
+    NSString * loc = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"notify.plist"];
+    return [list writeToFile:loc atomically:YES];
+}
 
 @end

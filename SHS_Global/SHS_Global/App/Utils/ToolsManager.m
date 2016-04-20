@@ -345,6 +345,14 @@
     return [NSString stringWithFormat:@"%ld%d.jpg", [UserService sharedService].user.user_id, (int)[NSDate date].timeIntervalSince1970];
 }
 
+/*!
+ 获取通用用户名 ps:IM 推送使用
+ */
++ (NSString *)getCommonTargetId
+{
+    return [NSString stringWithFormat:@"%@%ld", GLOBAL,[UserService getUserID]];
+}
+
 //切割图片！！！ 没用上
 - (UIImage *)cutImage:(UIImage *)image inRect:(CGRect)rect
 {

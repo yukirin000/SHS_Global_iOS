@@ -82,12 +82,10 @@
 - (void)changeTab:(CustomButton *)sender {
     
     if (sender.tag == 1) {
-        self.servingBtn.selected = YES;
-        self.servedBtn.selected  = NO;
+        [self serveSet:YES];
         [self.scrollView scrollRectToVisible:CGRectMake(0, 0, self.viewWidth, 1) animated:YES];
     }else{
-        self.servingBtn.selected = NO;
-        self.servedBtn.selected  = YES;
+        [self serveSet:NO];
         [self.scrollView scrollRectToVisible:CGRectMake(self.viewWidth, 0, self.viewWidth, 1) animated:YES];
     }
 }
@@ -96,11 +94,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.contentOffset.x >= self.viewWidth) {
-        self.servingBtn.selected = NO;
-        self.servedBtn.selected  = YES;
+        [self serveSet:NO];
     }else if(scrollView.contentOffset.x <= 0){
-        self.servingBtn.selected = YES;
-        self.servedBtn.selected  = NO;
+        [self serveSet:YES];
     }
 }
 
@@ -111,13 +107,25 @@
     [btn setTag:tag];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [btn setBackgroundColor:[UIColor grayColor]];
     [btn addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
     return btn;
+}
+
+- (void)serveSet:(BOOL)isServing {
+    
+    self.servingBtn.selected = isServing;
+    self.servedBtn.selected  = !isServing;
+    if (isServing) {
+        [self.servingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.servedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }else{
+        [self.servedBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.servingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
 }
 
 

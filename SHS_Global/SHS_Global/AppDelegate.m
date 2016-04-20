@@ -25,8 +25,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
     [PushService sharedInstance];
     
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -111,6 +109,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -127,7 +126,7 @@
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
     debugLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
-//    [JPUSHService registerDeviceToken:deviceToken];
+    [JPUSHService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application
@@ -139,7 +138,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [JPUSHService handleRemoteNotification:userInfo];
-    debugLog(@"收到通知:%@", [self logDic:userInfo]);
+    debugLog(@"收到通知1:%@ %@", [self logDic:userInfo], userInfo);
 }
 
 - (void)application:(UIApplication *)application
@@ -147,7 +146,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
-    debugLog(@"收到通知:%@", [self logDic:userInfo]);
+    debugLog(@"收到通知2:%@ %@", [self logDic:userInfo] , userInfo);
     
     completionHandler(UIBackgroundFetchResultNewData);
 }

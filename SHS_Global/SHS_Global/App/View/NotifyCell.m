@@ -68,10 +68,10 @@
 {
     self.titleLabel.text   = model.title;
     self.messageLabel.text = model.message;
-    if (model.isUnread == YES) {
-        self.unreadView.hidden = NO;
-    }else{
+    if (model.isRead == YES) {
         self.unreadView.hidden = YES;
+    }else{
+        self.unreadView.hidden = NO;
     }
     
     switch (model.type) {

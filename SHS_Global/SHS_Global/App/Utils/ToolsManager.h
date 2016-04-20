@@ -115,6 +115,10 @@
  */
 + (NSDate *)dateFromString:(NSString *)dateString andFormatter:(NSString *)formatter;
 
+/*!
+ 获取通用用户名 ps:IM 推送使用
+ */
++ (NSString *)getCommonTargetId;
 
 
 @end

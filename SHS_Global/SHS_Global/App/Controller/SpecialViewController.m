@@ -27,6 +27,7 @@
     
     [self initData];
     [self initWidget];
+    
 }
 
 - (void)didReceiveMemoryWarning {

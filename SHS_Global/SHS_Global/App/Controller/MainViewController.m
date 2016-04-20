@@ -57,23 +57,26 @@ typedef NS_ENUM(NSInteger, Tab){
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tabBar.barStyle = UIBarStyleBlack;
+    
     self.delegate                    = self;
     _backView                        = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], kTabBarHeight)];
     //    _backView.image                  = [UIImage imageNamed:@"tabbar"];
     _backView.backgroundColor        = [UIColor colorWithHexString:ColorTab];
     _backView.userInteractionEnabled = YES;
     [self.tabBar addSubview:_backView];
-    UIView * topLineView             = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
+    UIView * topLineView             = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 0.5)];
     topLineView.backgroundColor      = [UIColor colorWithHexString:@"AAAAAA"];
     [_backView addSubview:topLineView];
     
     [self createVC];
-    
+
     [self registerNotification];
     
     [self badgeNotify:nil];
     //激活定位
     [LocationService sharedInstance];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,7 +142,7 @@ typedef NS_ENUM(NSInteger, Tab){
  */
 - (void)customSelectedIndex:(NSInteger)index
 {
-    if (index == TabUser) {
+    if (index == TabUser || index == TabRecord) {
         //新用户提示注册
         if ([UserService sharedService].user.user_id < 1) {
             
@@ -250,8 +253,6 @@ typedef NS_ENUM(NSInteger, Tab){
     //通知增加一个徽标
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(badgeNotify:) name:NOTIFY_TAB_BADGE object:nil];
 }
-
-
 
 #pragma mark- method response
 - (void)paySuccess:(id)sender

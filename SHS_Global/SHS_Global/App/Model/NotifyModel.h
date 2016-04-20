@@ -29,6 +29,6 @@ typedef NS_ENUM(NSInteger, NotifyType) {
 //类型
 @property (nonatomic, assign) NotifyType type;
 //是否已读
-@property (nonatomic, assign) BOOL      isUnread;
+@property (nonatomic, assign) BOOL      isRead;
 
 @end

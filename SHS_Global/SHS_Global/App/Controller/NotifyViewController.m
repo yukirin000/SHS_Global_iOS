@@ -9,12 +9,15 @@
 #import "NotifyViewController.h"
 #import "CarDetailViewController.h"
 #import "NotifyCell.h"
+#import "PushService.h"
 
 @interface NotifyViewController ()
 
 @property (nonatomic, strong) UITableView    * tableView;
 
 @property (nonatomic, strong) NSMutableArray * dataSource;
+
+@property (nonatomic, strong) NSMutableArray * notifySource;
 
 //“暂无爱车” Label
 @property (nonatomic, strong) CustomLabel * emptyLabel;
@@ -116,21 +119,16 @@
     
     [self setNavBarTitle:@"通知"];
     
-    self.dataSource = [[NSMutableArray alloc] init];
+    self.dataSource   = [[NSMutableArray alloc] init];
+    self.notifySource = [NSMutableArray arrayWithArray:[PushService getNotifyList]];
     
-    for (int i=0; i<10; i++) {
-        
+    for (NSDictionary * dic in self.notifySource) {
         NotifyModel * notify = [[NotifyModel alloc] init];
-        notify.targetID      = 48;
-        notify.title = @"测试";
-        if (i%2 == 1) {
-            notify.type     = NotifyCheckCarSuccess;
-            notify.message  = @"审核通过";
-            notify.isUnread = YES;
-        }else{
-            notify.type     = NotifyCheckCarFail;
-            notify.message = @"审核未通过";
-        }
+        notify.targetID      = [dic[@"content"][@"targetID"] integerValue];
+        notify.title         = dic[@"content"][@"title"];
+        notify.message       = dic[@"content"][@"message"];
+        notify.type          = [dic[@"type"] integerValue];
+        notify.isRead        = [dic[@"content"][@"isRead"] boolValue];
         [self.dataSource addObject:notify];
     }
     

@@ -13,5 +13,8 @@
 
 +(PushService *) sharedInstance;
 
++ (NSArray *)getNotifyList;
+
++ (BOOL)saveNotifyList:(NSArray *)list;
 
 @end
