@@ -107,6 +107,10 @@
 		428D5E971CBC9A7A001C0398 /* LaunchImage-480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 428D5E801CBC9A7A001C0398 /* LaunchImage-480@2x.png */; };
 		428D5E981CBC9A7A001C0398 /* LaunchImage-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 428D5E811CBC9A7A001C0398 /* LaunchImage-568@2x.png */; };
 		428D5E9A1CBC9C39001C0398 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 428D5E991CBC9C39001C0398 /* Icon-83.5@2x.png */; };
+		42D07B8F1CC8C87600BE7744 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D07B8C1CC8C87600BE7744 /* libWeChatSDK.a */; };
+		42D07B911CC8C8D200BE7744 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D07B901CC8C8D200BE7744 /* libsqlite3.0.tbd */; };
+		42D07B931CC8C98700BE7744 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D07B921CC8C98700BE7744 /* libc++.tbd */; };
+		42D07B961CC8CA4900BE7744 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D07B951CC8CA4900BE7744 /* WXApiManager.m */; };
 		42D877371CB7618A000D0383 /* butler_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D8772F1CB7618A000D0383 /* butler_normal@2x.png */; };
 		42D877381CB7618A000D0383 /* butler_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D877301CB7618A000D0383 /* butler_selected@2x.png */; };
 		42D877391CB7618A000D0383 /* home_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D877311CB7618A000D0383 /* home_normal@2x.png */; };
@@ -301,6 +305,13 @@
 		428D5E801CBC9A7A001C0398 /* LaunchImage-480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-480@2x.png"; sourceTree = "<group>"; };
 		428D5E811CBC9A7A001C0398 /* LaunchImage-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-568@2x.png"; sourceTree = "<group>"; };
 		428D5E991CBC9C39001C0398 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5@2x.png"; sourceTree = "<group>"; };
+		42D07B8C1CC8C87600BE7744 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		42D07B8D1CC8C87600BE7744 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		42D07B8E1CC8C87600BE7744 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		42D07B901CC8C8D200BE7744 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		42D07B921CC8C98700BE7744 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		42D07B941CC8CA4900BE7744 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		42D07B951CC8CA4900BE7744 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		42D8772F1CB7618A000D0383 /* butler_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "butler_normal@2x.png"; sourceTree = "<group>"; };
 		42D877301CB7618A000D0383 /* butler_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "butler_selected@2x.png"; sourceTree = "<group>"; };
 		42D877311CB7618A000D0383 /* home_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_normal@2x.png"; sourceTree = "<group>"; };
@@ -347,8 +358,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42D07B931CC8C98700BE7744 /* libc++.tbd in Frameworks */,
+				42D07B911CC8C8D200BE7744 /* libsqlite3.0.tbd in Frameworks */,
 				423CDCE01CA3F589005C6EE4 /* libz.tbd in Frameworks */,
 				423CDCDE1CA3F582005C6EE4 /* Security.framework in Frameworks */,
+				42D07B8F1CC8C87600BE7744 /* libWeChatSDK.a in Frameworks */,
 				423CDCDC1CA3F57D005C6EE4 /* UIKit.framework in Frameworks */,
 				423CDCDA1CA3F578005C6EE4 /* Foundation.framework in Frameworks */,
 				423CDCD81CA3F570005C6EE4 /* CoreGraphics.framework in Frameworks */,
@@ -547,6 +561,8 @@
 		423CDC171CA3C9CD005C6EE4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				42D07B941CC8CA4900BE7744 /* WXApiManager.h */,
+				42D07B951CC8CA4900BE7744 /* WXApiManager.m */,
 				423CDCE11CA403B6005C6EE4 /* PushService.h */,
 				423CDCE21CA403B6005C6EE4 /* PushService.m */,
 				423CDC181CA3C9CD005C6EE4 /* DatabaseService.h */,
@@ -564,6 +580,7 @@
 		423CDC1E1CA3C9CD005C6EE4 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				42D07B8B1CC8C87600BE7744 /* SDKExport */,
 				423CDCCB1CA3F37D005C6EE4 /* jpush */,
 				423CDC661CA3CF79005C6EE4 /* EGO */,
 			);
@@ -735,6 +752,16 @@
 			path = LaunchImage;
 			sourceTree = "<group>";
 		};
+		42D07B8B1CC8C87600BE7744 /* SDKExport */ = {
+			isa = PBXGroup;
+			children = (
+				42D07B8C1CC8C87600BE7744 /* libWeChatSDK.a */,
+				42D07B8D1CC8C87600BE7744 /* WXApi.h */,
+				42D07B8E1CC8C87600BE7744 /* WXApiObject.h */,
+			);
+			path = SDKExport;
+			sourceTree = "<group>";
+		};
 		42D8772E1CB7618A000D0383 /* tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -788,6 +815,8 @@
 		AF7761D46E078DAA58D066DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42D07B921CC8C98700BE7744 /* libc++.tbd */,
+				42D07B901CC8C8D200BE7744 /* libsqlite3.0.tbd */,
 				423CDCDF1CA3F589005C6EE4 /* libz.tbd */,
 				423CDCDD1CA3F582005C6EE4 /* Security.framework */,
 				423CDCDB1CA3F57D005C6EE4 /* UIKit.framework */,
@@ -1015,6 +1044,7 @@
 				423CDC421CA3C9CD005C6EE4 /* UIViewController+HUD.m in Sources */,
 				423CDC591CA3CB64005C6EE4 /* MainViewController.m in Sources */,
 				427644511CAE227C00F7C5BD /* MyCarsViewController.m in Sources */,
+				42D07B961CC8CA4900BE7744 /* WXApiManager.m in Sources */,
 				427644571CAE4ED600F7C5BD /* ShopModel.m in Sources */,
 				42DF45471CBF440900537B01 /* YSAlertView.m in Sources */,
 				4276445A1CAE5A1B00F7C5BD /* ShopCell.m in Sources */,
@@ -1176,6 +1206,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SHS_Global/App/ThirdParty/jpush",
+					"$(PROJECT_DIR)/SHS_Global/App/ThirdParty/SDKExport",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SHS.SHS-Global";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1199,6 +1230,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SHS_Global/App/ThirdParty/jpush",
+					"$(PROJECT_DIR)/SHS_Global/App/ThirdParty/SDKExport",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SHS.SHS-Global";
 				PRODUCT_NAME = "$(TARGET_NAME)";

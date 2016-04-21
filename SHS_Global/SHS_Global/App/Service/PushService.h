@@ -13,8 +13,13 @@
 
 +(PushService *) sharedInstance;
 
+//获取全部通知
 + (NSArray *)getNotifyList;
 
+//存储通知
 + (BOOL)saveNotifyList:(NSArray *)list;
+
+//获取是否存在未读消息
++ (BOOL)hasUnread;
 
 @end

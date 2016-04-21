@@ -10,8 +10,11 @@
 #import "LoginViewController.h"
 #import "NotifyViewController.h"
 #import "WebViewController.h"
+#import "PushService.h"
 
 @interface ButlerViewController ()
+
+@property (nonatomic, strong) UIView * unreadView;
 
 @end
 
@@ -22,6 +25,13 @@
     [super viewDidLoad];
     
     [self initWidget];
+    [self registerNotify];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refresh:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,10 +39,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark- layout
 
 - (void)initWidget {
     
+    self.unreadView = [[UIView alloc] init];
+    [self.navBar addSubview:self.unreadView];
     
     [self configUI];
 }
@@ -95,6 +111,11 @@
         }
     }];
     [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
+    
+    self.unreadView.frame              = CGRectMake(self.viewWidth-40, 30, 6, 6);
+    self.unreadView.layer.cornerRadius = 3;
+    self.unreadView.backgroundColor    = [UIColor redColor];
+    
 }
 
 #pragma mark- method response
@@ -116,6 +137,15 @@
 - (void)call:(id)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://4008693911"]];
+}
+
+- (void)registerNotify {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:NotifyNewNotify object:nil];
+}
+
+//刷新
+- (void)refresh:(NSNotification *)notify {
+    self.unreadView.hidden = ![PushService hasUnread];
 }
 
 /*

@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray * notifySource;
 
-//“暂无爱车” Label
+//“暂无通知” Label
 @property (nonatomic, strong) CustomLabel * emptyLabel;
 
 @end
@@ -31,12 +31,17 @@
     [super viewDidLoad];
     
     [self initWidget];
-    [self initData];    
+    [self initData];
+    [self registerNotify];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark- layout
@@ -99,7 +104,12 @@
     CarDetailViewController * cvc = [[CarDetailViewController alloc] init];
     cvc.carID                     = notify.targetID;
     [self pushVC:cvc];
-    
+    //更新
+    notify.isRead              = YES;
+    NSDictionary * dic         = self.notifySource[indexPath.row];
+    dic[@"content"][@"isRead"] = @"1";
+    [PushService saveNotifyList:self.notifySource];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 //    switch (notify.type) {
 //        case NotifyCheckCarSuccess:
 //            
@@ -114,22 +124,59 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    [self.dataSource removeObjectAtIndex:indexPath.row];
+    [self.notifySource removeObjectAtIndex:indexPath.row];
+    [PushService saveNotifyList:self.notifySource];
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
 #pragma mark- private method
 - (void)initData {
     
     [self setNavBarTitle:@"通知"];
     
     self.dataSource   = [[NSMutableArray alloc] init];
-    self.notifySource = [NSMutableArray arrayWithArray:[PushService getNotifyList]];
+    self.notifySource = [[NSMutableArray alloc] init];
+    [self refresh:nil];
+}
+
+- (void)registerNotify {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:NotifyNewNotify object:nil];
+}
+
+//刷新
+- (void)refresh:(NSNotification *)notify {
+    
+    [self.dataSource removeAllObjects];
+    [self.notifySource removeAllObjects];
+    
+    [self.notifySource addObjectsFromArray:[PushService getNotifyList]];
     
     for (NSDictionary * dic in self.notifySource) {
         NotifyModel * notify = [[NotifyModel alloc] init];
-        notify.targetID      = [dic[@"content"][@"targetID"] integerValue];
-        notify.title         = dic[@"content"][@"title"];
+        notify.targetID      = [dic[@"content"][@"id"] integerValue];
+        notify.title         = dic[@"content"][@"plate_number"];
         notify.message       = dic[@"content"][@"message"];
         notify.type          = [dic[@"type"] integerValue];
         notify.isRead        = [dic[@"content"][@"isRead"] boolValue];
         [self.dataSource addObject:notify];
+    }
+    
+    //暂无通知
+    if (self.notifySource.count > 0) {
+        self.emptyLabel.hidden = YES;
+    }else{
+        self.emptyLabel.hidden = NO;
     }
     
     [self.tableView reloadData];

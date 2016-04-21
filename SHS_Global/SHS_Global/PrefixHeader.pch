@@ -50,6 +50,8 @@
 //通知
 //支付成功
 #define NotifyPaySuccess @"paySuccess"
+//新通知到达
+#define NotifyNewNotify @"newNotify"
 
 //共用字符串
 //网络异常

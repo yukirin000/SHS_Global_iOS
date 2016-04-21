@@ -12,6 +12,7 @@
 #import "MainViewController.h"
 #import "JPUSHService.h"
 #import "PushService.h"
+#import "WXApiManager.h"
 
 @interface AppDelegate ()
 
@@ -40,10 +41,13 @@
                                                           UIRemoteNotificationTypeAlert)
                                               categories:nil];
     }
-    
+    //JPush
     [JPUSHService setupWithOption:launchOptions appKey:JPush_AppKey
                           channel:@"test" apsForProduction:NO];
-    
+    //WX
+    //向微信注册wxd930ea5d5a258f4f
+    [WXApi registerApp:@"wxb4ba3c02aa476ea1" withDescription:@"global"];
+
     //初始化控制器
     [self enterMainController];
     
@@ -120,7 +124,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

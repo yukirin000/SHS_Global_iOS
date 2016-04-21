@@ -28,9 +28,7 @@ static PushService * _shareInstance = nil;
     if (self) {
 
         [self registerNotify];
-        
 
-        
     }
     return self;
 }
@@ -147,13 +145,17 @@ static PushService * _shareInstance = nil;
                                                                timeStyle:NSDateFormatterMediumStyle],
                                 title, content, [self logDic:extra]];
     debugLog(@"%@", currentContent);
-    
-    NSMutableArray * arr        = [NSMutableArray arrayWithArray:[PushService getNotifyList]];
+    //通知处理
     NSDictionary * dic          = [NSJSONSerialization JSONObjectWithData:[content dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
     NSMutableDictionary * muDic = [NSMutableDictionary dictionaryWithDictionary:dic];
-    [muDic[@"content"] setObject:@"0" forKey:@"isRead"];
-    [arr addObject:muDic];
-    [PushService saveNotifyList:arr];
+    if ([dic objectForKey:@"type"] != nil && [dic objectForKey:@"content"] != nil) {
+        //数据存储
+        NSMutableArray * arr = [NSMutableArray arrayWithArray:[PushService getNotifyList]];
+        [muDic[@"content"] setObject:@"0" forKey:@"isRead"];
+        [arr insertObject:muDic atIndex:0];
+        [PushService saveNotifyList:arr];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotifyNewNotify object:nil];
+    }
 }
 
 - (NSString *)logDic:(NSDictionary *)dic {
@@ -182,8 +184,7 @@ static PushService * _shareInstance = nil;
     debugLog(@"%@", error);
 }
 
-+ (NSArray *)getNotifyList
-{
++ (NSArray *)getNotifyList {
     NSString * loc = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"notify.plist"];
     NSArray * arr  = [NSArray arrayWithContentsOfFile:loc];
     if (arr == nil) {
@@ -192,10 +193,22 @@ static PushService * _shareInstance = nil;
     return arr;
 }
 
-+ (BOOL)saveNotifyList:(NSArray *)list
-{
++ (BOOL)saveNotifyList:(NSArray *)list {
     NSString * loc = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"notify.plist"];
     return [list writeToFile:loc atomically:YES];
+}
+
++ (BOOL)hasUnread {
+    NSArray * arr = [PushService getNotifyList];
+    
+    for (NSDictionary * dic in arr) {
+        if ([dic[@"content"][@"isRead"] integerValue] == 0) {
+            return YES;
+            break;
+        }
+    }
+    
+    return NO;
 }
 
 @end
