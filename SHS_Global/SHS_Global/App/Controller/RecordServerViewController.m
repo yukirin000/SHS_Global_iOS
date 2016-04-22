@@ -21,7 +21,12 @@
     [super viewDidLoad];
     
     [self initWidget];
-    [self initData];    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refreshData];    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,7 +37,6 @@
 #pragma mark- layout
 
 - (void)initWidget {
-    
     
     [self configUI];
 }
@@ -45,7 +49,8 @@
         self.refreshTableView.backgroundColor = [UIColor redColor];
     }
     
-    self.refreshTableView.frame           = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-30);
+    self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-30);
+    self.navBar.hidden          = YES;
 }
 
 #pragma mark- method response
@@ -133,7 +138,7 @@
 #pragma mark- private method
 - (void)initData
 {
-    [self refreshData];
+
 }
 
 @end

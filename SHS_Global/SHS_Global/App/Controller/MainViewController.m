@@ -152,7 +152,7 @@ typedef NS_ENUM(NSInteger, Tab){
                     lvc.hideNavbar               = YES;
                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:lvc];
                     [self presentViewController:nav animated:YES completion:^{
-                        [self selectTab:index];
+
                     }];
                 }
             } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];

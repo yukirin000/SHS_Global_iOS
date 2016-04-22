@@ -11,10 +11,9 @@
 
 NS_ENUM(NSInteger){
     TableName    = 0,
-    TableMobile  = 1,
-    TablePlate   = 2,
-    TableCarType = 3,
-    TableDriving = 4
+    TablePlate   = 1,
+    TableCarType = 2,
+    TableDriving = 3
 };
 
 @interface ApplyCarViewController ()
@@ -22,8 +21,6 @@ NS_ENUM(NSInteger){
 @property (nonatomic, strong) UITableView     * tableView;
 
 @property (nonatomic, strong) CustomLabel     * nameLabel;
-
-@property (nonatomic, strong) CustomLabel     * mobileLabel;
 
 @property (nonatomic, strong) CustomLabel     * carTypeLabel;
 
@@ -60,7 +57,6 @@ NS_ENUM(NSInteger){
 - (void)initWidget{
 
     self.nameLabel               = [[CustomLabel alloc] init];
-    self.mobileLabel             = [[CustomLabel alloc] init];
     self.carTypeLabel            = [[CustomLabel alloc] init];
     self.plateLabel              = [[CustomLabel alloc] init];
     self.drivingLicenseLabel     = [[CustomLabel alloc] init];
@@ -86,7 +82,6 @@ NS_ENUM(NSInteger){
     [self setNavBarTitle:@"提交爱车"];
     
     [self configLabelFactory:self.nameLabel];
-    [self configLabelFactory:self.mobileLabel];
     [self configLabelFactory:self.carTypeLabel];
     [self configLabelFactory:self.drivingLicenseLabel];
     
@@ -109,7 +104,7 @@ NS_ENUM(NSInteger){
 #pragma mark- UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,10 +117,6 @@ NS_ENUM(NSInteger){
             case TableName:
                 [cell.contentView addSubview:self.nameLabel];
                 cell.textLabel.text = @"姓名";
-                break;
-            case TableMobile:
-                [cell.contentView addSubview:self.mobileLabel];
-                cell.textLabel.text = @"电话";
                 break;
             case TablePlate:
             {
@@ -189,10 +180,8 @@ NS_ENUM(NSInteger){
 {
     switch (indexPath.row) {
         case TableName:
-        case TableMobile:
         case TablePlate:
         {
-            
             YSAlertView * alert = [YSAlertView initWithTitle:@"" message:nil completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
                 
                 NSString * content = [[alertView textFieldAtIndex:0].text trim];
@@ -204,12 +193,6 @@ NS_ENUM(NSInteger){
                         }else{
                             [self showHint:@"请输入2-4位中文"];
                         }
-                    }else if (indexPath.row == TableMobile){
-                        if ([ToolsManager validateMobile:content]) {
-                            self.mobileLabel.text = content;
-                        }else{
-                            [self showHint:@"请输入电话号码"];
-                        }
                     }else{
                         if ([ToolsManager validatePlateNumber:content]) {
                             self.plateLabel.text = [content uppercaseString];
@@ -219,15 +202,13 @@ NS_ENUM(NSInteger){
                     }
                 }
             } cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
+            
             alert.alertViewStyle    = UIAlertViewStylePlainTextInput;
             UITextField * textField = [alert textFieldAtIndex:0];
             NSString * title;
             if (indexPath.row == TableName) {
                 title          = @"姓名";
                 textField.text = self.nameLabel.text;
-            }else if (indexPath.row == TableMobile){
-                title          = @"电话";
-                textField.text = self.mobileLabel.text;
             }else{
                 title          = @"车牌号";
                 textField.text = self.plateLabel.text;
@@ -332,7 +313,6 @@ NS_ENUM(NSInteger){
         params = @{@"car_id":[NSString stringWithFormat:@"%ld", self.carModel.cid],
                    @"user_id":[NSString stringWithFormat:@"%ld", [UserService getUserID]],
                    @"name":[self.nameLabel.text trim],
-                   @"mobile":[self.mobileLabel.text trim],
                    @"plate_number":[self.plateLabel.text trim],
                    @"car_type":self.carTypeLabel.text,
                    @"car_type_code":self.carTypeCode};
@@ -340,7 +320,6 @@ NS_ENUM(NSInteger){
         url = API_AddCar;
         params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService getUserID]],
                    @"name":[self.nameLabel.text trim],
-                   @"mobile":[self.mobileLabel.text trim],
                    @"plate_number":[self.plateLabel.text trim],
                    @"car_type":self.carTypeLabel.text,
                    @"car_type_code":self.carTypeCode};
@@ -371,7 +350,6 @@ NS_ENUM(NSInteger){
 {
     
     self.nameLabel.text    = self.carModel.name;
-    self.mobileLabel.text  = self.carModel.mobile;
     self.carTypeLabel.text = self.carModel.car_type;
     self.carTypeCode       = self.carModel.car_type_code;
     self.plateLabel.text   = [self.carModel.plate_number stringByReplacingOccurrencesOfString:@"粤B" withString:@""];

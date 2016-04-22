@@ -42,11 +42,9 @@
 
     //已服务
     self.servedVC            = [[RecordServerViewController alloc] init];
-    self.servedVC.hideNavbar = YES;
     self.servedVC.isServing  = NO;
     //服务中
     self.servingVC            = [[RecordServerViewController alloc] init];
-    self.servingVC.hideNavbar = YES;
     self.servingVC.isServing  = YES;
 
     self.scrollView          = [[UIScrollView alloc] init];

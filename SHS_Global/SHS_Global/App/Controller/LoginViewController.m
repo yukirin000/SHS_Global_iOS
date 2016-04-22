@@ -91,10 +91,25 @@
 //    self.protocolBtn.titleLabel.textColor     = [UIColor whiteColor];
 //    NSMutableAttributedString * protocolStr   = [[NSMutableAttributedString alloc] initWithString:GlobalString(@"LoginProtocol")];
 //    [self.protocolBtn setAttributedTitle:protocolStr forState:UIControlStateNormal];
+    
+    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(250), kNavBarAndStatusHeight+260, 250, 45)];
+    bottomBtn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
+    bottomBtn.layer.cornerRadius  = 22.5;
+    bottomBtn.layer.masksToBounds = YES;
+    bottomBtn.layer.borderWidth   = 1;
+    bottomBtn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
+    bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
+    [bottomBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
+    [bottomBtn setTitle:@"先看看" forState:UIControlStateNormal];
+    [bottomBtn addTarget:self action:@selector(bottomPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:bottomBtn];
 }
 
 #pragma mark- event Response
-
+- (void)bottomPress:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)nextLogin:(id)sender
 {

@@ -88,7 +88,7 @@
             }
             [self reloadTable];
             
-        }else{
+        }else {
             self.isReloading = NO;
             [self.refreshTableView refreshFinish];
         }
