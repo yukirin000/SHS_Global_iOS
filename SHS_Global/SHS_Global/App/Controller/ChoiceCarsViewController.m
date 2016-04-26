@@ -85,12 +85,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    CarModel * car = self.dataSource[indexPath.row];
-    
+    CarModel * car                   = self.dataSource[indexPath.row];
     CreateOrderViewController * covc = [[CreateOrderViewController alloc] init];
     covc.carID                       = car.cid;
     covc.shop_id                     = self.shop_id;
-    covc.goods_id                    = self.goods_id;    
+    covc.goods_id                    = self.goods_id;
+    covc.orderModel                  = self.order;
+    covc.orderModel.car_type         = car.car_type;
     [self pushVC:covc];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

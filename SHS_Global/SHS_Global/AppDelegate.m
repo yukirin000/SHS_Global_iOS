@@ -46,7 +46,7 @@
                           channel:@"test" apsForProduction:NO];
     //WX
     //向微信注册wxd930ea5d5a258f4f
-    [WXApi registerApp:@"wxb4ba3c02aa476ea1" withDescription:@"global"];
+    [WXApi registerApp:WX_AppKey withDescription:@"global"];
 
     //初始化控制器
     [self enterMainController];

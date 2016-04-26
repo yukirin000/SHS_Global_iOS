@@ -22,6 +22,7 @@
     self.out_trade_no = orderDic[@"out_trade_no"];
     self.pay_date     = orderDic[@"pay_date"];
     self.use_date     = orderDic[@"use_date"];
+    self.state        = [orderDic[@"state"] integerValue];
 }
 
 @end

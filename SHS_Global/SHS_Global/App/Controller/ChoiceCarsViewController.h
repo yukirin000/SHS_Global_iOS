@@ -7,14 +7,17 @@
 //
 
 #import "RefreshViewController.h"
+#import "OrderModel.h"
 
 /**
  *  选择汽车
  */
 @interface ChoiceCarsViewController : RefreshViewController<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, assign) NSInteger shop_id;
+@property (nonatomic, assign) NSInteger  shop_id;
 
-@property (nonatomic, assign) NSInteger goods_id;
+@property (nonatomic, assign) NSInteger  goods_id;
+
+@property (nonatomic, strong) OrderModel * order;
 
 @end

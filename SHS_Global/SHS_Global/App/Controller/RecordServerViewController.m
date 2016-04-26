@@ -75,7 +75,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderModel * order                = self.dataSource[indexPath.row];
-
     RecordDetailViewController * rdvc = [[RecordDetailViewController alloc] init];
     rdvc.rid                          = order.oid;
     [self pushVC:rdvc];
@@ -85,53 +84,41 @@
 - (void)loadAndhandleData
 {
     
-    self.isLastPage = YES;
-    [self.dataSource removeAllObjects];
-    for (int i=0; i<10; i++) {
-        
-        OrderModel * order = [[OrderModel alloc] init];
-        order.shop_name    = @"测试商店";
-        order.total_fee    = @"50";
-        order.pay_date     = @"1949-10-01";
-        [self.dataSource addObject:order];
-        [self reloadTable];
+    NSString * url = API_AlreadyServiceList;
+    if (self.isServing) {
+        url = API_ServiceList;
     }
-    
-//    NSString * url = API_AlreadyServiceList;
-//    if (self.isServing) {
-//        url = API_ServiceList;
-//    }
-//    url = [NSString stringWithFormat:@"%@?user_id=%ld&page=%d", url, [UserService getUserID],self.currentPage];
-//    debugLog(@"%@", url);
-//
-//    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
-//        int status = [responseData[HttpStatus] intValue];
-//        if (status == HttpStatusCodeSuccess) {
-//            //下拉刷新清空数组
-//            if (self.currentPage == 1) {
-//                [self.dataSource removeAllObjects];
-//            }
-//            self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
-//            
-//            NSArray * list  = responseData[HttpResult][HttpList];
-//            //数据处理
-//            for (NSDictionary * orderDic in list) {
-//                OrderModel * model      = [[OrderModel alloc] init];
-//                [model setModelWithDic:orderDic];
-//                [self.dataSource addObject:model];
-//            }
-//            
-//            [self reloadTable];
-//            
-//        }else{
-//            self.isReloading = NO;
-//            [self.refreshTableView refreshFinish];
-//        }
-//        
-//    } andFail:^(NSError *error) {
-//        self.isReloading = NO;
-//        [self.refreshTableView refreshFinish];
-//    }];
+    url = [NSString stringWithFormat:@"%@?user_id=%ld&page=%d", url, [UserService getUserID],self.currentPage];
+    debugLog(@"%@", url);
+
+    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            //下拉刷新清空数组
+            if (self.currentPage == 1) {
+                [self.dataSource removeAllObjects];
+            }
+            self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
+            
+            NSArray * list  = responseData[HttpResult][HttpList];
+            //数据处理
+            for (NSDictionary * orderDic in list) {
+                OrderModel * model      = [[OrderModel alloc] init];
+                [model setModelWithDic:orderDic];
+                [self.dataSource addObject:model];
+            }
+            
+            [self reloadTable];
+            
+        }else{
+            self.isReloading = NO;
+            [self.refreshTableView refreshFinish];
+        }
+        
+    } andFail:^(NSError *error) {
+        self.isReloading = NO;
+        [self.refreshTableView refreshFinish];
+    }];
     
 }
 

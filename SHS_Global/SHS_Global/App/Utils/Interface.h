@@ -55,6 +55,8 @@
 #define API_AlreadyServiceList [kHomeAddr stringByAppendingString:@"/alreadyServiceList"]
 //订单服务详情
 #define API_ServiceDetails [kHomeAddr stringByAppendingString:@"/serviceDetails"]
+//创建订单
+#define API_CreateOrder [kHomeAddr stringByAppendingString:@"/createOrder"]
 
 
 #endif /* Interface_h */

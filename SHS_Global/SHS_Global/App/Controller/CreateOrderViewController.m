@@ -11,17 +11,14 @@
 #import "WXApi.h"
 
 NS_ENUM(NSInteger){
-    TableOrder  = 0,
-    TableShop   = 1,
-    TablePhone  = 2,
-    TableGoods  = 3,
-    TableAmount = 4,
-    TableCar    = 5
+    TableShop   = 0,
+    TablePhone  = 1,
+    TableGoods  = 2,
+    TableAmount = 3,
+    TableCar    = 4
 };
 
 @interface CreateOrderViewController ()
-
-@property (nonatomic, strong) OrderModel  * orderModel;
 
 @property (nonatomic, strong) UITableView * tableView;
 
@@ -36,6 +33,7 @@ NS_ENUM(NSInteger){
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self registerNotify];
     [self initData];
     [self initWidget];
 }
@@ -70,61 +68,82 @@ NS_ENUM(NSInteger){
 #pragma mark- method response
 - (void)pay
 {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NotifyPaySuccess object:nil];
-//    
-//    [self popToTabBarViewController];
     
     //============================================================
     // V3&V4支付流程实现
     // 注意:参数配置请查看服务器端Demo
     // 更新时间：2015年11月20日
     //============================================================
-    NSString * res;
-    NSString *urlString   = @"http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=ios";
-    //解析服务端返回json数据
-    NSError *error;
-    //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if ( response != nil) {
-        NSMutableDictionary *dict = NULL;
-        //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        
-        NSLog(@"url:%@",urlString);
-        if(dict != nil){
-            NSMutableString *retcode = [dict objectForKey:@"retcode"];
-            if (retcode.intValue == 0){
-                NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-                
-                //调起微信支付
-                PayReq* req             = [[PayReq alloc] init];
-                req.partnerId           = [dict objectForKey:@"partnerid"];
-                req.prepayId            = [dict objectForKey:@"prepayid"];
-                req.nonceStr            = [dict objectForKey:@"noncestr"];
-                req.timeStamp           = stamp.intValue;
-                req.package             = [dict objectForKey:@"package"];
-                req.sign                = [dict objectForKey:@"sign"];
-                [WXApi sendReq:req];
-                //日志输出
-                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
-                res = @"";
-            }else{
-                res = [dict objectForKey:@"retmsg"];
-            }
-        }else{
-            res = @"服务器返回错误，未获取到json对象";
-        }
-    }else{
-        res = @"服务器返回错误";
-    }
+    NSString * url = [API_CreateOrder stringByAppendingFormat:@"?user_id=%ld&shop_id=%ld&goods_id=%ld&car_id=%ld", [UserService getUserID], self.shop_id, self.goods_id, self.carID];
+    debugLog(@"%@", url);
     
-    if( ![@"" isEqual:res] ){
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"支付失败" message:res delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [self showHudInView:self.view hint:@"订单创建中.."];
+    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
         
-        [alter show];
-    }
+        NSInteger status = [responseData[HttpStatus] integerValue];
+        if (status == HttpStatusCodeSuccess) {
+            
+            [self hideHud];
+            [self wxPay:responseData[HttpResult]];
+    
+        }else{
+            [self showHint:@"订单创建失败"];
+            [self hideHud];
+        }
+        
+    } andFail:^(NSError *error) {
+        [self showHint:StringCommonNetException];
+        [self hideHud];
+    }];
+    
+//    NSString * res;
+//    NSString *urlString   = [API_CreateOrder stringByAppendingFormat:@"?user_id=%ld&shop_id=%ld&goods_id=%ld&car_id=%ld", [UserService getUserID], self.shop_id, self.goods_id, self.carID];
+//    //解析服务端返回json数据
+//    NSError *error;
+//    //加载一个NSURL对象
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+//    //将请求的url数据放到NSData对象中
+//    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    
+//    if ( response != nil) {
+//        NSMutableDictionary *dict = NULL;
+//        //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+//        dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+//        
+//        NSLog(@"url:%@",urlString);
+//        if(dict != nil){
+//            NSMutableString *retcode = [dict objectForKey:@"retcode"];
+//            if (retcode.intValue == 0){
+//                dict = dict[HttpResult];
+//                NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+//                
+//                //调起微信支付
+//                PayReq* req             = [[PayReq alloc] init];
+//                req.partnerId           = [dict objectForKey:@"partnerid"];
+//                req.prepayId            = [dict objectForKey:@"prepayid"];
+//                req.nonceStr            = [dict objectForKey:@"noncestr"];
+//                req.timeStamp           = stamp.intValue;
+//                req.package             = [dict objectForKey:@"package"];
+//                req.sign                = [dict objectForKey:@"sign"];
+//                [WXApi sendReq:req];
+//                //日志输出
+//                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+//                res = @"";
+//            }else{
+//                res = [dict objectForKey:@"retmsg"];
+//            }
+//        }else{
+//            res = @"服务器返回错误，未获取到json对象";
+//        }
+//    }else{
+//        res = @"服务器返回错误";
+//    }
+//    
+//    if( ![@"" isEqual:res] ){
+//        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"支付失败" message:res delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        
+//        [alter show];
+//    }
     
 }
 
@@ -132,7 +151,7 @@ NS_ENUM(NSInteger){
 #pragma mark- UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,9 +167,6 @@ NS_ENUM(NSInteger){
         [cell.contentView addSubview:titleLabel];
         
         switch (indexPath.row) {
-            case TableOrder:
-                titleLabel.text = self.orderModel.out_trade_no;
-                break;
             case TableShop:
                 titleLabel.text = self.orderModel.shop_name;
                 break;
@@ -219,18 +235,51 @@ NS_ENUM(NSInteger){
 #pragma mark- private method
 - (void)initData {
     
-    self.titleArr = @[@"订单号",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆"];
+    self.titleArr = @[@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆"];
     
-    self.orderModel              = [[OrderModel alloc] init];
-    self.orderModel.out_trade_no = @"123456";
-    self.orderModel.shop_name    = @"商家";
-    self.orderModel.shop_phone   = @"13456423145";
-    self.orderModel.goods_name   = @"商品";
-    self.orderModel.total_fee    = @"金额";
-    self.orderModel.car_type     = @"车辆";
 
     [self initTable];
+}
+
+- (void)registerNotify {
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess:) name:NotifyPaySuccess object:nil];
+}
+
+- (void)paySuccess:(NSNotification *)notify {
+    [self popToTabBarViewController];
+}
+
+- (void)wxPay:(NSDictionary *)dict {
+    
+    NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+    //调起微信支付
+    PayReq* req             = [[PayReq alloc] init];
+    req.partnerId           = [dict objectForKey:@"partnerid"];
+    req.prepayId            = [dict objectForKey:@"prepayid"];
+    req.nonceStr            = [dict objectForKey:@"noncestr"];
+    req.timeStamp           = stamp.intValue;
+    req.package             = [dict objectForKey:@"package"];
+    req.sign                = [dict objectForKey:@"sign"];
+    [WXApi sendReq:req];
+    //日志输出
+    NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+    
+//    appid=wxb4ba3c02aa476ea1
+//    partid=10000100
+//    prepayid=wx20160425165423b3893480ed0309964146
+//    noncestr=449768401ee68e070c4866f2f6d7c849
+//    timestamp=1461574463
+//    package=Sign=WXPay
+//    sign=38B0E301C008A2CD4B582DE16F43584C
+    
+//    appid=wx7941b7c16b724574
+//    partid=1335376801
+//    prepayid=wx2016042516560195c90eb95c0495221043
+//    noncestr=08p6q98tmmlwd69t4z0725h73pt3fpgq
+//    timestamp=1461574561
+//    package=Sign=WXPay
+//    sign=A864E6DA4F881172F8323E3E9227A428
 }
 
 @end

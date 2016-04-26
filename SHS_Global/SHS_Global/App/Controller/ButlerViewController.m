@@ -14,7 +14,7 @@
 
 @interface ButlerViewController ()
 
-@property (nonatomic, strong) UIView * unreadView;
+//@property (nonatomic, strong) UIView * unreadView;
 
 @end
 
@@ -47,8 +47,8 @@
 
 - (void)initWidget {
     
-    self.unreadView = [[UIView alloc] init];
-    [self.navBar addSubview:self.unreadView];
+//    self.unreadView = [[UIView alloc] init];
+//    [self.navBar addSubview:self.unreadView];
     
     [self configUI];
 }
@@ -91,30 +91,30 @@
     [self.view addSubview:about];
     
     
-    __weak typeof(self) sself = self;
-    [self.navBar setRightBtnWithContent:nil andBlock:^{
-        //新用户提示注册
-        if ([UserService sharedService].user.user_id < 1) {
-            
-            [YSAlertView showAlertWithTitle:StringCommonPrompt message:@"您还不是用户，请先成为用户" completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
-                if (buttonIndex == 1) {
-                    LoginViewController * lvc    = [[LoginViewController alloc] init];
-                    lvc.hideNavbar               = YES;
-                    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:lvc];
-                    [sself presentViewController:nav animated:YES completion:^{
-                    }];
-                }
-            } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];
-        }else{
-            NotifyViewController * nvc = [[NotifyViewController alloc] init];
-            [sself pushVC:nvc];
-        }
-    }];
-    [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
-    
-    self.unreadView.frame              = CGRectMake(self.viewWidth-40, 30, 6, 6);
-    self.unreadView.layer.cornerRadius = 3;
-    self.unreadView.backgroundColor    = [UIColor redColor];
+//    __weak typeof(self) sself = self;
+//    [self.navBar setRightBtnWithContent:nil andBlock:^{
+//        //新用户提示注册
+//        if ([UserService sharedService].user.user_id < 1) {
+//            
+//            [YSAlertView showAlertWithTitle:StringCommonPrompt message:@"您还不是用户，请先成为用户" completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
+//                if (buttonIndex == 1) {
+//                    LoginViewController * lvc    = [[LoginViewController alloc] init];
+//                    lvc.hideNavbar               = YES;
+//                    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:lvc];
+//                    [sself presentViewController:nav animated:YES completion:^{
+//                    }];
+//                }
+//            } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];
+//        }else{
+//            NotifyViewController * nvc = [[NotifyViewController alloc] init];
+//            [sself pushVC:nvc];
+//        }
+//    }];
+//    [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
+//    
+//    self.unreadView.frame              = CGRectMake(self.viewWidth-40, 30, 6, 6);
+//    self.unreadView.layer.cornerRadius = 3;
+//    self.unreadView.backgroundColor    = [UIColor redColor];
     
 }
 
@@ -145,7 +145,7 @@
 
 //刷新
 - (void)refresh:(NSNotification *)notify {
-    self.unreadView.hidden = ![PushService hasUnread];
+//    self.unreadView.hidden = ![PushService hasUnread];
 }
 
 /*

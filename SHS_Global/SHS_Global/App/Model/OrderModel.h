@@ -7,6 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+//0未支付 1已支付 2已使用
+typedef NS_ENUM(NSInteger, OrderState) {
+    OrderNoPay  = 0,
+    OrderHasPay = 1,
+    OrderHasUse = 2
+};
 
 //订单模型
 @interface OrderModel : NSObject
@@ -33,6 +39,8 @@
 @property (nonatomic, copy  ) NSString  * pay_date;
 //使用时间
 @property (nonatomic, copy  ) NSString  * use_date;
+//订单状态
+@property (nonatomic, assign) NSInteger state;
 
 - (void)setModelWithDic:(NSDictionary *)orderDic;
 

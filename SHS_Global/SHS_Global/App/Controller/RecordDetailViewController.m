@@ -28,8 +28,6 @@ NS_ENUM(NSInteger){
 @property (nonatomic, strong) UITableView * tableView;
 
 @property (nonatomic, strong) NSArray     * titleArr;
-//订单状态 “服务中”或者“已完成”
-@property (nonatomic, assign) NSInteger   state;
 
 @end
 
@@ -56,12 +54,11 @@ NS_ENUM(NSInteger){
 
 - (void)initTable
 {
-    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStyleGrouped];
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle               = UITableViewCellSeparatorStyleNone;
-    self.tableView.bounces                      = NO;
     [self.view addSubview:self.tableView];
 }
 
@@ -122,7 +119,7 @@ NS_ENUM(NSInteger){
                     titleLabel.text = self.orderModel.car_type;
                     break;
                 case TableState:
-                    if (self.state == 1) {
+                    if (self.orderModel.state == 1) {
                         titleLabel.text = @"服务中";
                     }else{
                         titleLabel.text = @"已完成";
@@ -151,8 +148,8 @@ NS_ENUM(NSInteger){
         
         CustomButton * qrBtn   = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, self.viewHeight)];
         qrBtn.backgroundColor  = [UIColor colorWithWhite:0.5 alpha:0.5];
-        CustomImageView * qriv = [[CustomImageView alloc] initWithFrame:CGRectMake(kCenterOriginX(150), (self.viewHeight-150)/2, 150, 150)];
-        qriv.image             = [QRCodeGenerator qrImageForString:@"test" imageSize:150];
+        CustomImageView * qriv = [[CustomImageView alloc] initWithFrame:CGRectMake(kCenterOriginX(200), (self.viewHeight-200)/2, 200, 200)];
+        qriv.image             = [QRCodeGenerator qrImageForString:[NSString stringWithFormat:@"biz%@", self.orderModel.out_trade_no] imageSize:200];
         qriv.backgroundColor   = [UIColor whiteColor];
         [qrBtn addSubview:qriv];
         [qrBtn addTarget:self action:@selector(qrcodeClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -160,20 +157,25 @@ NS_ENUM(NSInteger){
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 150;
+    return 100;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * view       = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
-    
-    CustomLabel * label = [[CustomLabel alloc] initWithFrame:CGRectMake(kCenterOriginX((self.viewWidth-30)), 30, (self.viewWidth-30), 40)];
-    label.font          = [UIFont systemFontOfSize:15];
-    label.textColor     = [UIColor redColor];
-    label.text          = @"订单号或者二维码须提供给商家，以便于商家确认为您服务";
-    label.numberOfLines = 0;
+    UIView * view        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
+    view.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
+    CustomLabel * label  = [[CustomLabel alloc] initWithFrame:CGRectMake(kCenterOriginX((self.viewWidth-30)), 15, (self.viewWidth-30), 40)];
+    label.font           = [UIFont systemFontOfSize:15];
+    label.textColor      = [UIColor redColor];
+    label.text           = @"订单号或者二维码须提供给商家，以便于商家确认为您服务";
+    label.numberOfLines  = 0;
     [view addSubview:label];
     
     return view;
@@ -183,35 +185,27 @@ NS_ENUM(NSInteger){
 #pragma mark- private method
 - (void)initData {
     
-    self.titleArr                = @[@"订单号",@"订单二维码",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆",@"服务状态"];
+    self.titleArr = @[@"订单号",@"订单二维码",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆",@"服务状态"];
     
-//    NSString * url = [API_ServiceDetails stringByAppendingFormat:@"?order_id=%ld", self.rid];
-//    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
-//        
-//        NSInteger status = [responseData[HttpStatus] integerValue];
-//        if (status == HttpStatusCodeSuccess) {
-//            
-//            self.orderModel = [[OrderModel alloc] init];
-//            [self.orderModel setModelWithDic:responseData[HttpResult]];
-//            [self initTable];
-//            
-//        }else{
-//            [self showHint:responseData[HttpMessage]];
-//        }
-//        
-//    } andFail:^(NSError *error) {
-//        [self showFail:StringCommonNetException];
-//    }];
+    NSString * url = [API_ServiceDetails stringByAppendingFormat:@"?order_id=%ld", self.rid];
+    [HttpService getWithUrlString:url andCompletion:^(id responseData) {
+        
+        NSInteger status = [responseData[HttpStatus] integerValue];
+        if (status == HttpStatusCodeSuccess) {
+            
+            self.orderModel = [[OrderModel alloc] init];
+            [self.orderModel setModelWithDic:responseData[HttpResult][0]];
+
+            [self initTable];
+            
+        }else{
+            [self showHint:responseData[HttpMessage]];
+        }
+        
+    } andFail:^(NSError *error) {
+        [self showFail:StringCommonNetException];
+    }];
     
-    self.orderModel              = [[OrderModel alloc] init];
-    self.orderModel.out_trade_no = @"123456";
-    self.orderModel.shop_name    = @"商家";
-    self.orderModel.shop_phone   = @"13456423145";
-    self.orderModel.goods_name   = @"商品";
-    self.orderModel.total_fee    = @"金额";
-    self.orderModel.car_type     = @"车辆";
-    
-    [self initTable];
 }
 
 @end

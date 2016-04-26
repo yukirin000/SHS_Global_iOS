@@ -119,10 +119,10 @@
 #define UMENG_AppKey @"565ee3d9e0f55af385003f1d"
 //极光推送
 #define JPush_AppKey @"a3387af8e9748171ad82d8e7"
-//微信AppKey
-#define WX_AppKey @""
+//微信AppKey  wx7941b7c16b724574 wxb4ba3c02aa476ea1
+#define WX_AppKey @"wx7941b7c16b724574"
 //IM 推送 id前缀
 //#define GLOBAL @"global"
-#define GLOBAL @"globalTest"
+#define GLOBAL @"global"
 
 #endif /* PrefixHeader_pch */

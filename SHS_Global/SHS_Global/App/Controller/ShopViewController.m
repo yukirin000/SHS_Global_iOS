@@ -11,6 +11,7 @@
 #import "GoodsModel.h"
 #import "LoginViewController.h"
 #import "ChoiceCarsViewController.h"
+#import "OrderModel.h"
 
 @interface ShopViewController ()
 
@@ -238,6 +239,14 @@
         ChoiceCarsViewController * ccvc = [[ChoiceCarsViewController alloc] init];
         ccvc.shop_id                    = self.shopId;
         ccvc.goods_id                   = self.goodsModel.gid;
+        //数据传输
+        OrderModel * order              = [[OrderModel alloc] init];
+        order.shop_name                 = self.shopModel.shop_name;
+        order.shop_phone                = self.shopModel.shop_phone;
+        order.goods_name                = self.goodsModel.goods_name;
+        order.total_fee                 = self.goodsModel.discount_price;
+        ccvc.order                      = order;
+        
         [self pushVC:ccvc];
     }
 }
