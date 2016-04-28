@@ -27,7 +27,7 @@
 - (void)initBaseVC
 {
     
-    self.view.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+    self.view.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
     self.viewWidth            = [DeviceManager getDeviceWidth];
     self.viewHeight           = [DeviceManager getDeviceHeight];
 

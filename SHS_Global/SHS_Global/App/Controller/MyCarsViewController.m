@@ -56,15 +56,15 @@
         ApplyCarViewController * acvc = [[ApplyCarViewController alloc] init];
         [sself pushVC:acvc];
     }];
-    [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
-    [self.navBar setNavTitle:@"我的爱车"];
+    [self.navBar setRightImage:[UIImage imageNamed:@"nav_add"]];
+    [self.navBar setNavTitle:GlobalString(@"MyCarsTitle")];
     
     self.refreshTableView.notLoading    = @"";
     self.refreshTableView.bottomLoading = @"";
     
     self.emptyLabel.frame         = CGRectMake(0, 150, self.viewWidth, 30);
     self.emptyLabel.textAlignment = NSTextAlignmentCenter;
-    self.emptyLabel.text          = @"暂无爱车";
+    self.emptyLabel.text          = GlobalString(@"MyCarsNoCar");
     self.emptyLabel.hidden        = YES;
     
 }
@@ -77,7 +77,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

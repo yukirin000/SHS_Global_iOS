@@ -12,6 +12,8 @@
 
 @interface RecordServerViewController ()
 
+@property (nonatomic, strong) UIView * emptyView;
+
 @end
 
 @implementation RecordServerViewController
@@ -31,26 +33,38 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark- layout
 
 - (void)initWidget {
     
+    self.emptyView = [[UIView alloc] init];
+    
+    [self.refreshTableView addSubview:self.emptyView];
+    
     [self configUI];
 }
 
 - (void)configUI {
- 
-    if (self.isServing) {
-        self.refreshTableView.backgroundColor = [UIColor blueColor];
-    }else{
-        self.refreshTableView.backgroundColor = [UIColor redColor];
-    }
     
-    self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-30);
+    self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-45);
     self.navBar.hidden          = YES;
+    
+    self.emptyView.frame       = CGRectMake(kCenterOriginX(80), (self.refreshTableView.height-130)/2, 80, 130);
+    CustomImageView * noneView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"no_order"]];
+    noneView.frame             = CGRectMake(1, 1, 77, 77);
+
+    CustomLabel * noneLabel    = [[CustomLabel alloc] initWithFrame:CGRectMake(0, noneView.bottom+30, 80, 15)];
+    noneLabel.textColor        = [UIColor colorWithHexString:@"646464"];
+    noneLabel.font             = [UIFont systemFontOfSize:15];
+    noneLabel.text             = GlobalString(@"RecordNoOrder");
+    [self.emptyView addSubview:noneLabel];
+    [self.emptyView addSubview:noneView];
+    self.emptyView.hidden      = YES;
+    
+    self.refreshTableView.notLoading    = @"";
+    self.refreshTableView.bottomLoading = @"";
 }
 
 #pragma mark- method response
@@ -58,7 +72,7 @@
 #pragma mark- Delegate & Datasource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 153;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,9 +119,19 @@
             for (NSDictionary * orderDic in list) {
                 OrderModel * model      = [[OrderModel alloc] init];
                 [model setModelWithDic:orderDic];
+                if (self.isServing) {
+                    model.state = OrderHasPay;
+                }else{
+                    model.state = OrderHasUse;
+                }
                 [self.dataSource addObject:model];
             }
             
+            if (list.count > 0) {
+                self.emptyView.hidden = YES;
+            }else {
+                self.emptyView.hidden = NO;
+            }
             [self reloadTable];
             
         }else{

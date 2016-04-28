@@ -33,22 +33,17 @@
 
 - (void)initWidget{
     
-
-    
 }
 
 
 - (void)configUI{
     
-//    for (int i=0; i<self.dataSource.count; i++) {
-//        [self generateCommonListWithTop:kNavBarAndStatusHeight+20+i*25 andContent:self.dataSource[i]];
-//    }
-    
     if (self.type == 3) {
-        
+        self.view.backgroundColor = [UIColor whiteColor];
         CustomLabel * tmpLabel = [[CustomLabel alloc] initWithFontSize:14];
-        tmpLabel.frame         = CGRectMake(kCenterOriginX((self.viewWidth-40)), kNavBarAndStatusHeight+10, self.viewWidth-40, 0);
-        tmpLabel.text          = @"1、豪车管家24小时电话问诊及资讯，专业的豪车管家将为您提供一切关于您爱车的最佳解决方案。\n2、会员卡价格享受爱车精洗项目，无需再办理门店会员卡。此礼遇适用于全平台联盟商家。\n3、豪车维修与保养将由专业的豪车管家为您一站式打理，轻松，高效的完成每一个环节。\n4、“品味•环球”作为第三方服务平台将为本平台所有联盟商家的服务及产品做质量担保，杜绝任何虚假，伪劣产品，为会员权益提供双重保证。";
+        tmpLabel.textColor     = [UIColor colorWithHexString:@"272636"];
+        tmpLabel.frame         = CGRectMake(kCenterOriginX((self.viewWidth-40)), kNavBarAndStatusHeight+30, self.viewWidth-40, 0);
+        tmpLabel.text          = @"1、豪车管家24小时电话问诊及资讯，专业的豪车管家将为您提供一切关于您爱车的最佳解决方案。\n\n2、会员卡价格享受爱车精洗项目，无需再办理门店会员卡。此礼遇适用于全平台联盟商家。\n\n3、豪车维修与保养将由专业的豪车管家为您一站式打理，轻松，高效的完成每一个环节。\n\n4、“品味•环球”作为第三方服务平台将为本平台所有联盟商家的服务及产品做质量担保，杜绝任何虚假，伪劣产品，为会员权益提供双重保证。";
         tmpLabel.numberOfLines = 0;
         [tmpLabel sizeToFit];
         [self.view addSubview:tmpLabel];
@@ -61,14 +56,16 @@
             tmpLabel.frame         = CGRectMake(0, kNavBarAndStatusHeight+150, self.viewWidth, 30);
             tmpLabel.text          = @"更多详情请咨询豪车管家";
             tmpLabel.textAlignment = NSTextAlignmentCenter;
+            tmpLabel.textColor     = [UIColor colorWithHexString:@"272636"];
             [self.view addSubview:tmpLabel];
             
         }else if (self.type == 2){
-            
-            CustomLabel * tmpLabel = [[CustomLabel alloc] initWithFontSize:14];
-            tmpLabel.frame         = CGRectMake(kCenterOriginX((self.viewWidth-40)), kNavBarAndStatusHeight+10, self.viewWidth-40, 0);
+            self.view.backgroundColor = [UIColor whiteColor];
+            CustomLabel * tmpLabel    = [[CustomLabel alloc] initWithFontSize:14];
+            tmpLabel.frame            = CGRectMake(kCenterOriginX((self.viewWidth-40)), kNavBarAndStatusHeight+30, self.viewWidth-40, 0);
             tmpLabel.text          = @"会员可以在线免费咨询，随时随地咨询您的爱车在使用过程中所碰到的任何问题，我们将由专家团队为您耐心解答，时时刻刻站在您的角度，并为您提出合理的建议，让您省时、省钱、更省心！";
             tmpLabel.numberOfLines = 0;
+            tmpLabel.textColor     = [UIColor colorWithHexString:@"272636"];            
             [tmpLabel sizeToFit];
             [self.view addSubview:tmpLabel];
             

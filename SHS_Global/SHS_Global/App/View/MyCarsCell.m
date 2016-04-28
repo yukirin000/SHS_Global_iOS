@@ -47,17 +47,22 @@
 
 - (void)configUI
 {
-    self.carTypeLabel.frame       = CGRectMake(5, 0, 170, 60);
+    self.contentView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
 
-    self.plateLabel.frame         = CGRectMake([DeviceManager getDeviceWidth]-140, 0, 135, 60);
+    self.carTypeLabel.frame          = CGRectMake(15, 0, 170, 50);
+    self.carTypeLabel.textColor      = [UIColor colorWithHexString:ColorTitle];
+    self.carTypeLabel.font           = [UIFont systemFontOfSize:FontListName];
+
+    self.plateLabel.frame         = CGRectMake([DeviceManager getDeviceWidth]-140, 0, 125, 50);
     self.plateLabel.textAlignment = NSTextAlignmentRight;
+    self.plateLabel.font          = [UIFont systemFontOfSize:14];
+    self.plateLabel.textColor     = [UIColor colorWithHexString:@"888888"];
 
-    self.checkLabel.frame         = CGRectMake([DeviceManager getDeviceWidth]-140, 0, 135, 60);
+    self.checkLabel.frame         = CGRectMake([DeviceManager getDeviceWidth]-140, 0, 135, 50);
     self.checkLabel.text          = @"正在审核";
-//    UIImageView * arrow = [[UIImageView alloc] initWithFrame:CGRectMake(120, 0, 0, 0)];
-//    [self.checkLabel addSubview:arrow];
-    UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 59, [DeviceManager getDeviceWidth], 1)];
-    lineView.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
+
+    UIView * lineView             = [[UIView alloc] initWithFrame:CGRectMake(15, 49, [DeviceManager getDeviceWidth]-15, 1)];
+    lineView.backgroundColor      = [UIColor colorWithHexString:ColorLineGray];
     [self.contentView addSubview:lineView];
 }
 

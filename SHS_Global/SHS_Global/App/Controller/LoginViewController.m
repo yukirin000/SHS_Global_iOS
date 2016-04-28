@@ -57,6 +57,7 @@
 
 - (void)configUI
 {
+    self.view.backgroundColor               = [UIColor colorWithHexString:ColorWhite];
     //loginTextFiled样式处理
     self.loginTextField.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), kNavBarAndStatusHeight+50, self.viewWidth-30, 45);
     self.loginTextField.placeholder         = GlobalString(@"LoginPleaseEnterMobile");
@@ -92,17 +93,16 @@
 //    NSMutableAttributedString * protocolStr   = [[NSMutableAttributedString alloc] initWithString:GlobalString(@"LoginProtocol")];
 //    [self.protocolBtn setAttributedTitle:protocolStr forState:UIControlStateNormal];
     
-    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(250), kNavBarAndStatusHeight+260, 250, 45)];
-    bottomBtn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
-    bottomBtn.layer.cornerRadius  = 22.5;
-    bottomBtn.layer.masksToBounds = YES;
-    bottomBtn.layer.borderWidth   = 1;
-    bottomBtn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
-    bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
+    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(45), self.viewHeight-100, 45, 15)];
+    bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:15];
     [bottomBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
-    [bottomBtn setTitle:@"先看看" forState:UIControlStateNormal];
+    [bottomBtn setTitle:GlobalString(@"LoginNoUserNo") forState:UIControlStateNormal];
     [bottomBtn addTarget:self action:@selector(bottomPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bottomBtn];
+    
+    UIView * bottomLine        = [[UIView alloc] initWithFrame:CGRectMake(kCenterOriginX(45), bottomBtn.bottom+3, 45, 2)];
+    bottomLine.backgroundColor = [UIColor colorWithHexString:ColorTextBorder];
+    [self.view addSubview:bottomLine];
 }
 
 #pragma mark- event Response
@@ -181,7 +181,7 @@
     //手机号不超过11位
     if (range.length == 0) {
         if ((textField.text.length+string.length)>11) {
-            return NO;
+            return NO; 
         }
     }
 

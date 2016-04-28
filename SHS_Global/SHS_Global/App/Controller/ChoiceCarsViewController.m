@@ -13,8 +13,8 @@
 
 @interface ChoiceCarsViewController ()
 
-//“暂无爱车” Label
-@property (nonatomic, strong) CustomLabel * emptyLabel;
+//“暂无爱车”
+@property (nonatomic, strong) UIView * emptyView;
 
 @end
 
@@ -41,9 +41,9 @@
 
 - (void)initWidget{
     
-    self.emptyLabel = [[CustomLabel alloc] init];
+    self.emptyView = [[UIView alloc] init];
     
-    [self.refreshTableView addSubview:self.emptyLabel];
+    [self.refreshTableView addSubview:self.emptyView];
     
     [self configUI];
 }
@@ -51,13 +51,21 @@
 
 - (void)configUI {
     
+    [self setNavBarTitle:GlobalString(@"ChoiceCarTitle")];
     self.refreshTableView.notLoading    = @"";
     self.refreshTableView.bottomLoading = @"";
     
-    self.emptyLabel.frame         = CGRectMake(0, 150, self.viewWidth, 30);
-    self.emptyLabel.textAlignment = NSTextAlignmentCenter;
-    self.emptyLabel.text          = @"暂无爱车";
-    self.emptyLabel.hidden        = YES;
+    self.emptyView.frame       = CGRectMake(kCenterOriginX(80), (self.refreshTableView.height-130)/2, 80, 130);
+    CustomImageView * noneView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"no_car"]];
+    noneView.frame             = CGRectMake(1, 1, 77, 77);
+    
+    CustomLabel * noneLabel    = [[CustomLabel alloc] initWithFrame:CGRectMake(0, noneView.bottom+30, 80, 15)];
+    noneLabel.textColor        = [UIColor colorWithHexString:@"646464"];
+    noneLabel.font             = [UIFont systemFontOfSize:15];
+    noneLabel.text             = GlobalString(@"MyCarsNoCar");
+    [self.emptyView addSubview:noneLabel];
+    [self.emptyView addSubview:noneView];
+    self.emptyView.hidden      = YES;
     
 }
 
@@ -68,7 +76,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,10 +129,11 @@
             }
             
             if (list.count > 0) {
-                self.emptyLabel.hidden = YES;
-                [self setNavBarTitle:@"选择爱车"];
+                self.emptyView.hidden       = YES;
+                self.navBar.rightBtn.hidden = YES;
             }else{
-                self.emptyLabel.hidden = NO;
+                self.emptyView.hidden       = NO;
+                self.navBar.rightBtn.hidden = NO;
                 //右上角添加爱车
                 __weak typeof(self) sself = self;
                 [self.navBar setRightBtnWithContent:nil andBlock:^{
@@ -132,7 +141,6 @@
                     [sself pushVC:acvc];
                 }];
                 [self.navBar setRightImage:[UIImage imageNamed:@"bell"]];
-                [self setNavBarTitle:@"我的爱车"];
             }
             
             [self reloadTable];

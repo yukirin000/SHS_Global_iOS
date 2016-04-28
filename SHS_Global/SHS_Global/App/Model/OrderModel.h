@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, OrderState) {
 //使用时间
 @property (nonatomic, copy  ) NSString  * use_date;
 //订单状态
-@property (nonatomic, assign) NSInteger state;
+@property (nonatomic, assign) OrderState state;
 
 - (void)setModelWithDic:(NSDictionary *)orderDic;
 

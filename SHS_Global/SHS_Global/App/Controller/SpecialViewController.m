@@ -12,10 +12,8 @@
 
 @interface SpecialViewController ()
 
-@property (nonatomic, strong) UITableView * tableView;
-
-@property (nonatomic, strong) NSArray     * titleSource;
-@property (nonatomic, strong) NSArray     * imageSource;
+//背景
+@property (nonatomic, strong) UIScrollView * backScroll;
 
 @end
 
@@ -25,9 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initData];
     [self initWidget];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,79 +42,86 @@
 
 - (void)initWidget{
 
-    [self initTable];
+    self.backScroll = [[UIScrollView alloc] init];
+    [self.view addSubview:self.backScroll];
     
-}
-
-- (void)initTable{
-    
-    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight) style:UITableViewStylePlain];
-    self.tableView.delegate                     = self;
-    self.tableView.dataSource                   = self;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.separatorStyle               = UITableViewCellSeparatorStyleNone;
-    
-    [self.view addSubview:self.tableView];
+    [self configUI];
 }
 
 - (void)configUI{
+
+    //这里苹果有一个奇怪的检测 我不得不这么做 没找到关闭的地方。
+    self.navBar.hidden = YES;
+    NavBar * nb        = [[NavBar alloc] init];
+    nb.backgroundColor = [UIColor clearColor];
+    nb.frame           = self.navBar.frame;
+    nb.titleLabel.text = self.navBar.titleLabel.text;
+    [self.view addSubview:nb];
+    
+    self.backScroll.frame                        = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kTabBarHeight);
+    self.backScroll.showsVerticalScrollIndicator = NO;
+    self.backScroll.contentSize                  = CGSizeMake(0, 610);
+
+    UIImageView * backImage                      = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 265)];
+    backImage.image                              = [UIImage imageNamed:@"home_bg"];
+    backImage.contentMode                        = UIViewContentModeScaleAspectFill;
+    backImage.layer.masksToBounds                = YES;
+    [self.backScroll addSubview:backImage];
+    //按钮
+    [self factoryBtnWithRect:CGRectMake(0, backImage.bottom, self.viewWidth/2, 153) title:GlobalString(@"SpecialWash") image:@"home_btn_cosmetology" SEL:@selector(shopListPress:)];
+    [self factoryBtnWithRect:CGRectMake(self.viewWidth/2, backImage.bottom, self.viewWidth/2, 153) title:GlobalString(@"SpecialRepair") image:@"home_btn_service" SEL:@selector(temp2Press:)];
+    [self factoryBtnWithRect:CGRectMake(0, backImage.bottom+153, self.viewWidth/2, 153) title:GlobalString(@"SpecialConsult") image:@"home_btn_inquiry" SEL:@selector(temp1Press:)];
+    [self factoryBtnWithRect:CGRectMake(self.viewWidth/2, backImage.bottom+153, self.viewWidth/2, 153) title:GlobalString(@"SpecialOnline") image:@"home_btn_consult" SEL:@selector(temp1Press:)];
+    //线
+    UIView * horzontalView        = [[UIView alloc] initWithFrame:CGRectMake(0, 418, self.viewWidth, 1)];
+    horzontalView.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
+
+    UIView * verticalView         = [[UIView alloc] initWithFrame:CGRectMake(self.viewWidth/2, 265, 1, 306)];
+    verticalView.backgroundColor  = [UIColor colorWithHexString:ColorLineGray];
+    [self.backScroll addSubview:verticalView];
+    [self.backScroll addSubview:horzontalView];
     
 }
-
 
 #pragma mark- method response
-
-#pragma mark- UITableDelegate & UITableDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)temp1Press:(id)sender
 {
-    return self.titleSource.count;
+    TempServerViewController * tsvc = [[TempServerViewController alloc] init];
+    tsvc.type                       = 1;
+    [self pushVC:tsvc];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)temp2Press:(id)sender
 {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"commonCell%ld", indexPath.row]];
-    if (!cell) {
-        cell                 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"commonCell%ld", indexPath.row]];
-        UIView * line        = [[UIView alloc] initWithFrame:CGRectMake(15, 64, self.viewWidth-15, 1)];
-        line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
-        [cell.contentView addSubview:line];
-        
-        cell.textLabel.text    = GlobalString(self.titleSource[indexPath.row]);
-        cell.textLabel.font    = [UIFont systemFontOfSize:15];
-        cell.imageView.image   = [UIImage imageNamed:self.imageSource[indexPath.row]];
-    }
-    
-    return cell;
+    TempServerViewController * tsvc = [[TempServerViewController alloc] init];
+    tsvc.type                       = 2;
+    [self pushVC:tsvc];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)shopListPress:(id)sender
 {
-    return 65;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 0) {
-        ShopListViewController * svc = [[ShopListViewController alloc] init];
-        [self pushVC:svc];
-    }else if (indexPath.row == 1) {
-        TempServerViewController * tsvc = [[TempServerViewController alloc] init];
-        tsvc.type                       = 2;
-        [self pushVC:tsvc];
-    } else{
-        TempServerViewController * tsvc = [[TempServerViewController alloc] init];
-        tsvc.type                       = 1;
-        [self pushVC:tsvc];
-    }
-
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ShopListViewController * svc = [[ShopListViewController alloc] init];
+    [self pushVC:svc];
 }
 
 #pragma mark- private method
-- (void)initData{
+- (void)factoryBtnWithRect:(CGRect)frame title:(NSString *)title image:(NSString *)image SEL:(SEL)selecotr {
     
-    self.titleSource = @[@"SpecialWash", @"SpecialOnline", @"SpecialConsult",@"SpecialRepair"];
-    self.imageSource = @[@"wash", @"wash", @"consult", @"repair"];
+    CustomButton * backBtn      = [[CustomButton alloc] initWithFrame:frame];
+    backBtn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
+    CustomImageView * imageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:image]];
+    imageView.frame             = CGRectMake((frame.size.width-70)/2, 35, 70, 70);
+    CustomLabel * titleLabel    = [[CustomLabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+14, frame.size.width, 13)];
+    titleLabel.text             = title;
+    titleLabel.font             = [UIFont systemFontOfSize:13];
+    titleLabel.textColor        = [UIColor colorWithHexString:ColorTabNormal];
+    titleLabel.textAlignment    = NSTextAlignmentCenter;
+
+    [backBtn addSubview:imageView];
+    [backBtn addSubview:titleLabel];
+    [self.backScroll addSubview:backBtn];
+    
+    [backBtn addTarget:self action:selecotr forControlEvents:UIControlEventTouchUpInside];
 }
 
 

@@ -27,7 +27,7 @@
 {
     self.refreshTableView                 = [[RefreshTableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
     self.refreshTableView.delegate        = self;
-    self.refreshTableView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+    self.refreshTableView.backgroundColor = [UIColor clearColor];
     self.refreshTableView.dataSource      = self;
     self.refreshTableView.refreshDelegate = self;
     self.refreshTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;

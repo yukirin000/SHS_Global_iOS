@@ -85,7 +85,7 @@
 - (void)configUI
 {
     [self setNavBarTitle:GlobalString(@"RegisterTitle")];
-    
+    self.view.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     //标题
     CustomLabel * textLabel                    = [[CustomLabel alloc] initWithFontSize:14];
     textLabel.textColor                        = [UIColor colorWithHexString:ColorBlack];

@@ -54,7 +54,7 @@
 }
 
 - (void)configUI {
-    [self setNavBarTitle:@"我的爱车"];
+    [self.navBar setNavTitle:GlobalString(@"MyCarsTitle")];
 }
 
 #pragma mark- method response
@@ -77,14 +77,20 @@
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
     if (!cell) {
-        cell                = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = self.titleArr[indexPath.row];
+        cell                             = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
+        cell.textLabel.text              = self.titleArr[indexPath.row];
+        cell.textLabel.textColor         = [UIColor colorWithHexString:ColorTitle];
+        cell.textLabel.font              = [UIFont systemFontOfSize:FontListName];
+        cell.contentView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+        cell.selectionStyle              = UITableViewCellSelectionStyleNone;
 
         if (indexPath.row < 4) {
             CustomLabel * label = [[CustomLabel alloc] init];
-            label.frame         = CGRectMake(self.viewWidth-200, 0, 170, 60);
+            label.frame         = CGRectMake(self.viewWidth-200, 0, 185, 50);
             label.textAlignment = NSTextAlignmentRight;
+            label.textColor = [UIColor colorWithHexString:@"888888"];
+            label.font = [UIFont systemFontOfSize:14];
+            
             [cell.contentView addSubview:label];
             switch (indexPath.row) {
                 case 0:
@@ -104,13 +110,12 @@
             }
             
         }else{
-            CustomImageView * imageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-80, 5, 50, 50)];
-            imageView.contentMode         = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
+            CustomImageView * imageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-75, 5, 60, 40)];
+            imageView.contentMode         = UIViewContentModeScaleAspectFit;
             [cell.contentView addSubview:imageView];
             [imageView sd_setImageWithURL:[NSURL URLWithString:self.carModel.driving_license_url]];
         }
-        UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 59, self.viewWidth, 1)];
+        UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(15, 49, self.viewWidth-15, 1)];
         lineView.backgroundColor = [ UIColor colorWithHexString:ColorLineGray];
         [cell.contentView addSubview:lineView];
     }
@@ -120,7 +125,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0;
+    return 50.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -169,9 +174,10 @@
 #pragma mark- private method
 - (void)initData {
     
-    self.titleArr = @[@"姓名",@"电话",@"车牌",@"车型",@"行驶证"];
-    
+    self.titleArr  = @[GlobalString(@"ApplyCarName"),GlobalString(@"ApplyCarMobile"),GlobalString(@"ApplyCarPlate"),GlobalString(@"ApplyCarCarType"),GlobalString(@"ApplyCarDrivingLicense")];
+
     NSString * url = [API_CarInfo stringByAppendingFormat:@"?car_id=%ld", self.carID];
+    
     [HttpService getWithUrlString:url andCompletion:^(id responseData) {
 
         NSInteger status = [responseData[HttpStatus] integerValue];

@@ -125,7 +125,7 @@
     CustomLabel * addressTitleLabel = [[CustomLabel alloc] initWithFontSize:FontListName];
     addressTitleLabel.text          = GlobalString(@"ShopAddress");
     addressTitleLabel.frame         = CGRectMake(15, self.backImageView.bottom+15, 80, 15);
-    addressTitleLabel.textColor     = [UIColor colorWithHexString:ColorShopBlack];
+    addressTitleLabel.textColor     = [UIColor colorWithHexString:ColorTitle];
     [self.backScrollView addSubview:addressTitleLabel];
 
     self.addressLabel.frame             = CGRectMake(addressTitleLabel.right+10, self.backImageView.bottom, self.viewWidth-addressTitleLabel.right-25, 0);
@@ -144,7 +144,7 @@
     CustomLabel * phoneTitleLabel = [[CustomLabel alloc] initWithFontSize:FontListName];
     phoneTitleLabel.text          = GlobalString(@"ShopPhone");
     phoneTitleLabel.frame         = CGRectMake(15, addressLine.bottom, 80, 50);
-    phoneTitleLabel.textColor     = [UIColor colorWithHexString:ColorShopBlack];
+    phoneTitleLabel.textColor     = [UIColor colorWithHexString:ColorTitle];
     [self.backScrollView addSubview:phoneTitleLabel];
     
     self.shopPhoneLabel.frame           = CGRectMake(self.addressLabel.x, addressLine.bottom, self.viewWidth-phoneTitleLabel.right-25, 50);
@@ -159,37 +159,37 @@
     CustomLabel * serverTitleLabel = [[CustomLabel alloc] initWithFontSize:FontListName];
     serverTitleLabel.text          = GlobalString(@"ShopServer");
     serverTitleLabel.frame         = CGRectMake(15, shopLine.bottom, 80, 50);
-    serverTitleLabel.textColor     = [UIColor colorWithHexString:ColorShopBlack];
+    serverTitleLabel.textColor     = [UIColor colorWithHexString:ColorTitle];
     [self.backScrollView addSubview:serverTitleLabel];
     
     CustomLabel * washTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.addressLabel.x, shopLine.bottom, self.viewWidth-phoneTitleLabel.right-25, 50)];
     washTitle.font          = [UIFont systemFontOfSize:FontListName];
     washTitle.textColor     = [UIColor colorWithHexString:ColorShopGray];
     washTitle.textAlignment = NSTextAlignmentRight;
-    washTitle.text          = @"精洗";
+    washTitle.text          = self.goodsModel.goods_name;
     [self.backScrollView addSubview:washTitle];
 
     UIView * washLine        = [[UIView alloc] initWithFrame:CGRectMake(15, serverTitleLabel.bottom, self.viewWidth-15, 1)];
     washLine.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
     [self.backScrollView addSubview:washLine];
     
-    //呼叫管家
+    //原价
     CustomLabel * originTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(serverTitleLabel.x, washLine.bottom, 50, 50)];
     originTitle.font          = [UIFont systemFontOfSize:FontListName];
-    originTitle.textColor     = [UIColor colorWithHexString:ColorShopBlack];
-    originTitle.text          = @"原价：";
+    originTitle.textColor     = [UIColor colorWithHexString:ColorTitle];
+    originTitle.text          = GlobalString(@"ShopOrigin");
     [self.backScrollView addSubview:originTitle];
-    
-    CustomLabel * userTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-120, washLine.bottom, 60, 50)];
-    userTitle.font          = [UIFont systemFontOfSize:FontListName];
-    userTitle.textColor     = [UIColor colorWithHexString:ColorShopBlack];
-    userTitle.text          = @"会员价：";
-    [self.backScrollView addSubview:userTitle];
-    
-    //价格位置
     self.originPriceLabel.frame     = CGRectMake(originTitle.right, originTitle.y, 65, 50);
     self.originPriceLabel.textColor = originTitle.textColor;
     self.originPriceLabel.font      = originTitle.font;
+    
+    //会员价
+    CustomLabel * userTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.originPriceLabel.right+20, washLine.bottom, 60, 50)];
+    userTitle.font          = [UIFont systemFontOfSize:FontListName];
+    userTitle.textColor     = [UIColor colorWithHexString:ColorTitle];
+    userTitle.text          = GlobalString(@"ShopVIP");
+    [self.backScrollView addSubview:userTitle];
+    //价格位置
     self.vipPriceLabel.frame        = CGRectMake(userTitle.right, userTitle.y, 65, 50);
     self.vipPriceLabel.textColor    = [UIColor redColor];
     self.vipPriceLabel.font         = originTitle.font;
@@ -199,15 +199,15 @@
     [self.backScrollView addSubview:backGrayView];
     [self.backScrollView sendSubviewToBack:backGrayView];
     
-    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(220), userTitle.bottom+50, 220, 45)];
+    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(self.viewWidth-80, washLine.bottom+8, 65, 33)];
     bottomBtn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
-    bottomBtn.layer.cornerRadius  = 22.5;
+    bottomBtn.layer.cornerRadius  = 2;
     bottomBtn.layer.masksToBounds = YES;
     bottomBtn.layer.borderWidth   = 1;
     bottomBtn.layer.borderColor   = [UIColor colorWithHexString:ColorTextBorder].CGColor;
     bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
     [bottomBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
-    [bottomBtn setTitle:@"购买" forState:UIControlStateNormal];
+    [bottomBtn setTitle:GlobalString(@"ShopBuy") forState:UIControlStateNormal];
     [bottomBtn addTarget:self action:@selector(bottomPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.backScrollView addSubview:bottomBtn];
     
@@ -225,7 +225,7 @@
     //新用户提示注册
     if ([UserService sharedService].user.user_id < 1) {
         
-        [YSAlertView showAlertWithTitle:StringCommonPrompt message:@"您还不是用户，请先成为用户" completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
+        [YSAlertView showAlertWithTitle:StringCommonPrompt message:GlobalString(@"LoginNoUser") completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
             if (buttonIndex == 1) {
                 LoginViewController * lvc    = [[LoginViewController alloc] init];
                 lvc.hideNavbar               = YES;
@@ -233,7 +233,7 @@
                 [self presentViewController:nav animated:YES completion:^{
                 }];
             }
-        } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];
+        } cancelButtonTitle:GlobalString(@"LoginNoUserNo") otherButtonTitles:GlobalString(@"LoginNoUserYes"), nil];
         return;
     }else{
         ChoiceCarsViewController * ccvc = [[ChoiceCarsViewController alloc] init];

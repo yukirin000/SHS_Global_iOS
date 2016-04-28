@@ -22,7 +22,7 @@
 //部分列表内容字体
 #define FontListContent 12
 //部分列表时间字体
-#define FontListTime 12
+#define FontListTime 13
 
 
 #endif

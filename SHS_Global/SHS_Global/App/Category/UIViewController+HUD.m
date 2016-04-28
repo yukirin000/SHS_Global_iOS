@@ -36,6 +36,7 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 
 - (void)showHint:(NSString *)hint
 {
+    [self hideHud];
     //显示提示信息
     UIView *view = [[UIApplication sharedApplication].delegate window];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -70,6 +71,7 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 
 - (void)showSuccess:(NSString *)hint
 {
+    [self hideHud];
     //显示提示信息
     UIView *view       = [[UIApplication sharedApplication].delegate window];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -83,6 +85,7 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 
 - (void)showFail:(NSString *)hint
 {
+    [self hideHud];
     //显示提示信息
     UIView *view       = [[UIApplication sharedApplication].delegate window];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];

@@ -62,6 +62,7 @@
 - (void)configUI
 {
     [self setNavBarTitle:GlobalString(@"SecondLoginLogin")];
+    self.view.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     
     //loginTextFiled样式处理
     self.passwordTextField.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), kNavBarAndStatusHeight+50, self.viewWidth-30, 45);

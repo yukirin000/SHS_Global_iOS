@@ -145,17 +145,15 @@ typedef NS_ENUM(NSInteger, Tab){
     if (index == TabUser || index == TabRecord) {
         //新用户提示注册
         if ([UserService sharedService].user.user_id < 1) {
-            
-            [YSAlertView showAlertWithTitle:StringCommonPrompt message:@"您还不是用户，请先成为用户" completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
+            [YSAlertView showAlertWithTitle:StringCommonPrompt message:GlobalString(@"LoginNoUser") completionBlock:^(NSUInteger buttonIndex, YSAlertView *alertView) {
                 if (buttonIndex == 1) {
                     LoginViewController * lvc    = [[LoginViewController alloc] init];
                     lvc.hideNavbar               = YES;
                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:lvc];
                     [self presentViewController:nav animated:YES completion:^{
-
                     }];
                 }
-            } cancelButtonTitle:@"先看看" otherButtonTitles:@"成为用户", nil];
+            } cancelButtonTitle:GlobalString(@"LoginNoUserNo") otherButtonTitles:GlobalString(@"LoginNoUserYes"), nil];
             return;
         }
     }

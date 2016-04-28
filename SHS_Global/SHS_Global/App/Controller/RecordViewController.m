@@ -62,7 +62,7 @@
 
 - (void)configUI {
     
-    self.scrollView.frame                          = CGRectMake(0, kNavBarAndStatusHeight+30, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-30);
+    self.scrollView.frame                          = CGRectMake(0, kNavBarAndStatusHeight+45, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight-30);
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.contentSize                    = CGSizeMake(self.viewWidth*2, self.scrollView.height);
     self.scrollView.pagingEnabled                  = YES;
@@ -70,10 +70,24 @@
     self.servingVC.view.frame = CGRectMake(0, 0, self.viewWidth, self.scrollView.height);
     self.servedVC.view.frame  = CGRectMake(self.viewWidth, 0, self.viewWidth, self.scrollView.height);
     
-    self.servingBtn           = [self tabBtnWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth/2, 30) andTitle:@"服务中" andTag:1];
-    self.servedBtn            = [self tabBtnWithFrame:CGRectMake(self.viewWidth/2, kNavBarAndStatusHeight, self.viewWidth/2, 30) andTitle:@"已服务" andTag:2];
+    self.servingBtn           = [self tabBtnWithFrame:CGRectMake(15, kNavBarAndStatusHeight+10, self.viewWidth/2-15, 35) andTitle:GlobalString(@"OrderHasPay") andTag:1];
     
-    self.servingBtn.selected  = YES;
+    self.servedBtn            = [self tabBtnWithFrame:CGRectMake(self.viewWidth/2, kNavBarAndStatusHeight+10, self.viewWidth/2-15, 35) andTitle:GlobalString(@"OrderHasUse") andTag:2];
+    
+    UIBezierPath *maskPath     = [UIBezierPath bezierPathWithRoundedRect:self.servingBtn.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerTopLeft cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer    = [[CAShapeLayer alloc] init];
+    maskLayer.frame            = self.servingBtn.bounds;
+    maskLayer.path             = maskPath.CGPath;
+    maskLayer.masksToBounds    = 5;
+    self.servingBtn.layer.mask = maskLayer;
+    
+    UIBezierPath *maskPath2   = [UIBezierPath bezierPathWithRoundedRect:self.servedBtn.bounds byRoundingCorners:UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer2  = [[CAShapeLayer alloc] init];
+    maskLayer2.frame          = self.servedBtn.bounds;
+    maskLayer2.path           = maskPath2.CGPath;
+    self.servedBtn.layer.mask = maskLayer2;
+    
+    [self serveSet:YES];
 }
 
 #pragma mark- method response
@@ -104,10 +118,11 @@
     CustomButton * btn = [[CustomButton alloc] initWithFrame:frame];
     [btn setTag:tag];
     [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [btn setBackgroundColor:[UIColor grayColor]];
+    [btn setTitleColor:[UIColor colorWithHexString:@"3A3A3A"] forState:UIControlStateNormal];
+    [btn setBackgroundColor:[UIColor whiteColor]];
     [btn addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchUpInside];
+    btn.titleLabel.font   = [UIFont systemFontOfSize:13];
+    
     [self.view addSubview:btn];
     
     return btn;
@@ -115,14 +130,17 @@
 
 - (void)serveSet:(BOOL)isServing {
     
-    self.servingBtn.selected = isServing;
-    self.servedBtn.selected  = !isServing;
     if (isServing) {
         [self.servingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.servedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.servedBtn setTitleColor:[UIColor colorWithHexString:@"3A3A3A"] forState:UIControlStateNormal];
+        
+        [self.servingBtn setBackgroundColor:[UIColor colorWithHexString:@"3A3A3A"]];
+        [self.servedBtn setBackgroundColor:[UIColor whiteColor]];
     }else{
         [self.servedBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.servingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.servingBtn setTitleColor:[UIColor colorWithHexString:@"3A3A3A"] forState:UIControlStateNormal];
+        [self.servingBtn setBackgroundColor:[UIColor whiteColor]];
+        [self.servedBtn setBackgroundColor:[UIColor colorWithHexString:@"3A3A3A"]];
     }
 }
 

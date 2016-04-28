@@ -64,7 +64,7 @@ NS_ENUM(NSInteger){
 
 - (void)configUI {
     
-    [self setNavBarTitle:@"订单详情"];
+    [self setNavBarTitle:GlobalString(@"RecordDetail")];
 }
 
 #pragma mark- method response
@@ -84,19 +84,22 @@ NS_ENUM(NSInteger){
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
     if (!cell) {
-
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = self.titleArr[indexPath.row];
+        cell                             = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
+        cell.textLabel.text              = self.titleArr[indexPath.row];
+        cell.textLabel.textColor         = [UIColor colorWithHexString:ColorTitle];
+        cell.textLabel.font              = [UIFont systemFontOfSize:FontListName];
+        cell.contentView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+        cell.selectionStyle              = UITableViewCellSelectionStyleNone;
         
         if (indexPath.row == TableQrcode) {
-            CustomImageView * qrcodeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-60, 5, 50, 50)];
-            qrcodeImageView.backgroundColor   = [UIColor redColor];
+            CustomImageView * qrcodeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-41, 12, 26, 26)];
+            qrcodeImageView.image             = [UIImage imageNamed:@"qrcode"];
             [cell.contentView addSubview:qrcodeImageView];
         }else{
-            CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-150, 0, 140, 60)];
+            CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-150, 0, 135, 50)];
             titleLabel.textAlignment = NSTextAlignmentRight;
+            titleLabel.font          = [UIFont systemFontOfSize:14];
+            titleLabel.textColor     = [UIColor colorWithHexString:@"888888"];
             [cell.contentView addSubview:titleLabel];
             
             switch (indexPath.row) {
@@ -119,10 +122,11 @@ NS_ENUM(NSInteger){
                     titleLabel.text = self.orderModel.car_type;
                     break;
                 case TableState:
+                    titleLabel.textColor = [UIColor colorWithHexString:ColorTabSelected];
                     if (self.orderModel.state == 1) {
-                        titleLabel.text = @"服务中";
+                        titleLabel.text = GlobalString(@"OrderHasPay");
                     }else{
-                        titleLabel.text = @"已完成";
+                        titleLabel.text = GlobalString(@"OrderHasUse");
                     }
                     break;
                 default:
@@ -130,7 +134,7 @@ NS_ENUM(NSInteger){
             }
         }
         
-        UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 59, self.viewWidth, 1)];
+        UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(15, 49, self.viewWidth-15, 1)];
         lineView.backgroundColor = [ UIColor colorWithHexString:ColorLineGray];
         [cell.contentView addSubview:lineView];
     }
@@ -139,7 +143,7 @@ NS_ENUM(NSInteger){
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0;
+    return 50.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -169,12 +173,12 @@ NS_ENUM(NSInteger){
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * view        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
+    UIView * view        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 100)];
     view.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
-    CustomLabel * label  = [[CustomLabel alloc] initWithFrame:CGRectMake(kCenterOriginX((self.viewWidth-30)), 15, (self.viewWidth-30), 40)];
-    label.font           = [UIFont systemFontOfSize:15];
-    label.textColor      = [UIColor redColor];
-    label.text           = @"订单号或者二维码须提供给商家，以便于商家确认为您服务";
+    CustomLabel * label  = [[CustomLabel alloc] initWithFrame:CGRectMake(kCenterOriginX((self.viewWidth-30)), 20, (self.viewWidth-30), 40)];
+    label.font           = [UIFont systemFontOfSize:13];
+    label.textColor      = [UIColor colorWithHexString:@"a5a5a5"];
+    label.text           = GlobalString(@"RecordPrompt");
     label.numberOfLines  = 0;
     [view addSubview:label];
     
@@ -185,7 +189,7 @@ NS_ENUM(NSInteger){
 #pragma mark- private method
 - (void)initData {
     
-    self.titleArr = @[@"订单号",@"订单二维码",@"商家",@"联系电话",@"服务项目",@"消费金额",@"服务车辆",@"服务状态"];
+    self.titleArr = @[GlobalString(@"OrderID"),GlobalString(@"OrderQR"),GlobalString(@"OrderShopName"),GlobalString(@"OrderShopPhone"),GlobalString(@"OrderGoodsName"),GlobalString(@"OrderAmount"),GlobalString(@"OrderCar"),GlobalString(@"OrderState")];
     
     NSString * url = [API_ServiceDetails stringByAppendingFormat:@"?order_id=%ld", self.rid];
     [HttpService getWithUrlString:url andCompletion:^(id responseData) {

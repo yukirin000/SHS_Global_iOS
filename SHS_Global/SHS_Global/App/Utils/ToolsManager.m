@@ -66,7 +66,7 @@
 
 + (BOOL) validatePlateNumber:(NSString *)number
 {
-    NSString *userNameRegex = @"^[_a-zA-Z0-9]{5}+$";
+    NSString *userNameRegex = @"^[a-zA-Z]{1}[a-zA-Z0-9]{5}$";
     NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",userNameRegex];
     BOOL B = [userNamePredicate evaluateWithObject:number];
     return B;

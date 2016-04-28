@@ -70,9 +70,9 @@
     self.myCarBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.myCarBtn.titleLabel.font            = [UIFont systemFontOfSize:15];
     [self.myCarBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.myCarBtn setTitle:@"我的爱车" forState:UIControlStateNormal];
+    [self.myCarBtn setTitle:GlobalString(@"UserMyCar") forState:UIControlStateNormal];
     [self.myCarBtn setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
-    
+
     UIView * line        = [[UIView alloc] initWithFrame:CGRectMake(0, self.myCarBtn.height-1, self.viewWidth, 1)];
     line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
     [self.myCarBtn addSubview:line];
@@ -84,7 +84,7 @@
     membership.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     membership.titleLabel.font            = [UIFont systemFontOfSize:15];
     [membership setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [membership setTitle:@"会员礼遇" forState:UIControlStateNormal];
+    [membership setTitle:GlobalString(@"UserPresent") forState:UIControlStateNormal];
     [membership setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
     [membership addTarget:self action:@selector(membershipPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.backScrollView addSubview:membership];

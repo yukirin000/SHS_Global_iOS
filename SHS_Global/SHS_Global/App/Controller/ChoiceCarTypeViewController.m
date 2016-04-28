@@ -55,12 +55,13 @@
 }
 
 - (void)configUI{
+    
     if (self.level == 1) {
-        [self setNavBarTitle:@"车牌"];
+        [self setNavBarTitle:GlobalString(@"CarTypeBrand")];
     }else{
-        [self setNavBarTitle:@"型号"];
+        [self setNavBarTitle:GlobalString(@"CarTypeType")];
     }
-
+    
 }
 
 #pragma mark- method response

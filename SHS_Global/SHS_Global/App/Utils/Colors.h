@@ -30,8 +30,8 @@
 //背景灰色
 #define ColorBackGray @"F1F1F1"
 
-//店内标题黑色
-#define ColorShopBlack @"323232"
+//标题用黑色
+#define ColorTitle @"323232"
 //店内内容灰色
 #define ColorShopGray @"646464"
 

@@ -122,7 +122,7 @@
 //微信AppKey  wx7941b7c16b724574 wxb4ba3c02aa476ea1
 #define WX_AppKey @"wx7941b7c16b724574"
 //IM 推送 id前缀
-//#define GLOBAL @"global"
+//#define GLOBAL @"global" globalTest
 #define GLOBAL @"global"
 
 #endif /* PrefixHeader_pch */

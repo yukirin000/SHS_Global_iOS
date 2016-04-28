@@ -57,17 +57,18 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:ColorBackGray];
     
-    CustomButton * topBtn     = [[CustomButton alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, 45)];
+    CustomButton * topBtn     = [[CustomButton alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, 50)];
     topBtn.backgroundColor    = [UIColor whiteColor];
     [topBtn addTarget:self action:@selector(call:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:topBtn];
     
-    CustomLabel * label1      = [[CustomLabel alloc] initWithFrame:CGRectMake(15, 0, 100, 45)];
+    CustomLabel * label1      = [[CustomLabel alloc] initWithFrame:CGRectMake(15, 0, 100, 50)];
     label1.font               = [UIFont systemFontOfSize:15];
     label1.text               = @"联系管家";
+    label1.textColor          = [UIColor colorWithHexString:ColorTitle];
     [topBtn addSubview:label1];
     
-    CustomLabel * label2      = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-115, 0, 100, 45)];
+    CustomLabel * label2      = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-115, 0, 100, 50)];
     label2.font               = [UIFont systemFontOfSize:15];
     label2.textColor          = [UIColor colorWithHexString:@"646464"];
     label2.textAlignment      = NSTextAlignmentRight;
@@ -78,13 +79,13 @@
     line.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
     [self.view addSubview:line];
     
-    CustomButton * about             = [[CustomButton alloc] initWithFrame:CGRectMake(0, topBtn.bottom, self.viewWidth, 45)];
+    CustomButton * about             = [[CustomButton alloc] initWithFrame:CGRectMake(0, topBtn.bottom, self.viewWidth, 50)];
     about.backgroundColor            = [UIColor whiteColor];
     about.titleEdgeInsets            = UIEdgeInsetsMake(0, -5, 0, 0);
     about.imageEdgeInsets            = UIEdgeInsetsMake(0, self.viewWidth-30, 0, 0);
     about.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     about.titleLabel.font            = [UIFont systemFontOfSize:15];
-    [about setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [about setTitleColor:[UIColor colorWithHexString:ColorTitle] forState:UIControlStateNormal];
     [about setTitle:@"会员礼遇" forState:UIControlStateNormal];
     [about setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
     [about addTarget:self action:@selector(aboutPress:) forControlEvents:UIControlEventTouchUpInside];

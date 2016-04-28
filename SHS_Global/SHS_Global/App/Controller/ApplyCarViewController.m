@@ -69,6 +69,7 @@ NS_ENUM(NSInteger){
 - (void)initTable
 {
     self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.backgroundColor              = [UIColor clearColor];
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -79,21 +80,28 @@ NS_ENUM(NSInteger){
 
 - (void)configUI{
     
-    [self setNavBarTitle:@"提交爱车"];
+    [self setNavBarTitle:GlobalString(@"ApplyCarSubmit")];
     
     [self configLabelFactory:self.nameLabel];
     [self configLabelFactory:self.carTypeLabel];
     [self configLabelFactory:self.drivingLicenseLabel];
     
-    self.drivingLicenseLabel.text      = @"上传";
-    self.drivingLicenseLabel.textColor = [UIColor blueColor];
+    self.drivingLicenseLabel.text      = GlobalString(@"ApplyCarUpload");
+    self.drivingLicenseLabel.textColor = [UIColor colorWithHexString:@"888888"];
+    self.drivingLicenseLabel.font      = [UIFont systemFontOfSize:14];
     
-    self.plateLabel.frame                            = CGRectMake(self.viewWidth-100, 0, 70, 60);
-    self.plateLabel.textAlignment                    = NSTextAlignmentRight;
+    self.plateLabel.frame         = CGRectMake(self.viewWidth-75, 0, 60, 50);
+    self.plateLabel.textAlignment = NSTextAlignmentRight;
+    self.plateLabel.textColor     = [UIColor colorWithHexString:@"888888"];
+    self.plateLabel.font          = [UIFont systemFontOfSize:14];
+    
     self.drivingLicenseImageView.frame               = CGRectMake(self.viewWidth-80, 5, 50, 50);
     self.drivingLicenseImageView.contentMode         = UIViewContentModeScaleAspectFill;
     self.drivingLicenseImageView.layer.masksToBounds = YES;
     self.drivingLicenseImageView.hidden              = YES;
+    
+    self.carTypeLabel.text  = GlobalString(@"ApplyCarChoiceType");
+    self.carTypeLabel.width = 165;
     
 }
 
@@ -111,35 +119,51 @@ NS_ENUM(NSInteger){
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
+        cell                             = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
+        cell.textLabel.textColor         = [UIColor colorWithHexString:ColorTitle];
+        cell.textLabel.font              = [UIFont systemFontOfSize:FontListName];
+        cell.contentView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+        cell.selectionStyle              = UITableViewCellSelectionStyleNone;
         
         switch (indexPath.row) {
             case TableName:
+                //姓名
                 [cell.contentView addSubview:self.nameLabel];
-                cell.textLabel.text = @"姓名";
+                cell.textLabel.text = GlobalString(@"ApplyCarName");
                 break;
             case TablePlate:
             {
-                CustomLabel * yueB = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-140, 0, 35, 60)];
-                yueB.text          = @"粤B";
+                //车牌号
+                CustomLabel * yueB = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-90, 0, 14, 50)];
+                yueB.textColor     = [UIColor colorWithHexString:@"888888"];
+                yueB.font          = [UIFont systemFontOfSize:14];
+                yueB.text          = @"粤";
                 [cell.contentView addSubview:yueB];
                 [cell.contentView addSubview:self.plateLabel];
-                cell.textLabel.text = @"车牌号";
+                cell.textLabel.text = GlobalString(@"ApplyCarPlate");
             }
                 break;
             case TableCarType:
+            {
+                //车型
                 [cell.contentView addSubview:self.carTypeLabel];
-                cell.textLabel.text = @"车型";
+                cell.textLabel.text = GlobalString(@"ApplyCarCarType");
+                CustomImageView * arrow = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"right_arrow"]];
+                arrow.image             = [UIImage imageNamed:@"right_arrow"];
+                arrow.frame             = CGRectMake(self.viewWidth-28, 18, 13, 13);
+                [cell.contentView addSubview:arrow];
+            }
                 break;
             case TableDriving:
+                //行驶证
                 [cell.contentView addSubview:self.drivingLicenseLabel];
                 [cell.contentView addSubview:self.drivingLicenseImageView];
-                cell.textLabel.text = @"行驶证";
+                cell.textLabel.text = GlobalString(@"ApplyCarDrivingLicense");
                 break;
             default:
                 break;
         }
-        UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, 59, self.viewWidth, 1)];
+        UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(15, 49, self.viewWidth-15, 1)];
         lineView.backgroundColor = [ UIColor colorWithHexString:ColorLineGray];
         [cell.contentView addSubview:lineView];
     }
@@ -148,12 +172,12 @@ NS_ENUM(NSInteger){
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0;
+    return 50.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 150;
+    return 100;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -162,7 +186,8 @@ NS_ENUM(NSInteger){
     
     //btn样式处理
     CustomButton * btn      = [[CustomButton alloc] init];
-    btn.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), 80, (self.viewWidth-30), 45);
+    btn.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), 30, (self.viewWidth-30), 45);
+    btn.backgroundColor     = [UIColor colorWithHexString:ColorWhite];
     btn.layer.cornerRadius  = 5;
     btn.layer.borderWidth   = 1;
     btn.layer.masksToBounds = YES;
@@ -191,13 +216,13 @@ NS_ENUM(NSInteger){
                         if ([ToolsManager validateName:content]) {
                             self.nameLabel.text = content;
                         }else{
-                            [self showHint:@"请输入2-4位中文"];
+                            [self showHint:GlobalString(@"ApplyCarPleaseEnterName")];
                         }
                     }else{
                         if ([ToolsManager validatePlateNumber:content]) {
                             self.plateLabel.text = [content uppercaseString];
                         }else{
-                            [self showHint:@"请输入正确的车牌号"];
+                            [self showHint:GlobalString(@"ApplyCarPleaseEnterPlate")];
                         }
                     }
                 }
@@ -207,10 +232,10 @@ NS_ENUM(NSInteger){
             UITextField * textField = [alert textFieldAtIndex:0];
             NSString * title;
             if (indexPath.row == TableName) {
-                title          = @"姓名";
+                title          = GlobalString(@"ApplyCarName");
                 textField.text = self.nameLabel.text;
             }else{
-                title          = @"车牌号";
+                title          = GlobalString(@"ApplyCarPlate");
                 textField.text = self.plateLabel.text;
             }
             textField.placeholder = title;
@@ -285,20 +310,33 @@ NS_ENUM(NSInteger){
 
 #pragma mark- private method
 - (void)configLabelFactory:(CustomLabel *)label{
-    label.frame         = CGRectMake(self.viewWidth-200, 0, 170, 60);
+    label.frame         = CGRectMake(self.viewWidth-200, 0, 185, 50);
     label.textAlignment = NSTextAlignmentRight;
+    label.textColor = [UIColor colorWithHexString:@"888888"];
+    label.font = [UIFont systemFontOfSize:14];
 }
 
 - (void)applyCar{
 
+    //请输入名字
+    if (self.nameLabel.text.length < 1) {
+        [self showHint:GlobalString(@"ApplyCarPleaseEnterName")];
+        return;
+    }
+    //请输入车牌
+    if (self.plateLabel.text.length < 1) {
+        [self showHint:GlobalString(@"ApplyCarPleaseEnterPlate")];
+        return;
+    }
+    
     //车类型不能为空
-    if (self.carTypeLabel.text.length < 1) {
-        [self showHint:@"请选择车型"];
+    if (self.carTypeCode.length < 1) {
+        [self showHint:GlobalString(@"ApplyCarPleaseChoiceCar")];
         return;
     }
     //请上传驾驶证
     if (self.drivingLicenseImageView.image == nil) {
-        [self showHint:@"请上传驾驶证"];
+        [self showHint:GlobalString(@"ApplyCarPleaseUploadLicense")];
         return;
     }
     
@@ -352,7 +390,7 @@ NS_ENUM(NSInteger){
     self.nameLabel.text    = self.carModel.name;
     self.carTypeLabel.text = self.carModel.car_type;
     self.carTypeCode       = self.carModel.car_type_code;
-    self.plateLabel.text   = [self.carModel.plate_number stringByReplacingOccurrencesOfString:@"粤B" withString:@""];
+    self.plateLabel.text   = [self.carModel.plate_number stringByReplacingOccurrencesOfString:@"粤" withString:@""];
     
     self.drivingLicenseLabel.hidden     = YES;
     self.drivingLicenseImageView.hidden = NO;

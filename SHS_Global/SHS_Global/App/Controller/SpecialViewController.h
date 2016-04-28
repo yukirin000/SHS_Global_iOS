@@ -11,6 +11,6 @@
 /**
  *  特权部分
  */
-@interface SpecialViewController : NavBaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface SpecialViewController : NavBaseViewController
 
 @end
