@@ -86,7 +86,7 @@
     about.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     about.titleLabel.font            = [UIFont systemFontOfSize:15];
     [about setTitleColor:[UIColor colorWithHexString:ColorTitle] forState:UIControlStateNormal];
-    [about setTitle:@"会员礼遇" forState:UIControlStateNormal];
+    [about setTitle:@"关于我们" forState:UIControlStateNormal];
     [about setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
     [about addTarget:self action:@selector(aboutPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:about];

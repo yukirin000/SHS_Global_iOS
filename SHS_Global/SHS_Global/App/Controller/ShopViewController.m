@@ -76,6 +76,11 @@
     [self.backScrollView addSubview:self.shopPhoneLabel];
     [self.backScrollView addSubview:self.originPriceLabel];
     [self.backScrollView addSubview:self.vipPriceLabel];
+    
+    self.shopPhoneLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tap               = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneCall:)];
+    [self.shopPhoneLabel addGestureRecognizer:tap];
+    
 }
 
 - (void)configUI {
@@ -184,7 +189,7 @@
     self.originPriceLabel.font      = originTitle.font;
     
     //会员价
-    CustomLabel * userTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.originPriceLabel.right+20, washLine.bottom, 60, 50)];
+    CustomLabel * userTitle = [[CustomLabel alloc] initWithFrame:CGRectMake(self.originPriceLabel.right+10, washLine.bottom, 60, 50)];
     userTitle.font          = [UIFont systemFontOfSize:FontListName];
     userTitle.textColor     = [UIColor colorWithHexString:ColorTitle];
     userTitle.text          = GlobalString(@"ShopVIP");
@@ -217,6 +222,12 @@
         self.backScrollView.contentSize = CGSizeMake(0, bottomBtn.bottom);
     }
 
+    
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:nil andBlock:^{
+        [sself phoneCall:nil];
+    }];
+    [self.navBar setRightImage:[UIImage imageNamed:@"nav_telephone"]];
 }
 
 #pragma mark- method resopnse
@@ -251,6 +262,12 @@
     }
 }
 
+- (void)phoneCall:(id)sender
+{
+    if (self.shopModel.shop_phone.length > 0) {
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", self.shopModel.shop_phone]]];
+    }
+}
 
 #pragma mark- Delegate & Datasource
 

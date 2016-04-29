@@ -31,7 +31,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark- layout
@@ -59,9 +58,11 @@
     self.backScrollView.showsVerticalScrollIndicator = NO;
     self.backScrollView.backgroundColor              = [UIColor colorWithHexString:ColorBackGray];
     
-    [self.backImageView setImage:[UIImage imageNamed:@"global_back"]];
-    self.backImageView.frame       = CGRectMake(0, 0, self.viewWidth, 170);
+    [self.backImageView setImage:[UIImage imageNamed:@"vip_bg"]];
+    self.backImageView.frame       = CGRectMake(0, 0, self.viewWidth, 200);
     self.backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self drawBackImage];
 
     self.myCarBtn.backgroundColor            = [UIColor whiteColor];
     self.myCarBtn.frame                      = CGRectMake(0, self.backImageView.bottom, self.viewWidth, 50);
@@ -124,6 +125,36 @@
     [descLabel1 sizeToFit];
     
     return descLabel1.bottom;
+}
+
+- (void)drawBackImage {
+    
+    CustomImageView * logoImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"vip_logo"]];
+    logoImageView.frame = CGRectMake(kCenterOriginX(69), 15, 69, 69);
+
+    CustomLabel * label1 = [[CustomLabel alloc] initWithFontSize:13];
+    label1.frame         = CGRectMake(0, logoImageView.bottom+15, self.backImageView.width, 13);
+    label1.textAlignment = NSTextAlignmentCenter;
+    label1.textColor     = [UIColor colorWithHexString:@"D1B372"];
+    label1.text          = @"品位环球--豪车管家 ● VIP";
+
+    CustomLabel * label2 = [[CustomLabel alloc] initWithFontSize:12];
+    label2.frame         = CGRectMake(0, label1.bottom+15, self.backImageView.width, 12);
+    label2.textAlignment = NSTextAlignmentCenter;
+    label2.textColor     = [UIColor colorWithHexString:@"D1B372"];
+    label2.text          = @"您的私人豪车管家";
+    
+    CustomLabel * label3 = [[CustomLabel alloc] initWithFontSize:11];
+    label3.frame         = CGRectMake(0, self.backImageView.height-27, self.backImageView.width, 11);
+    label3.textAlignment = NSTextAlignmentCenter;
+    label3.textColor     = [UIColor colorWithHexString:@"D1B372"];
+    label3.text          = @"详情请致电管家：400-8693-911";
+
+    [self.backImageView addSubview:label1];
+    [self.backImageView addSubview:label2];
+    [self.backImageView addSubview:label3];
+    [self.backImageView addSubview:logoImageView];
+    
 }
 
 /*

@@ -63,7 +63,7 @@ NS_ENUM(NSInteger){
 
 - (void)configUI {
     
-    [self setNavBarTitle:GlobalString(@"RecordDetail")];
+    [self setNavBarTitle:GlobalString(@"OrderSubmitOrder")];
 }
 
 #pragma mark- method response
@@ -120,7 +120,7 @@ NS_ENUM(NSInteger){
         cell.textLabel.font              = [UIFont systemFontOfSize:FontListName];
         cell.contentView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
 
-        CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-150, 0, 135, 50)];
+        CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-200, 0, 185, 50)];
         titleLabel.textAlignment = NSTextAlignmentRight;
         titleLabel.font          = [UIFont systemFontOfSize:14];
         titleLabel.textColor     = [UIColor colorWithHexString:@"888888"];
@@ -198,6 +198,14 @@ NS_ENUM(NSInteger){
     [view addSubview:promptBtn];
 
     return view;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == TablePhone) {
+        if (self.orderModel.shop_phone.length > 0) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", self.orderModel.shop_phone]]];
+        }
+    }
 }
 
 

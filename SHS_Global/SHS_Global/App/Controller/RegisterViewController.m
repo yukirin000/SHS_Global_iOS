@@ -118,7 +118,7 @@
     
     //loginTextFiled样式处理
     self.passwordTextField.frame               = CGRectMake(kCenterOriginX((self.viewWidth-30)), self.reverifyBtn.bottom+20, self.viewWidth-30, 45);
-    self.passwordTextField.placeholder         = GlobalString(@"SecondLogin_PleaseEnterPwd");
+    self.passwordTextField.placeholder         = GlobalString(@"SecondLoginPleaseEnterPwd");
     self.passwordTextField.layer.cornerRadius  = 3;
     self.passwordTextField.secureTextEntry     = YES;    
     self.passwordTextField.leftView            = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
@@ -131,7 +131,6 @@
     self.passwordTextField.clearButtonMode     = UITextFieldViewModeWhileEditing;
     self.passwordTextField.textColor           = [UIColor colorWithHexString:ColorBlack];
     self.passwordTextField.tintColor           = [UIColor colorWithHexString:ColorBlack];
-    self.passwordTextField.keyboardType        = UIKeyboardTypeNumberPad;
     self.passwordTextField.backgroundColor     = [UIColor whiteColor];
     
     //btn样式处理
@@ -143,7 +142,7 @@
     self.registerBtn.fontSize                    = FontLoginButton;
     [self.registerBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
     [self.registerBtn setTitleColor:[UIColor colorWithHexString:ColorLoginBtnGray] forState:UIControlStateHighlighted];
-    [self.registerBtn setTitle:GlobalString(@"Common_Next") forState:UIControlStateNormal];
+    [self.registerBtn setTitle:GlobalString(@"CommonNext") forState:UIControlStateNormal];
     
 }
 
@@ -167,7 +166,7 @@
     }
     
     if (self.passwordTextField.text.length < 6) {
-        [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
+        [self showHint:GlobalString(@"SecondLoginPwdAtLeastSix")];
         return;
     }
     
@@ -206,7 +205,7 @@
     }
     
     if (self.passwordTextField.text.length < 6) {
-        [self showHint:GlobalString(@"SecondLogin_PwdAtLeastSix")];
+        [self showHint:GlobalString(@"SecondLoginPwdAtLeastSix")];
         return;
     }
     

@@ -87,13 +87,13 @@
     [self.loginBtn setTitle:GlobalString(@"CommonNext") forState:UIControlStateNormal];
     
     //用户协议
-//    self.protocolBtn.frame                    = CGRectMake(kCenterOriginX(280), self.view.bottom-50, 280, 40);
-//    self.protocolBtn.fontSize                 = 13;
-//    self.protocolBtn.titleLabel.textColor     = [UIColor whiteColor];
-//    NSMutableAttributedString * protocolStr   = [[NSMutableAttributedString alloc] initWithString:GlobalString(@"LoginProtocol")];
-//    [self.protocolBtn setAttributedTitle:protocolStr forState:UIControlStateNormal];
+    self.protocolBtn.frame                    = CGRectMake(kCenterOriginX(280), self.view.bottom-40, 280, 13);
+    self.protocolBtn.fontSize                 = 13;
+    self.protocolBtn.titleLabel.textColor     = [UIColor colorWithHexString:ColorTextBorder];
+    NSMutableAttributedString * protocolStr   = [[NSMutableAttributedString alloc] initWithString:GlobalString(@"LoginProtocol")];
+    [self.protocolBtn setAttributedTitle:protocolStr forState:UIControlStateNormal];
     
-    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(45), self.viewHeight-100, 45, 15)];
+    CustomButton * bottomBtn      = [[CustomButton alloc] initWithFrame:CGRectMake(kCenterOriginX(45), self.viewHeight-110, 45, 15)];
     bottomBtn.titleLabel.font     = [UIFont systemFontOfSize:15];
     [bottomBtn setTitleColor:[UIColor colorWithHexString:ColorTextBorder] forState:UIControlStateNormal];
     [bottomBtn setTitle:GlobalString(@"LoginNoUserNo") forState:UIControlStateNormal];
@@ -191,7 +191,7 @@
 - (void)userProtocolPress:(id)sender
 {
     WebViewController * wvc = [[WebViewController alloc] init];
-//    wvc.webURL              = [NSURL URLWithString:@""];
+    wvc.webURL              = kUserProtocolPath;
     [self pushVC:wvc];
 }
 

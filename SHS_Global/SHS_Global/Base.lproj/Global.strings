@@ -104,14 +104,15 @@
 "RecordDetail"  = "订单详情";
 "RecordPrompt"  = "订单号或者二维码须提供给商家，以便于商家确认为您服务";
 
-"OrderID"        = "订单号";
-"OrderQR"        = "订单二维码";
-"OrderShopName"  = "商家";
-"OrderShopPhone" = "联系电话";
-"OrderGoodsName" = "服务项目";
-"OrderAmount"    = "消费金额";
-"OrderCar"       = "服务车辆";
-"OrderState"     = "服务状态";
+"OrderSubmitOrder" = "提交订单";
+"OrderID"          = "订单号";
+"OrderQR"          = "订单二维码";
+"OrderShopName"    = "商家";
+"OrderShopPhone"   = "联系电话";
+"OrderGoodsName"   = "服务项目";
+"OrderAmount"      = "消费金额";
+"OrderCar"         = "服务车辆";
+"OrderState"       = "服务状态";
 
 "CreateOrderNoWX" = "对不起，您未安装微信";
 "CreateOrderING"  = "订单创建中..";

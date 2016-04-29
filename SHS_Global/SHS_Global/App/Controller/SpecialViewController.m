@@ -49,34 +49,26 @@
 }
 
 - (void)configUI{
-
-    //这里苹果有一个奇怪的检测 我不得不这么做 没找到关闭的地方。
-    self.navBar.hidden = YES;
-    NavBar * nb        = [[NavBar alloc] init];
-    nb.backgroundColor = [UIColor clearColor];
-    nb.frame           = self.navBar.frame;
-    nb.titleLabel.text = self.navBar.titleLabel.text;
-    [self.view addSubview:nb];
     
-    self.backScroll.frame                        = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kTabBarHeight);
+    self.backScroll.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kTabBarHeight-kNavBarAndStatusHeight);
     self.backScroll.showsVerticalScrollIndicator = NO;
-    self.backScroll.contentSize                  = CGSizeMake(0, 610);
+    self.backScroll.contentSize                  = CGSizeMake(0, 550);
 
-    UIImageView * backImage                      = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 265)];
+    UIImageView * backImage                      = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 200)];
     backImage.image                              = [UIImage imageNamed:@"home_bg"];
     backImage.contentMode                        = UIViewContentModeScaleAspectFill;
     backImage.layer.masksToBounds                = YES;
     [self.backScroll addSubview:backImage];
     //按钮
-    [self factoryBtnWithRect:CGRectMake(0, backImage.bottom, self.viewWidth/2, 153) title:GlobalString(@"SpecialWash") image:@"home_btn_cosmetology" SEL:@selector(shopListPress:)];
-    [self factoryBtnWithRect:CGRectMake(self.viewWidth/2, backImage.bottom, self.viewWidth/2, 153) title:GlobalString(@"SpecialRepair") image:@"home_btn_service" SEL:@selector(temp2Press:)];
-    [self factoryBtnWithRect:CGRectMake(0, backImage.bottom+153, self.viewWidth/2, 153) title:GlobalString(@"SpecialConsult") image:@"home_btn_inquiry" SEL:@selector(temp1Press:)];
-    [self factoryBtnWithRect:CGRectMake(self.viewWidth/2, backImage.bottom+153, self.viewWidth/2, 153) title:GlobalString(@"SpecialOnline") image:@"home_btn_consult" SEL:@selector(temp1Press:)];
+    [self factoryBtnWithRect:CGRectMake(0, backImage.bottom+3, self.viewWidth/2, 153) title:GlobalString(@"SpecialWash") image:@"home_btn_cosmetology" SEL:@selector(shopListPress:)];
+    [self factoryBtnWithRect:CGRectMake(self.viewWidth/2, backImage.bottom+3, self.viewWidth/2, 153) title:GlobalString(@"SpecialRepair") image:@"home_btn_service" SEL:@selector(temp2Press:)];
+    [self factoryBtnWithRect:CGRectMake(0, backImage.bottom+156, self.viewWidth/2, 153) title:GlobalString(@"SpecialConsult") image:@"home_btn_inquiry" SEL:@selector(temp1Press:)];
+    [self factoryBtnWithRect:CGRectMake(self.viewWidth/2, backImage.bottom+156, self.viewWidth/2, 153) title:GlobalString(@"SpecialOnline") image:@"home_btn_consult" SEL:@selector(temp1Press:)];
     //线
-    UIView * horzontalView        = [[UIView alloc] initWithFrame:CGRectMake(0, 418, self.viewWidth, 1)];
+    UIView * horzontalView        = [[UIView alloc] initWithFrame:CGRectMake(0, 356, self.viewWidth, 1)];
     horzontalView.backgroundColor = [UIColor colorWithHexString:ColorLineGray];
 
-    UIView * verticalView         = [[UIView alloc] initWithFrame:CGRectMake(self.viewWidth/2, 265, 1, 306)];
+    UIView * verticalView         = [[UIView alloc] initWithFrame:CGRectMake(self.viewWidth/2, 203, 1, 306)];
     verticalView.backgroundColor  = [UIColor colorWithHexString:ColorLineGray];
     [self.backScroll addSubview:verticalView];
     [self.backScroll addSubview:horzontalView];

@@ -96,7 +96,7 @@ NS_ENUM(NSInteger){
             qrcodeImageView.image             = [UIImage imageNamed:@"qrcode"];
             [cell.contentView addSubview:qrcodeImageView];
         }else{
-            CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-150, 0, 135, 50)];
+            CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-200, 0, 185, 50)];
             titleLabel.textAlignment = NSTextAlignmentRight;
             titleLabel.font          = [UIFont systemFontOfSize:14];
             titleLabel.textColor     = [UIColor colorWithHexString:@"888888"];
@@ -158,6 +158,12 @@ NS_ENUM(NSInteger){
         [qrBtn addSubview:qriv];
         [qrBtn addTarget:self action:@selector(qrcodeClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:qrBtn];
+    }
+    
+    if (indexPath.row == TablePhone) {
+        if (self.orderModel.shop_phone.length > 0) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", self.orderModel.shop_phone]]];
+        }
     }
 }
 

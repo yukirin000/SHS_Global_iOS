@@ -95,8 +95,8 @@ NS_ENUM(NSInteger){
     self.plateLabel.textColor     = [UIColor colorWithHexString:@"888888"];
     self.plateLabel.font          = [UIFont systemFontOfSize:14];
     
-    self.drivingLicenseImageView.frame               = CGRectMake(self.viewWidth-80, 5, 50, 50);
-    self.drivingLicenseImageView.contentMode         = UIViewContentModeScaleAspectFill;
+    self.drivingLicenseImageView.frame               = CGRectMake(self.viewWidth-75, 5, 60, 40);
+    self.drivingLicenseImageView.contentMode         = UIViewContentModeScaleAspectFit;
     self.drivingLicenseImageView.layer.masksToBounds = YES;
     self.drivingLicenseImageView.hidden              = YES;
     

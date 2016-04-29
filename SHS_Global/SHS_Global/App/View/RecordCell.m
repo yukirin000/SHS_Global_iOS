@@ -61,35 +61,28 @@
 {
     self.selectionStyle                = UITableViewCellSelectionStyleNone;
     self.backgroundColor               = [UIColor clearColor];
-    self.backView.frame                = CGRectMake(19, 20, [DeviceManager getDeviceWidth]-38, 133);
+    self.backView.frame                = CGRectMake(19, 20, [DeviceManager getDeviceWidth]-38, 130);
     self.backView.image                = [UIImage imageNamed:@"record_bg"];
     self.backView.contentMode          = UIViewContentModeScaleAspectFill;
     self.backView.layer.cornerRadius   = 13;
     self.backView.layer.masksToBounds  = YES;
 
-    self.shopImageView.frame               = CGRectMake(16, 34, 65, 65);
+    self.shopImageView.frame               = CGRectMake(20, 35, 60, 60);
     self.shopImageView.contentMode         = UIViewContentModeScaleAspectFill;
     self.shopImageView.layer.masksToBounds = YES;
     self.shopImageView.layer.cornerRadius  = 32.5;
 
-    self.shopNameLabel.frame     = CGRectMake(self.shopImageView.right+11, self.shopImageView.y+15, 150, 15);
+    self.priceLabel.frame         = CGRectMake(self.shopImageView.right+40, 22, self.backView.width-self.shopImageView.right-35-10, 29);
+    self.priceLabel.font          = [UIFont systemFontOfSize:29];
+    self.priceLabel.textColor     = [UIColor colorWithHexString:@"E5CC7C"];
+    
+    self.shopNameLabel.frame     = CGRectMake(self.priceLabel.x, self.priceLabel.bottom+15, self.priceLabel.width, 15);
     self.shopNameLabel.font      = [UIFont systemFontOfSize:FontListName];
     self.shopNameLabel.textColor = [UIColor colorWithHexString:ColorWhite];
     
-    self.dateLabel.frame     = CGRectMake(self.shopNameLabel.x, self.shopNameLabel.bottom+9, 150, 13);
+    self.dateLabel.frame     = CGRectMake(self.shopNameLabel.x, self.shopNameLabel.bottom+15, self.priceLabel.width, 13);
     self.dateLabel.font      = [UIFont systemFontOfSize:FontListTime];
     self.dateLabel.textColor = [UIColor colorWithHexString:@"B1B1B1"];
-    
-    self.priceLabel.frame         = CGRectMake(self.backView.width-95, 50, 70, 33);
-    self.priceLabel.textAlignment = NSTextAlignmentRight;
-    self.priceLabel.font          = [UIFont systemFontOfSize:33];
-    self.priceLabel.textColor     = [UIColor colorWithHexString:ColorWhite];
-    
-    CustomLabel * yuanLabel = [[CustomLabel alloc] initWithFontSize:14];
-    yuanLabel.frame         = CGRectMake(self.priceLabel.right, self.priceLabel.y+15, 14, 14);
-    yuanLabel.text          = @"元";
-    yuanLabel.textColor     = [UIColor colorWithHexString:ColorWhite];
-    [self.backView addSubview:yuanLabel];
     
     self.stateLabel.frame               = CGRectMake(self.backView.right-47, 10, 50, 20);
     self.stateLabel.layer.cornerRadius  = 3;
@@ -104,7 +97,7 @@
 {
     [self.shopImageView sd_setImageWithURL:[NSURL URLWithString:model.shop_image]];
     self.shopNameLabel.text = model.shop_name;
-    self.priceLabel.text    = model.total_fee;
+    self.priceLabel.text    = [NSString stringWithFormat:@"%@元", model.total_fee];
     if (model.state == OrderHasPay) {
         self.dateLabel.text  = model.pay_date;
         self.stateLabel.text = @"可使用";

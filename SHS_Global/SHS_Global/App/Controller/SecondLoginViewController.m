@@ -79,7 +79,6 @@
     self.passwordTextField.clearButtonMode     = UITextFieldViewModeWhileEditing;
     self.passwordTextField.textColor           = [UIColor colorWithHexString:ColorBlack];
     self.passwordTextField.tintColor           = [UIColor colorWithHexString:ColorBlack];
-    self.passwordTextField.keyboardType        = UIKeyboardTypeNumberPad;
     self.passwordTextField.backgroundColor     = [UIColor whiteColor];
     
     //找回密码

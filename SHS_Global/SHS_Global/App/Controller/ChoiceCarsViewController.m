@@ -60,6 +60,7 @@
     noneView.frame             = CGRectMake(1, 1, 77, 77);
     
     CustomLabel * noneLabel    = [[CustomLabel alloc] initWithFrame:CGRectMake(0, noneView.bottom+30, 80, 15)];
+    noneLabel.textAlignment    = NSTextAlignmentCenter;
     noneLabel.textColor        = [UIColor colorWithHexString:@"646464"];
     noneLabel.font             = [UIFont systemFontOfSize:15];
     noneLabel.text             = GlobalString(@"MyCarsNoCar");
